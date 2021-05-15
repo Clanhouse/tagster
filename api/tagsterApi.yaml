@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Tagster
+  description: >-
+    Tagster is a Chrome extension used to tag people's profiles on Linkedin with
+    tags.
+  version: 1.0.0
+tags:
+  - name: profile
+    description: Operations on LinkedIn profiles
+paths:
+  /api/profile:
+    get:
+      tags:
+        - profile
+      summary: Returns all LinkedIn profiles with tags
+      operationId: GetProfiles
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Profile'
+              example:
+                  - profileId: "sample-person-b3866476"
+                    tags: ["good co-worker", "kind person", "helpful"]
+                  - profileId: "another-person-a4266476"
+                    tags: ["best PM", "good technical knowledge"]
+  '/api/profile/{profileId}':
+    post:
+      tags:
+        - profile
+      summary: Add LinkedIn profile
+      operationId: AddProfile
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 
+            "If you want to add this person: https://www.linkedin.com/in/sample-person-b3866476/ \n\n
+            your profileId parameter will be: sample-person-b3866476"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTagsCommand'
+            example:
+              tags: ["good co-worker", "kind person", "helpful"]   
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid input
+    get:
+      tags:
+        - profile
+      summary: Find specific LinkedIn profile with tags 
+      operationId: GetProfileById
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+          example: 
+            "If you want to get tags for this person: https://www.linkedin.com/in/sample-person-b3866476/ \n\n
+            your profileId parameter will be: sample-person-b3866476"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              example:
+                profileId: "sample-person-b3866476"
+                tags: ["good co-worker", "kind person", "helpful"]
+        '404':
+          description: Profile not found
+components:
+  schemas:
+    Profile:
+      type: object
+      properties:
+        profileId:
+          type: string
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    AddTagsCommand:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
