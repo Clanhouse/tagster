@@ -41,7 +41,6 @@ paths:
           required: true
           schema:
             type: string
-            format: uuid
           example: 
             "If you want to add this person: https://www.linkedin.com/in/sample-person-b3866476/ \n\n
             your profileId parameter will be: sample-person-b3866476"
