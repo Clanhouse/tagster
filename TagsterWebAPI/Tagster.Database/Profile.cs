@@ -7,6 +7,6 @@ namespace Tagster.Database
         public int ProfileId { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public ICollection<Tags> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 }

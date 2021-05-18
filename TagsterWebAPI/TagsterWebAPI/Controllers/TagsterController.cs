@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Tagster.Database;
@@ -13,11 +12,6 @@ namespace TagsterWebAPI.Controllers
     public class TagsterController : ControllerBase
     {
 
-        private static readonly string[] Tags = new[]
-        {
-            "pOLAK", "Donkey", "Nice guy"
-        };
-
         private readonly IServiceProvider _mServiceProvider;
         private readonly ILogger<TagsterController> _logger;
 
@@ -28,39 +22,28 @@ namespace TagsterWebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("get")]
-        public IEnumerable<Tagster> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Tagster
-                {
-                    Terms = Tags[rng.Next(Tags.Length)]
-
-                })
-                .ToArray();
-        }
-
         public string StartMessage()
         {
-            var mess = "type /get to display or /tags to display tags";
+            var mess = "Welcome!";
             return mess;
         }
 
-        [Route("tags")]
-        public Array Tagsik()
+        [Route("tags/{name}")]
+
+        public Array TagsOnProfile(string name)
         {
             var database = _mServiceProvider.GetService(typeof(TagsterDbContext)) as TagsterDbContext;
+
             var tagsList = database
                 .Profiles
+                .Where(a => a.Name == name)
                 .Include(a => a.Tags)
-                .Select(a => new {a.Tags, a.Name})
+                .Select(a => new { a.Tags})
                 .ToArray();
-
-            
 
             return tagsList;
 
-
         }
+       
     }
 }
