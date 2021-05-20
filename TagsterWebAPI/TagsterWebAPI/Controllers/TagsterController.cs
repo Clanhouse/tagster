@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Tagster.Database;
 
 namespace TagsterWebAPI.Controllers
@@ -37,8 +38,8 @@ namespace TagsterWebAPI.Controllers
             var tagsList = database
                 .Profiles
                 .Where(a => a.Name == name)
-                .Include(a => a.Tags)
-                .Select(a => new { a.Tags})
+                .Include(a => a.ProfileTags)
+                .Select(a => new { a.ProfileTags})
                 .ToArray();
 
             return tagsList;
