@@ -1,16 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Tagster.Database;
 
 namespace TagsterWebAPI
 {
@@ -23,16 +18,16 @@ namespace TagsterWebAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<TagsterDbContext>(options =>
+                options.UseSqlServer("Server=.;Database=tagsterDatabase;Trusted_Connection=True; "));
             services.AddControllers();
             
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -50,6 +45,13 @@ namespace TagsterWebAPI
             {
                 endpoints.MapControllers();
             });
+
+            var tagsterDb = serviceProvider.GetService<TagsterDbContext>();
+            tagsterDb.Database.EnsureCreated();
+
+
+            
+
         }
     }
 }
