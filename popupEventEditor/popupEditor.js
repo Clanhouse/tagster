@@ -1,4 +1,3 @@
-console.log("Check");
 class ClassWatcher {
 
     constructor(targetNode, classToWatch, classAddedCallback, classRemovedCallback) {
