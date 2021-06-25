@@ -1,4 +1,4 @@
-﻿namespace Tagster.Database
+﻿namespace Tagster.Domain.Models
 {
     public class Tag
     {
