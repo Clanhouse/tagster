@@ -4,7 +4,11 @@ VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagsterWebAPI", "TagsterWebAPI\TagsterWebAPI.csproj", "{8CA65993-0004-40E4-B7EB-1DB1CAE245E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Database", "Tagster.Database\Tagster.Database.csproj", "{448FE562-C45D-4745-86AC-51271896D9FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.DataAccessLibrary", "Tagster.Database\Tagster.DataAccessLibrary.csproj", "{448FE562-C45D-4745-86AC-51271896D9FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Domain", "Tagster.Domain\Tagster.Domain.csproj", "{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Application", "Tagster.Application\Tagster.Application.csproj", "{EE51108C-B946-4782-A9B2-A740D0DDFF80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +24,14 @@ Global
 		{448FE562-C45D-4745-86AC-51271896D9FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{448FE562-C45D-4745-86AC-51271896D9FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{448FE562-C45D-4745-86AC-51271896D9FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE51108C-B946-4782-A9B2-A740D0DDFF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE51108C-B946-4782-A9B2-A740D0DDFF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE51108C-B946-4782-A9B2-A740D0DDFF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE51108C-B946-4782-A9B2-A740D0DDFF80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

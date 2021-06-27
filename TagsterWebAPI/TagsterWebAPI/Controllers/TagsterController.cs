@@ -1,25 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
-using Tagster.Database;
+using Tagster.Application.Interfaces;
 
 namespace TagsterWebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Tagster")]
     public class TagsterController : ControllerBase
     {
+        private readonly ITagsterDbContext _tagsterDb;
 
-        private readonly IServiceProvider _mServiceProvider;
-        private readonly ILogger<TagsterController> _logger;
-
-        public TagsterController(ILogger<TagsterController> logger, IServiceProvider serviceProvider)
+        public TagsterController(ITagsterDbContext tagsterDb)
         {
-            _mServiceProvider = serviceProvider;
-            _logger = logger;
+            _tagsterDb = tagsterDb;
         }
 
         [HttpGet]
@@ -30,21 +25,16 @@ namespace TagsterWebAPI.Controllers
         }
 
         [Route("tags/{name}")]
-
         public Array TagsOnProfile(string name)
         {
-            var database = _mServiceProvider.GetService(typeof(TagsterDbContext)) as TagsterDbContext;
-
-            var tagsList = database
+            var tagsList = _tagsterDb
                 .Profiles
-                .Where(a => a.Name == name)
-                .Include(a => a.ProfileTags)
-                .Select(a => new { a.ProfileTags})
+                .Where(profile => profile.Name.Equals(name))
+                .Include(profile => profile.ProfileTags)
+                .Select(profile => profile.ProfileTags)
                 .ToArray();
 
             return tagsList;
-
         }
-       
     }
 }

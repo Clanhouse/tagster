@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using Tagster.Database;
+using Tagster.Application.Interfaces;
+using Tagster.DataAccessLibrary;
 
 namespace TagsterWebAPI
 {
@@ -21,37 +21,31 @@ namespace TagsterWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TagsterDbContext>(options =>
-                options.UseSqlServer("Server=.;Database=tagsterDatabase;Trusted_Connection=True; "));
+                options.UseSqlServer("Server=.;Database=tagster;Trusted_Connection=True; "));
+            services.AddScoped<ITagsterDbContext, TagsterDbContext>();
+
             services.AddControllers();
-            
+            services.AddSwaggerGen();
         }
 
-        
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
             }
-
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tagster.v1");
+            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
-            var tagsterDb = serviceProvider.GetService<TagsterDbContext>();
-            tagsterDb.Database.EnsureCreated();
-
-
-            
-
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
