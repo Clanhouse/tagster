@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Tagster.DataAccess.DBContexts;
+using Tagster.DataAccess.Extensions;
 
 namespace Tagster.Infrastructure.Extensions
 {
     public static class Extension
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
-            => services.AddDbContext<TagsterDbContext>(options => options
-            .UseSqlServer("Server=.;Database=tagster;Trusted_Connection=True; "))
-            .AddScoped<ITagsterDbContext, TagsterDbContext>();
+            => services.AddDataAccess("Server=.;Database=tagster;Trusted_Connection=True; ");
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
             => app;
