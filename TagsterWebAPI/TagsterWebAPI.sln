@@ -2,13 +2,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagsterWebAPI", "TagsterWebAPI\TagsterWebAPI.csproj", "{8CA65993-0004-40E4-B7EB-1DB1CAE245E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagsterWebAPI", "src\TagsterWebAPI\TagsterWebAPI.csproj", "{8CA65993-0004-40E4-B7EB-1DB1CAE245E1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.DataAccessLibrary", "Tagster.Database\Tagster.DataAccessLibrary.csproj", "{448FE562-C45D-4745-86AC-51271896D9FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Domain", "src\Tagster.Domain\Tagster.Domain.csproj", "{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Domain", "Tagster.Domain\Tagster.Domain.csproj", "{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Application", "src\Tagster.Application\Tagster.Application.csproj", "{EE51108C-B946-4782-A9B2-A740D0DDFF80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Application", "Tagster.Application\Tagster.Application.csproj", "{EE51108C-B946-4782-A9B2-A740D0DDFF80}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D8B582DE-FB75-4F07-8929-FF87152DE9F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{896C9A9E-5509-42BF-B3F2-3705D90194B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Infrastructure", "src\Tagster.Infrastructure\Tagster.Infrastructure.csproj", "{42524CFA-5206-43E4-9B04-5B943174C024}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Application.UnitTests", "tests\Tagster.Application.UnitTests\Tagster.Application.UnitTests.csproj", "{90FAF321-CCA5-41C1-8FBD-5313310FAD06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libraries", "libraries", "{F68BC180-9E59-473F-9ABF-4CE80C448174}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.DataAccess", "libraries\Tagster.DataAccess\Tagster.DataAccess.csproj", "{E2AFCC98-2C7C-4927-93CB-A0290EF5B249}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Domain.UnitTests", "tests\Tagster.Domain.UnitTests\Tagster.Domain.UnitTests.csproj", "{3EF91864-B496-4A6B-A130-2EC4885837FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Infrastructure.UnitTests", "tests\Tagster.Infrastructure.UnitTests\Tagster.Infrastructure.UnitTests.csproj", "{4A7FC56A-AA06-43D4-AA7F-EC571728E5D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "librariesTests", "librariesTests", "{D3D97CB2-9A56-4FC1-931E-EB8489D4D3B5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.DataAccess.UnitTests", "librariesTests\Tagster.DataAccess.UnitTests\Tagster.DataAccess.UnitTests.csproj", "{D3A27655-92E4-4B09-9BBE-39A3EDEDDBD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +38,6 @@ Global
 		{8CA65993-0004-40E4-B7EB-1DB1CAE245E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CA65993-0004-40E4-B7EB-1DB1CAE245E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CA65993-0004-40E4-B7EB-1DB1CAE245E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{448FE562-C45D-4745-86AC-51271896D9FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{448FE562-C45D-4745-86AC-51271896D9FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{448FE562-C45D-4745-86AC-51271896D9FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{448FE562-C45D-4745-86AC-51271896D9FE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,9 +46,44 @@ Global
 		{EE51108C-B946-4782-A9B2-A740D0DDFF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE51108C-B946-4782-A9B2-A740D0DDFF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE51108C-B946-4782-A9B2-A740D0DDFF80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42524CFA-5206-43E4-9B04-5B943174C024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42524CFA-5206-43E4-9B04-5B943174C024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42524CFA-5206-43E4-9B04-5B943174C024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42524CFA-5206-43E4-9B04-5B943174C024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90FAF321-CCA5-41C1-8FBD-5313310FAD06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90FAF321-CCA5-41C1-8FBD-5313310FAD06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90FAF321-CCA5-41C1-8FBD-5313310FAD06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90FAF321-CCA5-41C1-8FBD-5313310FAD06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2AFCC98-2C7C-4927-93CB-A0290EF5B249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2AFCC98-2C7C-4927-93CB-A0290EF5B249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2AFCC98-2C7C-4927-93CB-A0290EF5B249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2AFCC98-2C7C-4927-93CB-A0290EF5B249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EF91864-B496-4A6B-A130-2EC4885837FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF91864-B496-4A6B-A130-2EC4885837FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF91864-B496-4A6B-A130-2EC4885837FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF91864-B496-4A6B-A130-2EC4885837FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A7FC56A-AA06-43D4-AA7F-EC571728E5D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A7FC56A-AA06-43D4-AA7F-EC571728E5D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A7FC56A-AA06-43D4-AA7F-EC571728E5D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A7FC56A-AA06-43D4-AA7F-EC571728E5D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3A27655-92E4-4B09-9BBE-39A3EDEDDBD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3A27655-92E4-4B09-9BBE-39A3EDEDDBD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3A27655-92E4-4B09-9BBE-39A3EDEDDBD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3A27655-92E4-4B09-9BBE-39A3EDEDDBD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8CA65993-0004-40E4-B7EB-1DB1CAE245E1} = {D8B582DE-FB75-4F07-8929-FF87152DE9F8}
+		{8818CD35-C99C-4E35-9FF8-A8AD4B2C85A6} = {D8B582DE-FB75-4F07-8929-FF87152DE9F8}
+		{EE51108C-B946-4782-A9B2-A740D0DDFF80} = {D8B582DE-FB75-4F07-8929-FF87152DE9F8}
+		{42524CFA-5206-43E4-9B04-5B943174C024} = {D8B582DE-FB75-4F07-8929-FF87152DE9F8}
+		{90FAF321-CCA5-41C1-8FBD-5313310FAD06} = {896C9A9E-5509-42BF-B3F2-3705D90194B6}
+		{E2AFCC98-2C7C-4927-93CB-A0290EF5B249} = {F68BC180-9E59-473F-9ABF-4CE80C448174}
+		{3EF91864-B496-4A6B-A130-2EC4885837FC} = {896C9A9E-5509-42BF-B3F2-3705D90194B6}
+		{4A7FC56A-AA06-43D4-AA7F-EC571728E5D7} = {896C9A9E-5509-42BF-B3F2-3705D90194B6}
+		{D3A27655-92E4-4B09-9BBE-39A3EDEDDBD0} = {D3D97CB2-9A56-4FC1-931E-EB8489D4D3B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BA103DC-1387-4592-8CC0-8E1413788A57}
