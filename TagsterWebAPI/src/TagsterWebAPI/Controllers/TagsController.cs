@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using Tagster.DataAccess.DBContexts;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Tagster.Application.Services;
+using Tagster.DataAccess.Entities;
 
 namespace TagsterWebAPI.Controllers
 {
@@ -10,26 +11,19 @@ namespace TagsterWebAPI.Controllers
     [Route("{controller}")]
     public class TagsController : ControllerBase
     {
-        private readonly ITagsterDbContext _tagsterDb;
+        private readonly ITagsService _tagService;
 
-        public TagsController(ITagsterDbContext tagsterDb) 
-            => _tagsterDb = tagsterDb;
+        public TagsController(ITagsService tagService)
+            => _tagService = tagService;
 
         [HttpGet]
-        public string StartMessage() 
+        public string StartMessage()
             => "Welcome!";
 
-        [Route("tags/{name}")]
-        public Array TagsOnProfile(string name)
-        {
-            var tagsList = _tagsterDb
-                .Profiles
-                .Where(profile => profile.Name.Equals(name))
-                .Include(profile => profile.ProfileTags)
-                .Select(profile => profile.ProfileTags)
-                .ToArray();
-
-            return tagsList;
-        }
+        [HttpGet]
+        [Route("{name}")]
+        [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
+        public async Task<IActionResult> TagsOnProfile(string name)
+            => Ok(await _tagService.GetList((string)name));
     }
 }
