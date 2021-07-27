@@ -22,6 +22,11 @@ namespace Tagster.Infrastructure.Services
                 .Include(profile => profile.ProfileTags)
                 .Select(profile => profile.ProfileTags)
                 .ToArrayAsync();
+        public async Task<ICollection<Tag>> GetAsync()
+            => await _tagsterDb
+                .Tags
+                .Select(tags => tags)
+                .ToArrayAsync();
 
     }
 }

@@ -16,14 +16,19 @@ namespace TagsterWebAPI.Controllers
         public TagsController(ITagsService tagService)
             => _tagService = tagService;
 
-        [HttpGet]
+        /*[HttpGet]
         public string StartMessage()
-            => "Welcome!";
+            => "Welcome!";*/
 
         [HttpGet]
         [Route("{name}")]
         [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
         public async Task<IActionResult> TagsOnProfile(string name)
             => Ok(await _tagService.GetList((string)name));
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllTags()
+            => Ok(await _tagService.GetAsync());
     }
 }

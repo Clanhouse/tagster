@@ -1,4 +1,6 @@
-﻿namespace Tagster.DataAccess.Entities
+﻿using System.Collections.Generic; //changed by me
+
+namespace Tagster.DataAccess.Entities
 {
     public class Tag
     {

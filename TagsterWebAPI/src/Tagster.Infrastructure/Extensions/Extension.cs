@@ -10,7 +10,7 @@ namespace Tagster.Infrastructure.Extensions
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
             => services
-            .AddDataAccess("Server=.;Database=tagster;Trusted_Connection=True; ")
+            .AddDataAccess("Data Source=DESKTOP-8O6TVH0\\SQLEXPRESS;Initial Catalog=Tagster;Integrated Security=True")
             .AddTransient<ITagsService, TagsService>();
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
