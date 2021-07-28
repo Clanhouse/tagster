@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tagster.DataAccess.DBContexts;
 
 namespace Tagster.DataAccess.Migrations
 {
     [DbContext(typeof(TagsterDbContext))]
-    partial class TagsterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210728192532_Profile")]
+    partial class Profile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

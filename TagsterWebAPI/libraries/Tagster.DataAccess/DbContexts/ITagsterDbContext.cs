@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Tagster.DataAccess.Entities;
 
 namespace Tagster.DataAccess.DBContexts
@@ -7,5 +8,6 @@ namespace Tagster.DataAccess.DBContexts
     {
         DbSet<Tag> Tags { get; set; }
         DbSet<Profile> Profiles { get; set; }
+        public Task<int> SaveChangesAsync();
     }
 }

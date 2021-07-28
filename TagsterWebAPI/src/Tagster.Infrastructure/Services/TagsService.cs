@@ -8,14 +8,14 @@ using Tagster.DataAccess.Entities;
 
 namespace Tagster.Infrastructure.Services
 {
-    internal sealed class TagsService : ITagsService
+    internal sealed class TagsService : ITagService
     {
         private readonly ITagsterDbContext _tagsterDb;
 
         public TagsService(ITagsterDbContext tagsterDb)
            => _tagsterDb = tagsterDb;
 
-        public async Task<ICollection<Tag>[]> GetList(string name) 
+        public async Task<ICollection<Tag>[]> GetList(string name)
             => await _tagsterDb
                 .Profiles
                 .Where(profile => profile.Name.Equals(name))
