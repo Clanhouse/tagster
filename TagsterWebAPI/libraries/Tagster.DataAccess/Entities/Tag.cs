@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic; //changed by me
-
-namespace Tagster.DataAccess.Entities
+﻿namespace Tagster.DataAccess.Entities
 {
     public class Tag
     {
