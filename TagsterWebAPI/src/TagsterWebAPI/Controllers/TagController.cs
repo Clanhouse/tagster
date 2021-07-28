@@ -7,18 +7,13 @@ using Tagster.DataAccess.Entities;
 
 namespace TagsterWebAPI.Controllers
 {
-    [ApiController]
-    [Route("{controller}")]
-    public class TagsController : ControllerBase
+    [Route("tag")]
+    public class TagController : ControllerBase
     {
-        private readonly ITagsService _tagService;
+        private readonly ITagService _tagService;
 
-        public TagsController(ITagsService tagService)
+        public TagController(ITagService tagService)
             => _tagService = tagService;
-
-        [HttpGet]
-        public string StartMessage()
-            => "Welcome!";
 
         [HttpGet]
         [Route("{name}")]

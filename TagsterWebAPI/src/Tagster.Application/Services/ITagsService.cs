@@ -4,7 +4,7 @@ using Tagster.DataAccess.Entities;
 
 namespace Tagster.Application.Services
 {
-    public interface ITagsService
+    public interface ITagService
     {
         Task<ICollection<Tag>[]> GetList(string name);
     }
