@@ -8,7 +8,7 @@ using Tagster.DataAccess.Entities;
 namespace TagsterWebAPI.Controllers
 {
     [ApiController]
-    [Route("{controller}")]
+    [Route("[controller]")]
     public class TagsController : ControllerBase
     {
         private readonly ITagsService _tagService;
@@ -16,14 +16,19 @@ namespace TagsterWebAPI.Controllers
         public TagsController(ITagsService tagService)
             => _tagService = tagService;
 
-        [HttpGet]
+        /*[HttpGet]
         public string StartMessage()
-            => "Welcome!";
+            => "Welcome!";*/
 
+        /// <summary>
+        /// Get all tags for profile
+        /// </summary>
+        /// <param name="profileName"></param>
+        /// <returns></returns>
         [HttpGet]
-        [Route("{name}")]
+        [Route("{profileName}")]
         [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
-        public async Task<IActionResult> TagsOnProfile(string name)
-            => Ok(await _tagService.GetList((string)name));
+        public async Task<IActionResult> TagsOnProfile(string profileName)
+            => Ok(await _tagService.GetList(profileName));
     }
 }

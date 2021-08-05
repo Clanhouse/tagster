@@ -18,7 +18,7 @@ namespace TagsterWebAPI
         {
             services.AddControllers();
             services.AddSwaggerGen()
-                .AddInfrastructure();
+                .AddInfrastructure(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
