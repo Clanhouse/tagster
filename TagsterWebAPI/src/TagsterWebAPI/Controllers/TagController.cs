@@ -20,5 +20,13 @@ namespace TagsterWebAPI.Controllers
         [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
         public async Task<IActionResult> TagsOnProfile(string name)
             => Ok(await _tagService.GetList((string)name));
+
+        [HttpPut]
+        [Route("{name}")]
+        [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SetTags(string href, ICollection<Tag> tags)
+            => Ok(await _tagService.PutList(href, tags));
+        
     }
 }
