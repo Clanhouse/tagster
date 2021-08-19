@@ -15,10 +15,10 @@ namespace Tagster.Infrastructure.Services
         public TagsService(ITagsterDbContext tagsterDb)
            => _tagsterDb = tagsterDb;
 
-        public async Task<ICollection<Tag>[]> GetList(string name) 
+        public async Task<ICollection<Tag>[]> GetList(string profileName) 
             => await _tagsterDb
                 .Profiles
-                .Where(profile => profile.Name.Equals(name))
+                .Where(profile => profile.Name.Equals(profileName))
                 .Include(profile => profile.ProfileTags)
                 .Select(profile => profile.ProfileTags)
                 .ToArrayAsync();

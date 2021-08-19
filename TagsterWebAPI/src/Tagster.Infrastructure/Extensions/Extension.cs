@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tagster.Application.Services;
 using Tagster.DataAccess.Extensions;
@@ -8,9 +9,9 @@ namespace Tagster.Infrastructure.Extensions
 {
     public static class Extension
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
             => services
-            .AddDataAccess("Server=.;Database=tagster;Trusted_Connection=True; ")
+            .AddDataAccess(configuration.GetConnectionString("DefaultConnection"))
             .AddTransient<ITagsService, TagsService>();
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
