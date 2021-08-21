@@ -18,7 +18,7 @@ namespace TagsterWebAPI.Controllers
             => _adminService = adminService;
 
         [HttpGet]
-        [Route("generate-fake-data")]//add variables to route! (profilesCount, maxTagsPerProfile)
+        [Route("generate-fake-data/p{profilesCount}/max{maxTagsPerProfile}")]//add variables to route! (profilesCount, maxTagsPerProfile)
         //[ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
         public async Task<IActionResult> GenFakeData(int profilesCount, int maxTagsPerProfile)
         {
