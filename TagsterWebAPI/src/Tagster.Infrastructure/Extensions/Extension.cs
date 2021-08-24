@@ -12,7 +12,8 @@ namespace Tagster.Infrastructure.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
             => services
             .AddDataAccess(configuration.GetConnectionString("DefaultConnection"))
-            .AddTransient<ITagsService, TagsService>();
+            .AddTransient<ITagsService, TagsService>()
+            .AddTransient<IAdminService, AdminService>();
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
             => app;

@@ -17,9 +17,14 @@ namespace TagsterWebAPI.Controllers
         public AdminController(IAdminService adminService)
             => _adminService = adminService;
 
+        /// <summary>
+        /// brief
+        /// </summary>
+        /// <param name="profilesCount"> here </param>
+        /// <param name="maxTagsPerProfile"></param>
+        /// <returns></returns>
         [HttpGet]
-        [Route("generate-fake-data/p{profilesCount}/max{maxTagsPerProfile}")]//add variables to route! (profilesCount, maxTagsPerProfile)
-        //[ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
+        [Route("generate-fake-data/p{profilesCount}/max{maxTagsPerProfile}")]
         public async Task<IActionResult> GenFakeData(int profilesCount, int maxTagsPerProfile)
         {
             await _adminService.CreateFakeData(profilesCount, maxTagsPerProfile);

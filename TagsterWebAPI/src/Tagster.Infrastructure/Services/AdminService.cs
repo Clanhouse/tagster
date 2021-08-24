@@ -7,14 +7,16 @@ using Tagster.Application.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
 using Tagster.Application.Utils;
+using System.Text.Json;
+using System.IO;
 
 namespace Tagster.Infrastructure.Services
 {
     internal sealed class AdminService : IAdminService
     {
-        private readonly ITagsterDbContext _context;
+        private readonly TagsterDbContext _context;
 
-        public AdminService(ITagsterDbContext context)
+        public AdminService(TagsterDbContext context)
         {
             _context = context;
         }
@@ -22,17 +24,22 @@ namespace Tagster.Infrastructure.Services
         public async Task CreateFakeData(int profilesCount, int maxTagsPerProfile)
         {
             Random rand = new();
-            for (int i=0; i<profilesCount; i++) 
-            {
-                var name = FakeDataUtils.Names[rand.Next(FakeDataUtils.Names.Length)];
 
-                var surname = FakeDataUtils.Surnames[rand.Next(FakeDataUtils.Surnames.Length)];
+            using StreamReader r = new(Path.Combine(AppContext.BaseDirectory, "FakeData.json"));
+            string json = r.ReadToEnd();
+
+            FakeData fakeData = JsonSerializer.Deserialize<FakeData>(json); //parse to factories (fakeData)
+            for (int i = 0; i < profilesCount; i++) //move contents to factories
+            {
+                var name = fakeData.Names[rand.Next(fakeData.Names.Length)];
+
+                var surname = fakeData.Surnames[rand.Next(fakeData.Surnames.Length)];
 
                 var tags = new List<Tag>();
 
-                for (int j = 0; j<rand.Next(maxTagsPerProfile); j++)
+                for (int j = 0; j < rand.Next(maxTagsPerProfile); j++)
                 {
-                    string tagName = FakeDataUtils.Tags[rand.Next(FakeDataUtils.Tags.Length)];
+                    string tagName = fakeData.Tags[rand.Next(fakeData.Tags.Length)];
                     Tag tag = new Tag();
                     tag.TagName = tagName;
                     tags.Add(tag);
@@ -40,7 +47,7 @@ namespace Tagster.Infrastructure.Services
 
                 var profile = new Profile
                 {
-                    Href = Guid.NewGuid().ToString(),
+                    Id = i,
                     LastName = surname,
                     Name = name,
                     ProfileTags = tags
