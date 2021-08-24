@@ -8,6 +8,6 @@ namespace Tagster.Application.Services
 {
     public interface IAdminService
     {
-        public Task CreateFakeData(int profilesCount, int maxTagsPerProfile);
+        public Task CreateFakeDataAsync(int profilesCount, int maxTagsPerProfile);
     }
 }

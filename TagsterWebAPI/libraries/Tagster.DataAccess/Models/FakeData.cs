@@ -1,4 +1,4 @@
-﻿namespace Tagster.Application.Utils
+﻿namespace Tagster.DataAccess.Models
 {
     public class FakeData
     {

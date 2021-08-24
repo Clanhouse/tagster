@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using Tagster.Application.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
-using Tagster.Application.Utils;
+using Tagster.DataAccess.Models;
+using Tagster.DataAccess.Factories;
 using System.Text.Json;
 using System.IO;
 
@@ -21,7 +22,7 @@ namespace Tagster.Infrastructure.Services
             _context = context;
         }
 
-        public async Task CreateFakeData(int profilesCount, int maxTagsPerProfile)
+        public async Task CreateFakeDataAsync(int profilesCount, int maxTagsPerProfile)
         {
             Random rand = new();
 
@@ -31,27 +32,13 @@ namespace Tagster.Infrastructure.Services
             FakeData fakeData = JsonSerializer.Deserialize<FakeData>(json); //parse to factories (fakeData)
             for (int i = 0; i < profilesCount; i++) //move contents to factories
             {
-                var name = fakeData.Names[rand.Next(fakeData.Names.Length)];
+                string name = fakeData.Names[rand.Next(fakeData.Names.Length)];
 
-                var surname = fakeData.Surnames[rand.Next(fakeData.Surnames.Length)];
+                string surname = fakeData.Surnames[rand.Next(fakeData.Surnames.Length)];
 
-                var tags = new List<Tag>();
+                ICollection<Tag> tags = TagFactory.Create(maxTagsPerProfile, fakeData);
 
-                for (int j = 0; j < rand.Next(maxTagsPerProfile); j++)
-                {
-                    string tagName = fakeData.Tags[rand.Next(fakeData.Tags.Length)];
-                    Tag tag = new Tag();
-                    tag.TagName = tagName;
-                    tags.Add(tag);
-                }
-
-                var profile = new Profile
-                {
-                    Id = i,
-                    LastName = surname,
-                    Name = name,
-                    ProfileTags = tags
-                };
+                Profile profile = ProfileFactory.Create(i, surname, name, tags);
 
                 await _context.Profiles.AddAsync(profile);
             }

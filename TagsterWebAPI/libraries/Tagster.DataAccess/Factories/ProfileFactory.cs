@@ -7,11 +7,19 @@ using Tagster.DataAccess.Entities;
 
 namespace Tagster.DataAccess.Factories
 {
-    internal static class ProfileFactory
+    public class ProfileFactory
     {
-        public static Profile Create()
+        public static Profile Create(int id, string surname, string name, ICollection<Tag> tags)
         {
-            return new Profile();
+            var profile = new Profile
+            {
+                Id = id,
+                LastName = surname,
+                Name = name,
+                ProfileTags = tags
+            };
+
+            return profile;
         }
     }
 }
