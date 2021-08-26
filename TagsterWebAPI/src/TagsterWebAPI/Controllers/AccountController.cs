@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace TagsterWebAPI.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            return Ok();
         }
     }
+
+
 }

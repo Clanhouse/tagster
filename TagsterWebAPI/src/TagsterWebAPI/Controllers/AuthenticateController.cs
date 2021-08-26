@@ -16,8 +16,6 @@ namespace TagsterWebAPI.Controllers
     public class AuthenticateController : ControllerBase
     {
         private readonly IJwtAuthenticationManager jwtAuthenticationManager;
-        
-
 
         public AuthenticateController(IJwtAuthenticationManager jwtAuthenticationManager)
         {
@@ -42,9 +40,9 @@ namespace TagsterWebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] UserCred userCred)
+        public IActionResult Authenticate([FromBody] UserCredential userCredential)
         {
-           var token =  jwtAuthenticationManager.Authenticate(userCred.UserName, userCred.Password);
+           var token =  jwtAuthenticationManager.Authenticate(userCredential.UserName, userCredential.Password);
             if (token == null)
                 return Unauthorized();
             return Ok(token);

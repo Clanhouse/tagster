@@ -1,6 +1,6 @@
 ﻿namespace TagsterWebAPI.Controllers
 {
-    public class UserCred
+    public class UserCredential
     {
         public string UserName { get; set; }
 
