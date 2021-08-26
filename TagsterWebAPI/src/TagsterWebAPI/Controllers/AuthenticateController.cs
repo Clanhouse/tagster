@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace TagsterWebAPI.Controllers
     {
         private readonly IJwtAuthenticationManager jwtAuthenticationManager;
         
+
 
         public AuthenticateController(IJwtAuthenticationManager jwtAuthenticationManager)
         {
@@ -35,6 +37,8 @@ namespace TagsterWebAPI.Controllers
         {
             return "value";
         }
+
+       
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
