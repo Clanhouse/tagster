@@ -25,12 +25,20 @@ namespace Tagster.Infrastructure.Services
         public async Task CreateFakeDataAsync(int profilesCount, int maxTagsPerProfile)
         {
             Random rand = new();
+            string json = "";
 
-            using StreamReader r = new(Path.Combine(AppContext.BaseDirectory, "FakeData.json"));
-            string json = r.ReadToEnd();
+            if(File.Exists(Path.Combine(AppContext.BaseDirectory, "FakeData.json")))
+            {
+                using StreamReader r = new(Path.Combine(AppContext.BaseDirectory, "FakeData.json"));
+                json = r.ReadToEnd();
+            }
+            else
+            {
+                throw new ArgumentException("File FakeData.json does not exist");
+            }
 
-            FakeData fakeData = JsonSerializer.Deserialize<FakeData>(json); //parse to factories (fakeData)
-            for (int i = 0; i < profilesCount; i++) //move contents to factories
+            FakeData fakeData = JsonSerializer.Deserialize<FakeData>(json);
+            for (int i = 0; i < profilesCount; i++)
             {
                 string name = fakeData.Names[rand.Next(fakeData.Names.Length)];
 

@@ -10,16 +10,7 @@ namespace Tagster.DataAccess.Factories
     public class ProfileFactory
     {
         public static Profile Create(int id, string surname, string name, ICollection<Tag> tags)
-        {
-            var profile = new Profile
-            {
-                Id = id,
-                LastName = surname,
-                Name = name,
-                ProfileTags = tags
-            };
+                => new Profile { Id = id, LastName = surname, Name = name, ProfileTags = tags };
 
-            return profile;
-        }
     }
 }
