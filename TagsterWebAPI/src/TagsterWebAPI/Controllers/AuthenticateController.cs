@@ -15,11 +15,11 @@ namespace TagsterWebAPI.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        private readonly IJwtAuthenticationManager jwtAuthenticationManager;
+        private readonly IJwtAuthenticationManager _jwtAuthenticationManager; 
 
         public AuthenticateController(IJwtAuthenticationManager jwtAuthenticationManager)
         {
-            this.jwtAuthenticationManager = jwtAuthenticationManager;
+            _jwtAuthenticationManager = jwtAuthenticationManager;
         }
 
         // GET: api/<NameController>
@@ -28,6 +28,8 @@ namespace TagsterWebAPI.Controllers
         {
             return new string[] { "tagster authentication"};
         }
+        [HttpGet]
+        public async Task<IActionResult> SignUp() => Ok();
 
         // GET api/<NameController>/5
         [HttpGet("{id}")]
@@ -36,13 +38,11 @@ namespace TagsterWebAPI.Controllers
             return "value";
         }
 
-       
-
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] UserCredential userCredential)
         {
-           var token =  jwtAuthenticationManager.Authenticate(userCredential.UserName, userCredential.Password);
+           var token =  _jwtAuthenticationManager.Authenticate(userCredential);
             if (token == null)
                 return Unauthorized();
             return Ok(token);

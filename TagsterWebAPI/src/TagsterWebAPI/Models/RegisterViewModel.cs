@@ -8,7 +8,9 @@ namespace TagsterWebAPI.Models
 {
     public class RegisterViewModel
     {
-       
+      
+        
+
             [Required]
             [EmailAddress]
             public string Email { get; set; }
@@ -20,6 +22,7 @@ namespace TagsterWebAPI.Models
             [Required]
             [DataType(DataType.Password)]
             
+          
             public string ConfirmPassword { get; set; }
         
 

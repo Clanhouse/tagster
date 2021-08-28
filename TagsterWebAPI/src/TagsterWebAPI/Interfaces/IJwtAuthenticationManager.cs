@@ -9,6 +9,6 @@ namespace TagsterWebAPI
     public interface IJwtAuthenticationManager
     {
         
-        object Authenticate(string userName, string password);
+        object Authenticate(UserCredential userCredential);
     }
 }
