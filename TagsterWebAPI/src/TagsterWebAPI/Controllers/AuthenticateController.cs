@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TagsterWebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,8 +16,8 @@ namespace TagsterWebAPI.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        private readonly IJwtAuthenticationManager _jwtAuthenticationManager; 
-
+        private readonly IJwtAuthenticationManager _jwtAuthenticationManager;
+        
         public AuthenticateController(IJwtAuthenticationManager jwtAuthenticationManager)
         {
             _jwtAuthenticationManager = jwtAuthenticationManager;
@@ -29,7 +30,14 @@ namespace TagsterWebAPI.Controllers
             return new string[] { "tagster authentication"};
         }
         [HttpGet]
-        public async Task<IActionResult> SignUp() => Ok();
+        public async Task<IActionResult> SignUp(RegisterViewModel registerViewModel)
+        {
+            if (registerViewModel.Password == registerViewModel.ConfirmPassword)
+                return Ok();
+            else
+                return Unauthorized();
+                
+        }
 
         // GET api/<NameController>/5
         [HttpGet("{id}")]
