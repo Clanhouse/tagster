@@ -30,9 +30,9 @@ namespace TagsterWebAPI.Controllers
             return new string[] { "tagster authentication"};
         }
         [HttpGet]
-        public async Task<IActionResult> SignUp(RegisterViewModel registerViewModel)
+        public async Task<IActionResult> SignUp(SignUpViewModel signUpViewModel)
         {
-            if (registerViewModel.Password == registerViewModel.ConfirmPassword)
+            if (signUpViewModel.Password == signUpViewModel.ConfirmPassword)
                 return Ok();
             else
                 return Unauthorized();

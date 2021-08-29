@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using TagsterWebAPI.Controllers;
 
 namespace TagsterWebAPI
 {
@@ -45,6 +46,11 @@ namespace TagsterWebAPI
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
 
+        }
+
+        public object Authenticate(UserCredential userCredential)
+        {
+            throw new NotImplementedException();
         }
     }
 }

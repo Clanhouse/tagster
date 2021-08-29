@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TagsterWebAPI.Models
     {
 
-    public class RegisterViewModel
+    public class SignUpViewModel
     {
 
         [Required]
@@ -18,7 +18,6 @@ namespace TagsterWebAPI.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
         [Required]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
