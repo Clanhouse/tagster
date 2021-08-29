@@ -58,8 +58,8 @@ namespace TagsterWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInViewModel signInViewModel)
         {
-           var result = await _signInManager.PasswordSignInAsync(signInViewModel.Email, signInViewModel.Password, false, false);
-            return Ok(result);
+          await _signInManager.PasswordSignInAsync(signInViewModel.Email, signInViewModel.Password, false, false);
+            return Ok();
         }
 
         [HttpGet]
