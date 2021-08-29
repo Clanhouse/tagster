@@ -1,1 +1,50 @@
-# tagster
+# Tagster
+
+## Prerequisites
+
+You need install:
+
+- [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
+- [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [Chrome](https://www.google.com/chrome/?brand=BNSD&gclid=CjwKCAjw4KyJBhAbEiwAaAQbE39eiMSq7b_xpa-6hWY8b83wr-lnpv_ljvK6iqOdvWNilWxCefXX4xoCy9MQAvD_BwE&gclsrc=aw.ds)
+
+## Usage
+
+1. Clone the repository
+
+### Backend
+
+2. Open terminal and go to folder [`TagsterWebAPI`](./TagsterWebAPI).
+3. Build and publish application with commands below
+
+```shell
+dotnet build -c Release -o Publish
+```
+
+4. Go to `Publish` folder.
+5. Change connection string in `appsettings.json`
+
+```json
+ "ConnectionStrings": {
+    "DefaultConnection": ""
+  },
+```
+
+6. Start application
+
+```shell
+TagsterWebAPI.exe
+```
+
+After start you should see logs from application.
+
+### Extension
+
+2. Open Chrome and go to: "chrome://extensions/"
+3. Install extension:
+   - Drag & drop folder "extension" on that page.
+   - Another way to install:
+     - click "bundle the extension" -> "extension root directory" -> "browse"
+     - Find Extension folder, open it, press "select folder" -> "bundle the extension"
+     - Now, click "Load unpacked" -> choose same folder as previous & press "select folder"
+4. Extension installed. Click on puzzle icon, in the upper right corner of the screen to use and manage.
