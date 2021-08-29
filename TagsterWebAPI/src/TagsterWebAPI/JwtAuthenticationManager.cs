@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TagsterWebAPI.Controllers;
+using TagsterWebAPI.Models;
 
 namespace TagsterWebAPI
 {
@@ -49,6 +50,11 @@ namespace TagsterWebAPI
         }
 
         public object Authenticate(UserCredential userCredential)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Authenticate(SignUpViewModel signUpViewModel)
         {
             throw new NotImplementedException();
         }

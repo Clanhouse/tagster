@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,19 @@ namespace TagsterWebAPI.Controllers
     public class AuthenticateController : ControllerBase
     {
         private readonly IJwtAuthenticationManager _jwtAuthenticationManager;
-        
+        private readonly SignInManager<IdentityUser> _signInManager;
+
         public AuthenticateController(IJwtAuthenticationManager jwtAuthenticationManager)
         {
             _jwtAuthenticationManager = jwtAuthenticationManager;
         }
+
+        public AuthenticateController(SignInManager<IdentityUser> signInManager)
+        {
+            _signInManager = signInManager;
+
+        }
+
 
         // GET: api/<NameController>
         [HttpGet]
@@ -32,11 +41,32 @@ namespace TagsterWebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> SignUp(SignUpViewModel signUpViewModel)
         {
-            if (signUpViewModel.Password == signUpViewModel.ConfirmPassword)
+
+            if (signUpViewModel.Password == signUpViewModel.ConfirmPassword && signUpViewModel.Password.Length >= 9)
                 return Ok();
             else
                 return Unauthorized();
                 
+        }
+
+        [HttpGet]
+        public IActionResult SignIn()
+        {
+           return Ok(new SignInViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(SignInViewModel signInViewModel)
+        {
+           var result = await _signInManager.PasswordSignInAsync(signInViewModel.Email, signInViewModel.Password, false, false);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SignOut()
+        {
+           await _signInManager.SignOutAsync();
+            return Ok();
         }
 
         // GET api/<NameController>/5
