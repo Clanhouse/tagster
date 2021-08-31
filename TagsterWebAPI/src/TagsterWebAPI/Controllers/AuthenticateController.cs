@@ -22,14 +22,11 @@ namespace TagsterWebAPI.Controllers
         private readonly IJwtAuthenticationManager _jwtAuthenticationManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AuthenticateController(IJwtAuthenticationManager jwtAuthenticationManager)
-        {
-            _jwtAuthenticationManager = jwtAuthenticationManager;
-        }
 
-        public AuthenticateController(SignInManager<IdentityUser> signInManager)
+        public AuthenticateController(SignInManager<IdentityUser> signInManager, IJwtAuthenticationManager jwtAuthenticationManager)
         {
             _signInManager = signInManager;
+            _jwtAuthenticationManager = jwtAuthenticationManager;
 
         }
 
