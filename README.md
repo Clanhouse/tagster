@@ -4,9 +4,9 @@
 
 You need install:
 
-- [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
 - [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
-- [Chrome](https://www.google.com/chrome/?brand=BNSD&gclid=CjwKCAjw4KyJBhAbEiwAaAQbE39eiMSq7b_xpa-6hWY8b83wr-lnpv_ljvK6iqOdvWNilWxCefXX4xoCy9MQAvD_BwE&gclsrc=aw.ds)
+- [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
+- [Chrome](https://www.google.com/chrome)
 
 ## Usage
 
