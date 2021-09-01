@@ -1,5 +1,7 @@
 # Tagster
 
+Tagsster is a backend and frontend application that allows you to add tags to browsed profiles on [LinkedIn](https://www.linkedin.com).
+
 ## Prerequisites
 
 You need install:
