@@ -74,7 +74,7 @@ namespace TagsterWebAPI.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("SignOut")]
         public async Task<IActionResult> SignOut()
         {
