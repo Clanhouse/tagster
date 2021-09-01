@@ -15,7 +15,7 @@ using TagsterWebAPI.Models;
 namespace TagsterWebAPI.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
@@ -37,11 +37,11 @@ namespace TagsterWebAPI.Controllers
         {
             return new string[] { "tagster authentication"};
         }
-        [HttpGet]
+        [HttpPost]
         [Route("SignUp")]
         public async Task<IActionResult> SignUp(SignUpViewModel signUpViewModel)
         {
-            using (SqlConnection sqlConnection = new SqlConnection("Data Source=LAPTOP-T970S8AB\\KEDAR;Initial Catalog=Tagster;User ID=sa;Password=***********"))
+         /*   using (SqlConnection sqlConnection = new SqlConnection("Data Source=LAPTOP-T970S8AB\\KEDAR;Initial Catalog=Tagster;User ID=sa;Password=***********"))
             {
                 string query = "SELECT COUNT(1) FROM Credentials WHERE Email=@email AND Password=@password";
                 SqlCommand sqlCommand = new SqlCommand();
@@ -51,7 +51,7 @@ namespace TagsterWebAPI.Controllers
 
                 
 
-            }
+            }*/
             if (signUpViewModel.Password == signUpViewModel.ConfirmPassword && signUpViewModel.Password.Length >= 9)
                 return Ok();
             else
@@ -59,13 +59,15 @@ namespace TagsterWebAPI.Controllers
                 
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Route("")]
         public IActionResult SignIn()
         {
            return Ok(new SignInViewModel());
         }
 
         [HttpPost]
+        [Route("SignIn")]
         public async Task<IActionResult> SignIn(SignInViewModel signInViewModel)
         {
           await _signInManager.PasswordSignInAsync(signInViewModel.Email, signInViewModel.Password, false, false);
@@ -73,6 +75,7 @@ namespace TagsterWebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("SignOut")]
         public async Task<IActionResult> SignOut()
         {
            await _signInManager.SignOutAsync();
