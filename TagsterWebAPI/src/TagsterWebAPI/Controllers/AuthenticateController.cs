@@ -41,17 +41,7 @@ namespace TagsterWebAPI.Controllers
         [Route("SignUp")]
         public async Task<IActionResult> SignUp(SignUpViewModel signUpViewModel)
         {
-         /*   using (SqlConnection sqlConnection = new SqlConnection("Data Source=LAPTOP-T970S8AB\\KEDAR;Initial Catalog=Tagster;User ID=sa;Password=***********"))
-            {
-                string query = "SELECT COUNT(1) FROM Credentials WHERE Email=@email AND Password=@password";
-                SqlCommand sqlCommand = new SqlCommand();
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandType = System.Data.CommandType.Text;
-                sqlCommand.CommandText = query;
 
-                
-
-            }*/
             if (signUpViewModel.Password == signUpViewModel.ConfirmPassword && signUpViewModel.Password.Length >= 9)
                 return Ok();
             else
