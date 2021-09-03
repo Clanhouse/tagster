@@ -54,6 +54,7 @@ namespace TagsterWebAPI.Controllers
            return Ok(new SignInViewModel());
         }
 
+        [Authorize]
         [HttpPost]
         [Route("SignIn")]
         public async Task<IActionResult> SignIn(SignInViewModel signInViewModel)
