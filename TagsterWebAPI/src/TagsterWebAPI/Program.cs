@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Tagster.Logger;
 
 namespace TagsterWebAPI
 {
@@ -13,6 +14,7 @@ namespace TagsterWebAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .UseLogging("TagsterWebAPI", typeof(Program).Assembly.GetName().Version.ToString());
     }
 }

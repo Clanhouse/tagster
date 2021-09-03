@@ -16,10 +16,6 @@ namespace TagsterWebAPI.Controllers
         public TagsController(ITagsService tagService)
             => _tagService = tagService;
 
-        /*[HttpGet]
-        public string StartMessage()
-            => "Welcome!";*/
-
         /// <summary>
         /// Get all tags for profile
         /// </summary>
