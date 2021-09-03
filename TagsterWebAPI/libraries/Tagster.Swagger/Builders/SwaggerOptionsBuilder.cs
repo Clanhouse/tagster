@@ -5,7 +5,7 @@ namespace Tagster.Swagger.Builders
     internal sealed class SwaggerOptionsBuilder : ISwaggerOptionsBuilder
     {
         private readonly SwaggerOptions _options = new();
-        
+
         public ISwaggerOptionsBuilder Enable(bool enabled)
         {
             _options.Enabled = enabled;

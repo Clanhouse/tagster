@@ -16,12 +16,14 @@ namespace Tagster.Logger
         private const string LoggerSectionName = "logger";
 
         public static IHostBuilder UseLogging(this IHostBuilder hostBuilder, string appName, string appVersion,
-            Action<LoggerConfiguration> configure = null, 
+            Action<LoggerConfiguration> configure = null,
             string loggerSectionName = LoggerSectionName)
             => hostBuilder.UseSerilog((context, loggerConfiguration) =>
             {
                 if (string.IsNullOrWhiteSpace(loggerSectionName))
+                {
                     loggerSectionName = LoggerSectionName;
+                }
 
                 LoggerOptions loggerOptions = new();
                 context.Configuration.GetSection(loggerSectionName).Bind(loggerOptions);
@@ -42,10 +44,14 @@ namespace Tagster.Logger
                 .Enrich.WithProperty("Version", appVersion);
 
             foreach (var (key, value) in loggerOptions.Tags ?? new Dictionary<string, object>())
+            {
                 loggerConfiguration.Enrich.WithProperty(key, value);
+            }
 
             foreach (var (key, value) in loggerOptions.MinimumLevelOverrides ?? new Dictionary<string, string>())
+            {
                 loggerConfiguration.MinimumLevel.Override(key, GetLogEventLevel(value));
+            }
 
             loggerOptions.ExcludePaths?.ToList().ForEach(p => loggerConfiguration.Filter
                 .ByExcluding(Matching.WithProperty<string>("RequestPath", n => n.EndsWith(p))));
@@ -65,19 +71,24 @@ namespace Tagster.Logger
             var seqOptions = options.Seq ?? new SeqOptions();
 
             if (consoleOptions.Enabled)
+            {
                 loggerConfiguration.WriteTo.Console();
+            }
 
             if (fileOptions.Enabled)
             {
                 var path = string.IsNullOrWhiteSpace(fileOptions.Path) ? "logs/logs.txt" : fileOptions.Path;
-                if (!Enum.TryParse<RollingInterval>(fileOptions.Interval, 
+                if (!Enum.TryParse<RollingInterval>(fileOptions.Interval,
                     true, out var interval))
+                {
                     interval = RollingInterval.Day;
+                }
 
                 loggerConfiguration.WriteTo.File(path, rollingInterval: interval);
             }
 
             if (elkOptions.Enabled)
+            {
                 loggerConfiguration.WriteTo.Elasticsearch(
                     new ElasticsearchSinkOptions(new Uri(elkOptions.Url))
                     {
@@ -92,9 +103,12 @@ namespace Tagster.Logger
                                 ? connectionConfiguration.BasicAuthentication(elkOptions.Username, elkOptions.Password)
                                 : connectionConfiguration
                     });
+            }
 
             if (seqOptions.Enabled)
+            {
                 loggerConfiguration.WriteTo.Seq(seqOptions.Url, apiKey: seqOptions.ApiKey);
+            }
         }
 
         private static LogEventLevel GetLogEventLevel(string level)

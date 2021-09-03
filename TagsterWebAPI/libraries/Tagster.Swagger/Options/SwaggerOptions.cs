@@ -9,6 +9,6 @@ namespace Tagster.Swagger.Options
         public string RoutePrefix { get; set; }
         public bool IncludeSecurity { get; set; }
         public string ContactName { get; set; }
-        public string ContactEmail { get;  set; }
+        public string ContactEmail { get; set; }
     }
 }

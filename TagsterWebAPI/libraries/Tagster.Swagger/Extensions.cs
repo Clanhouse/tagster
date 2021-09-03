@@ -1,11 +1,11 @@
 using System;
-using Tagster.Swagger.Builders;
-using Tagster.Swagger.Options;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using Microsoft.Extensions.Configuration;
+using Tagster.Swagger.Builders;
+using Tagster.Swagger.Options;
 
 namespace Tagster.Swagger
 {
@@ -13,11 +13,13 @@ namespace Tagster.Swagger
     {
         private const string SectionName = "swagger";
 
-        public static IServiceCollection AddSwaggerDocs(this IServiceCollection service, 
+        public static IServiceCollection AddSwaggerDocs(this IServiceCollection service,
             IConfiguration configuration, string xmlPath = "", string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
+            {
                 sectionName = SectionName;
+            }
 
             SwaggerOptions options = new();
             configuration.GetSection(sectionName).Bind(options);
@@ -31,13 +33,15 @@ namespace Tagster.Swagger
             return service.AddSwaggerDocs(options, xmlPath);
         }
 
-        public static IServiceCollection AddSwaggerDocs(this IServiceCollection service, 
+        public static IServiceCollection AddSwaggerDocs(this IServiceCollection service,
             SwaggerOptions options, string xmlPath = "")
         {
             service.AddSingleton(options);
-            
+
             if (!options.Enabled)
+            {
                 return service;
+            }
 
             service.AddSwaggerGen(c =>
             {
@@ -54,7 +58,9 @@ namespace Tagster.Swagger
                     });
 
                 if (!string.IsNullOrWhiteSpace(xmlPath))
+                {
                     c.IncludeXmlComments(xmlPath);
+                }
 
                 if (options.IncludeSecurity)
                 {
@@ -77,10 +83,12 @@ namespace Tagster.Swagger
         {
             var options = app.ApplicationServices.GetService<SwaggerOptions>();
             if (!options.Enabled)
+            {
                 return app;
+            }
 
-            var routePrefix = string.IsNullOrWhiteSpace(options.RoutePrefix) 
-                ? "swagger" 
+            var routePrefix = string.IsNullOrWhiteSpace(options.RoutePrefix)
+                ? "swagger"
                 : options.RoutePrefix;
 
             return app

@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Services;
 using Tagster.DataAccess.Entities;
-using Microsoft.AspNetCore.Authorization;
 
 namespace TagsterWebAPI.Controllers
 {

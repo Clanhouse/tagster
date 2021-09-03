@@ -12,7 +12,7 @@ namespace Tagster.DataAccess.DBContexts
 
         public TagsterDbContext(DbContextOptions options) : base(options)
         {
-                
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

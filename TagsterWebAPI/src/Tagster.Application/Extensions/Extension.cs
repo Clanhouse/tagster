@@ -4,7 +4,7 @@ namespace Tagster.Application.Extensions
 {
     public static class Extension
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services) 
+        public static IServiceCollection AddApplication(this IServiceCollection services)
             => services;
     }
 }
