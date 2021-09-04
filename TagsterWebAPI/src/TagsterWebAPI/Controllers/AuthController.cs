@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,18 +20,17 @@ namespace TagsterWebAPI.Controllers
         /// Sign up user
         /// </summary>
         /// <param name="command">Request body which user would be sign up</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>status code 201 created</returns>
         [HttpPost("sign-up")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SignUp([FromBody] SignUp command)
+        public async Task<IActionResult> SignUp([FromBody] SignUp command, CancellationToken cancellationToken)
         {
             if (!command.Password.Equals(command.ConfirmPassword))
-            {
                 return BadRequest("Passwords do not match!");
-            }
 
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
             return Accepted();
         }
 

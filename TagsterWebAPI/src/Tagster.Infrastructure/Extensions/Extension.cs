@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Tagster.Application.Services;
 using Tagster.Auth;
 using Tagster.DataAccess.Extensions;
+using Tagster.Exception;
+using Tagster.Infrastructure.Exceptions;
 using Tagster.Infrastructure.Services;
 using Tagster.Redis;
 
@@ -15,10 +17,11 @@ namespace Tagster.Infrastructure.Extensions
             => services
             .AddJwt(configuration)
             .AddRedis(configuration)
+            .AddErrorHandler<ExceptionToResponseMapper>()
             .AddDataAccess(configuration.GetConnectionString("DefaultConnection"))
             .AddTransient<ITagsService, TagsService>();
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
-            => app;
+            => app.UseErrorHandler();
     }
 }

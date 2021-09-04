@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Tagster.Application.Exceptions;
 using Tagster.Auth.Dtos;
 using Tagster.Auth.Models;
 using Tagster.Auth.Services;
@@ -12,13 +14,13 @@ namespace Tagster.Application.Services
 {
     public sealed class IdentityService : IIdentityService
     {
-        private readonly ITagsterDbContext _tagsterDb;
+        private readonly TagsterDbContext _tagsterDb;
         private readonly IPasswordService _passwordService;
         private readonly IRefreshTokenService _refreshTokenService;
         private readonly IAccessTokenService _accessTokenService;
         private readonly ILogger<IdentityService> _logger;
 
-        public IdentityService(ITagsterDbContext tagsterDb, IPasswordService passwordService,
+        public IdentityService(TagsterDbContext tagsterDb, IPasswordService passwordService,
             IRefreshTokenService refreshTokenService, IAccessTokenService accessTokenService,
             ILogger<IdentityService> logger)
         {
@@ -29,24 +31,23 @@ namespace Tagster.Application.Services
             _logger = logger;
         }
 
-        public async Task SignUpAsync(SignUp command)
+        public async Task SignUpAsync(SignUp command, CancellationToken cancellationToken)
         {
             var user = _tagsterDb.Users.FirstOrDefault(x => x.Email.Equals(command.Email));
             if (user is { })
             {
                 _logger.LogInformation("Email already in use: {email}", command.Email);
-                //throw new EmailInUseException(command.Email);
-                throw new Exception("Email already in use");
+                throw new EmailInUseException(command.Email);
             }
 
             var password = _passwordService.Hash(command.Password);
             user = new User(Guid.NewGuid(), command.Email, password, DateTime.UtcNow);
-            await _tagsterDb.Users.AddAsync(user);
-            
+            await _tagsterDb.Users.AddAsync(user, cancellationToken);
+            await _tagsterDb.SaveChangesAsync(cancellationToken);
             _logger.LogInformation("Created an account for the user with id: {id}.", user.Id);
         }
 
-        public async Task<AuthDto> SignInAsync(SignIn command)
+        public async Task<AuthDto> SignInAsync(SignIn command, CancellationToken cancellationToken)
         {
             //var user = await _userRepository.GetAsync(command.Email);
             //if (user is null || !_passwordService.IsValid(user.Password, command.Password))
@@ -71,7 +72,7 @@ namespace Tagster.Application.Services
             throw new NotImplementedException();
         }
 
-        public async Task SignOutAsync(SignOut command)
+        public async Task SignOutAsync(SignOut command, CancellationToken cancellationToken)
         {
             //if (string.IsNullOrEmpty(command.AccessToken))
             //{

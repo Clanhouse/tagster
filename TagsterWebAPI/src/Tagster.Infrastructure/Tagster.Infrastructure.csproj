@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\libraries\Tagster.Auth\Tagster.Auth.csproj" />
     <ProjectReference Include="..\..\libraries\Tagster.DataAccess\Tagster.DataAccess.csproj" />
+    <ProjectReference Include="..\..\libraries\Tagster.Exception\Tagster.Exception.csproj" />
     <ProjectReference Include="..\..\libraries\Tagster.Redis\Tagster.Redis.csproj" />
     <ProjectReference Include="..\Tagster.Application\Tagster.Application.csproj" />
     <ProjectReference Include="..\Tagster.Domain\Tagster.Domain.csproj" />
