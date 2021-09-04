@@ -31,8 +31,6 @@ dotnet build -c Release -o Publish
 TagsterWebAPI.exe
 ```
 
-After start you should see logs from application.
-
 ### Extension
 
 2. Open Chrome and go to: "chrome://extensions/"
