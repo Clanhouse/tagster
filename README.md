@@ -24,14 +24,7 @@ dotnet build -c Release -o Publish
 ```
 
 4. Go to `Publish` folder.
-5. Change connection string in `appsettings.json`
-
-```json
- "ConnectionStrings": {
-    "DefaultConnection": ""
-  },
-```
-
+5. Configure `appsettings.json`. To see more go to [backend configuration](./TagsterWebAPI/README.md)
 6. Start application
 
 ```shell
