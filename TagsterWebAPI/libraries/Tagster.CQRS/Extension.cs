@@ -5,7 +5,7 @@ using Tagster.CQRS.Behaviors;
 
 namespace Tagster.CQRS
 {
-    public static class Extension 
+    public static class Extension
     {
         public static IServiceCollection AddCQRS(this IServiceCollection services, params Assembly[] assemblies)
         {

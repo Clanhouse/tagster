@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Tagster.Auth.Dtos;
 using Tagster.Auth.Models;
 using Tagster.Auth.Services;
 using Tagster.DataAccess.DBContexts;
+using Tagster.DataAccess.Entities;
 
 namespace Tagster.Application.Services
 {
@@ -29,18 +31,19 @@ namespace Tagster.Application.Services
 
         public async Task SignUpAsync(SignUp command)
         {
-            //var user = await _userRepository.GetAsync(command.Email);
-            //if (user is { })
-            //{
-            //    _logger.LogError($"Email already in use: {command.Email}");
-            //    throw new EmailInUseException(command.Email);
-            //}
+            var user = _tagsterDb.Users.FirstOrDefault(x => x.Email.Equals(command.Email));
+            if (user is { })
+            {
+                _logger.LogInformation("Email already in use: {email}", command.Email);
+                //throw new EmailInUseException(command.Email);
+                throw new Exception("Email already in use");
+            }
 
-            //var password = _passwordService.Hash(command.Password);
-            //user = new User(command.UserId, command.Email, password, DateTime.UtcNow);
-            //await _userRepository.AddAsync(user);
+            var password = _passwordService.Hash(command.Password);
+            user = new User(Guid.NewGuid(), command.Email, password, DateTime.UtcNow);
+            await _tagsterDb.Users.AddAsync(user);
 
-            //_logger.LogInformation($"Created an account for the user with id: {user.Id}.");
+            _logger.LogInformation("Created an account for the user with id: {id}.", user.Id);
         }
 
         public async Task<AuthDto> SignInAsync(SignIn command)

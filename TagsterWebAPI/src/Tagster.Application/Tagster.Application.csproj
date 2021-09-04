@@ -10,12 +10,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\libraries\Tagster.Auth\Tagster.Auth.csproj" />
+    <ProjectReference Include="..\..\libraries\Tagster.CQRS\Tagster.CQRS.csproj" />
     <ProjectReference Include="..\..\libraries\Tagster.DataAccess\Tagster.DataAccess.csproj" />
     <ProjectReference Include="..\Tagster.Domain\Tagster.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Dtos\" />
+    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Tagster.Application.Extensions;
 using Tagster.CQRS;
 using Tagster.Infrastructure.Extensions;
 using Tagster.Swagger;
@@ -24,6 +25,7 @@ namespace TagsterWebAPI
             services.AddControllers();
             services.AddSwaggerDocs(Configuration,
                 Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"))
+                .AddApplication()
                 .AddInfrastructure(Configuration)
                 .AddCQRS(GetType().Assembly, typeof(Tagster.Infrastructure.Extensions.Extension).Assembly,
                 typeof(Tagster.Application.Extensions.Extension).Assembly);
@@ -32,7 +34,9 @@ namespace TagsterWebAPI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
+            }
 
             app.UseSwaggerDocs();
             app.UseHttpsRedirection();

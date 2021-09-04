@@ -25,7 +25,9 @@ namespace Tagster.Auth.Models
         public void Revoke(DateTime revokedAt)
         {
             if (Revoked)
+            {
                 throw new RevokedRefreshTokenException();
+            }
 
             RevokedAt = revokedAt;
         }

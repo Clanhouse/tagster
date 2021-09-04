@@ -5,6 +5,7 @@ using Tagster.Application.Services;
 using Tagster.Auth;
 using Tagster.DataAccess.Extensions;
 using Tagster.Infrastructure.Services;
+using Tagster.Redis;
 
 namespace Tagster.Infrastructure.Extensions
 {
@@ -13,6 +14,7 @@ namespace Tagster.Infrastructure.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
             => services
             .AddJwt(configuration)
+            .AddRedis(configuration)
             .AddDataAccess(configuration.GetConnectionString("DefaultConnection"))
             .AddTransient<ITagsService, TagsService>();
 

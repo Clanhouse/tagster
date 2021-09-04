@@ -1,8 +1,8 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Tagster.CQRS.Behaviors
 {
@@ -13,7 +13,7 @@ namespace Tagster.CQRS.Behaviors
         public RequestLogingBehavior(ILogger<RequestLogingBehavior<TCommandOrQuery, TResult>> logger)
             => _logger = logger;
 
-        public async Task<TResult> Handle(TCommandOrQuery commandOrQuery, 
+        public async Task<TResult> Handle(TCommandOrQuery commandOrQuery,
             CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
         {
             Stopwatch sw = new();
@@ -31,7 +31,9 @@ namespace Tagster.CQRS.Behaviors
         private void LogData(object @object)
         {
             if (@object is null)
+            {
                 return;
+            }
 
             _logger.LogInformation("Log data {name}", @object.GetType().Name);
         }

@@ -32,7 +32,9 @@ namespace Tagster.Auth.Factory
             JwtOptions options)
         {
             if (!string.IsNullOrWhiteSpace(options.AuthenticationType))
+            {
                 tokenValidationParameters.AuthenticationType = options.AuthenticationType;
+            }
         }
 
         public static void AddIssuerSigningKey(this TokenValidationParameters tokenValidationParameters,
@@ -66,7 +68,9 @@ namespace Tagster.Auth.Factory
                 if (certificate is { })
                 {
                     if (string.IsNullOrWhiteSpace(options.Algorithm))
+                    {
                         options.Algorithm = SecurityAlgorithms.RsaSha256;
+                    }
 
                     hasCertificate = true;
                     tokenValidationParameters.IssuerSigningKey = new X509SecurityKey(certificate);
@@ -77,7 +81,9 @@ namespace Tagster.Auth.Factory
             if (!string.IsNullOrWhiteSpace(options.IssuerSigningKey) && !hasCertificate)
             {
                 if (string.IsNullOrWhiteSpace(options.Algorithm) || hasCertificate)
+                {
                     options.Algorithm = SecurityAlgorithms.HmacSha256;
+                }
 
                 var rawKey = Encoding.UTF8.GetBytes(options.IssuerSigningKey);
                 tokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(rawKey);
@@ -89,14 +95,18 @@ namespace Tagster.Auth.Factory
             JwtOptions options)
         {
             if (!string.IsNullOrWhiteSpace(options.NameClaimType))
+            {
                 tokenValidationParameters.NameClaimType = options.NameClaimType;
+            }
         }
 
         public static void AddRoleClaimType(this TokenValidationParameters tokenValidationParameters,
             JwtOptions options)
         {
             if (!string.IsNullOrWhiteSpace(options.RoleClaimType))
+            {
                 tokenValidationParameters.RoleClaimType = options.RoleClaimType;
+            }
         }
     }
 }

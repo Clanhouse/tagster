@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Tagster.DataAccess.Entities;
 
 namespace Tagster.DataAccess.DBContexts
@@ -8,6 +7,6 @@ namespace Tagster.DataAccess.DBContexts
     {
         DbSet<Tag> Tags { get; set; }
         DbSet<Profile> Profiles { get; set; }
-        DbSet<UserCredential> UserCredentials { get; set; }
+        DbSet<User> Users { get; set; }
     }
 }

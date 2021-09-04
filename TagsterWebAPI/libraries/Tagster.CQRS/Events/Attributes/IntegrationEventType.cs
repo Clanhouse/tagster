@@ -7,7 +7,7 @@ namespace Tagster.CQRS.Events.Attributes
     {
         public Type EventType { get; }
 
-        public IntegrationEventType(Type eventType) 
+        public IntegrationEventType(Type eventType)
             => EventType = eventType;
     }
 }

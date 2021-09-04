@@ -12,7 +12,7 @@ namespace TagsterWebAPI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public AuthController(IMediator mediator) 
+        public AuthController(IMediator mediator)
             => _mediator = mediator;
 
         /// <summary>
@@ -26,7 +26,9 @@ namespace TagsterWebAPI.Controllers
         public async Task<IActionResult> SignUp([FromBody] SignUp command)
         {
             if (!command.Password.Equals(command.ConfirmPassword))
+            {
                 return BadRequest("Passwords do not match!");
+            }
 
             await _mediator.Send(command);
             return Accepted();
