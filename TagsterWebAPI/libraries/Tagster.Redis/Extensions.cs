@@ -22,20 +22,13 @@ namespace Tagster.Redis
 
         public static IServiceCollection AddRedis(this IServiceCollection service,
             Func<IRedisOptionsBuilder, IRedisOptionsBuilder> buildOptions)
-        {
-            var options = buildOptions(new RedisOptionsBuilder()).Build();
-            return service.AddRedis(options);
-        }
+            => service.AddRedis(buildOptions(new RedisOptionsBuilder()).Build());
 
         public static IServiceCollection AddRedis(this IServiceCollection service, RedisOptions options)
-        {
-            service.AddStackExchangeRedisCache(o =>
+            => service.AddStackExchangeRedisCache(o =>
             {
                 o.Configuration = options.ConnectionString;
                 o.InstanceName = options.Instance;
             });
-
-            return service;
-        }
     }
 }

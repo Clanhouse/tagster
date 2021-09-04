@@ -61,9 +61,7 @@ namespace Tagster.Auth
                     option.IncludeErrorDetails = options.IncludeErrorDetails;
                     option.TokenValidationParameters = tokenValidationParameters;
                     if (!string.IsNullOrWhiteSpace(options.Challenge))
-                    {
                         option.Challenge = options.Challenge;
-                    }
 
                     optionsFactory?.Invoke(option);
                 });

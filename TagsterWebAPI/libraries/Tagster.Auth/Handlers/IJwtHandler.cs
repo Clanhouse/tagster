@@ -1,7 +1,7 @@
 using System;
 using Tagster.Auth.Models;
 
-namespace Tagster.Auth
+namespace Tagster.Auth.Handlers
 {
     public interface IJwtHandler
     {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
 using Tagster.Auth.Options;
@@ -10,11 +12,11 @@ namespace Tagster.Auth.Services
 {
     internal sealed class InMemoryAccessTokenService : IAccessTokenService
     {
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCache _cache;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly TimeSpan _expires;
 
-        public InMemoryAccessTokenService(IMemoryCache cache,
+        public InMemoryAccessTokenService(IDistributedCache cache,
             IHttpContextAccessor httpContextAccessor,
             JwtOptions jwtOptions)
         {
@@ -29,18 +31,15 @@ namespace Tagster.Auth.Services
         public Task DeactivateCurrentAsync()
             => DeactivateAsync(GetCurrentAsync());
 
-        public Task<bool> IsActiveAsync(string token)
-            => Task.FromResult(string.IsNullOrWhiteSpace(_cache.Get<string>(GetKey(token))));
+        public async Task<bool> IsActiveAsync(string token)
+            => string.IsNullOrWhiteSpace(await _cache.GetStringAsync(GetKey(token)));
 
-        public Task DeactivateAsync(string token)
-        {
-            _cache.Set(GetKey(token), "revoked", new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = _expires
-            });
-
-            return Task.CompletedTask;
-        }
+        public async Task DeactivateAsync(string token)
+            => await _cache.SetAsync(GetKey(token), Encoding.ASCII.GetBytes("revoked"),
+                new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = _expires
+                });
 
         private string GetCurrentAsync()
         {

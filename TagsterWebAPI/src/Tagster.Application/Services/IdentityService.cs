@@ -42,7 +42,7 @@ namespace Tagster.Application.Services
             var password = _passwordService.Hash(command.Password);
             user = new User(Guid.NewGuid(), command.Email, password, DateTime.UtcNow);
             await _tagsterDb.Users.AddAsync(user);
-
+            
             _logger.LogInformation("Created an account for the user with id: {id}.", user.Id);
         }
 

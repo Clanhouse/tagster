@@ -31,9 +31,7 @@ namespace Tagster.CQRS.Behaviors
         private void LogData(object @object)
         {
             if (@object is null)
-            {
                 return;
-            }
 
             _logger.LogInformation("Log data {name}", @object.GetType().Name);
         }
