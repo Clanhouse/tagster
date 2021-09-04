@@ -1,4 +1,4 @@
-namespace Tagster.Auth.Types
+namespace Tagster.Auth.Models
 {
     public class JsonWebToken
     {

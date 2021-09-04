@@ -1,7 +1,7 @@
 using System;
 using Tagster.Auth.Exceptions;
 
-namespace Tagster.Auth.Types
+namespace Tagster.Auth.Models
 {
     public class JsonWebRefreshToken
     {

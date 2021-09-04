@@ -5,8 +5,8 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using Tagster.Auth.Dates;
+using Tagster.Auth.Models;
 using Tagster.Auth.Options;
-using Tagster.Auth.Types;
 
 namespace Tagster.Auth.Handlers
 {

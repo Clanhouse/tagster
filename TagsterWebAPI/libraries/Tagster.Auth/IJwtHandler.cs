@@ -1,5 +1,5 @@
 using System;
-using Tagster.Auth.Types;
+using Tagster.Auth.Models;
 
 namespace Tagster.Auth
 {

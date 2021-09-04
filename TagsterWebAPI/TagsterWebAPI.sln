@@ -28,11 +28,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "librariesTests", "libraries
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.DataAccess.UnitTests", "librariesTests\Tagster.DataAccess.UnitTests\Tagster.DataAccess.UnitTests.csproj", "{D3A27655-92E4-4B09-9BBE-39A3EDEDDBD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Logger", "libraries\Tagster.Logger\Tagster.Logger.csproj", "{F4843BC3-463E-42FC-AA8F-6D063B1FE093}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Logger", "libraries\Tagster.Logger\Tagster.Logger.csproj", "{F4843BC3-463E-42FC-AA8F-6D063B1FE093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Swagger", "libraries\Tagster.Swagger\Tagster.Swagger.csproj", "{F366FC34-9E83-4093-8D7C-0FC81E2EC9A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Swagger", "libraries\Tagster.Swagger\Tagster.Swagger.csproj", "{F366FC34-9E83-4093-8D7C-0FC81E2EC9A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Auth", "libraries\Tagster.Auth\Tagster.Auth.csproj", "{CF1A0955-24D4-4013-B67C-9989CCE45229}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Auth", "libraries\Tagster.Auth\Tagster.Auth.csproj", "{CF1A0955-24D4-4013-B67C-9989CCE45229}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.CQRS", "libraries\Tagster.CQRS\Tagster.CQRS.csproj", "{32C3920E-E9B9-4B53-B49A-5C37BBD753DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,10 @@ Global
 		{CF1A0955-24D4-4013-B67C-9989CCE45229}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF1A0955-24D4-4013-B67C-9989CCE45229}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF1A0955-24D4-4013-B67C-9989CCE45229}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C3920E-E9B9-4B53-B49A-5C37BBD753DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C3920E-E9B9-4B53-B49A-5C37BBD753DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C3920E-E9B9-4B53-B49A-5C37BBD753DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C3920E-E9B9-4B53-B49A-5C37BBD753DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +111,7 @@ Global
 		{F4843BC3-463E-42FC-AA8F-6D063B1FE093} = {F68BC180-9E59-473F-9ABF-4CE80C448174}
 		{F366FC34-9E83-4093-8D7C-0FC81E2EC9A6} = {F68BC180-9E59-473F-9ABF-4CE80C448174}
 		{CF1A0955-24D4-4013-B67C-9989CCE45229} = {F68BC180-9E59-473F-9ABF-4CE80C448174}
+		{32C3920E-E9B9-4B53-B49A-5C37BBD753DD} = {F68BC180-9E59-473F-9ABF-4CE80C448174}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BA103DC-1387-4592-8CC0-8E1413788A57}
