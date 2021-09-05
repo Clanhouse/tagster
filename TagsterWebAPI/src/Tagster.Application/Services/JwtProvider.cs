@@ -11,9 +11,9 @@ namespace Tagster.Application.Services
         public JwtProvider(IJwtHandler jwtHandler) 
             => _jwtHandler = jwtHandler;
 
-        public AuthDto Create(Guid userId, string email)
+        public AuthDto Create(int userId, string email)
         {
-            var jwt = _jwtHandler.CreateToken(userId.ToString(), email);
+            var jwt = _jwtHandler.CreateToken(userId, email);
 
             return new AuthDto
             {

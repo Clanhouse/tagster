@@ -5,8 +5,8 @@ namespace Tagster.Auth.Handlers
 {
     public interface IJwtHandler
     {
-        JsonWebToken CreateToken(string userId, string email);
+        JsonWebToken CreateToken(int userId, string email);
 
-        JsonWebRefreshToken CreateRefreshToken(string accessToken, Guid userId);
+        JsonWebRefreshToken CreateRefreshToken(string accessToken, int userId);
     }
 }

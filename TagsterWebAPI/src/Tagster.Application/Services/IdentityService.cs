@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Tagster.Application.Exceptions;
 using Tagster.Auth.Dtos;
+using Tagster.Auth.Exceptions;
 using Tagster.Auth.Models;
 using Tagster.Auth.Services;
 using Tagster.DataAccess.DBContexts;
@@ -43,7 +44,7 @@ namespace Tagster.Application.Services
             }
 
             var password = _passwordService.Hash(command.Password);
-            user = new User(Guid.NewGuid(), command.Email, password, DateTime.UtcNow);
+            user = new User(0, command.Email, password, DateTime.UtcNow);
             await _tagsterDb.Users.AddAsync(user, cancellationToken);
             await _tagsterDb.SaveChangesAsync(cancellationToken);
             _logger.LogInformation("Created an account for the user with id: {id}.", user.Id);

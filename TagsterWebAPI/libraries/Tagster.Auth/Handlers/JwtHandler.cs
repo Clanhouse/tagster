@@ -35,18 +35,13 @@ namespace Tagster.Auth.Handlers
             _signingCredentials = new SigningCredentials(issuerSigningKey, _options.Algorithm);
         }
 
-        public JsonWebToken CreateToken(string userId, string email)
+        public JsonWebToken CreateToken(int userId, string email)
         {
-            if (string.IsNullOrWhiteSpace(userId))
-            {
-                throw new ArgumentException("User ID claim (subject) cannot be empty.", userId);
-            }
-
             var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userId),
-                new Claim(JwtRegisteredClaimNames.UniqueName, userId),
+                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
             };
@@ -79,7 +74,7 @@ namespace Tagster.Auth.Handlers
             };
         }
 
-        public JsonWebRefreshToken CreateRefreshToken(string accessToken, Guid userId)
+        public JsonWebRefreshToken CreateRefreshToken(string accessToken, int userId)
         {
             _jwtSecurityTokenHandler.ValidateToken(accessToken, _tokenValidationParameters,
                 out var validatedSecurityToken);

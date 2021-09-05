@@ -4,6 +4,6 @@ namespace Tagster.Auth.Models
     {
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
-        public string Id { get; set; }
+        public int Id { get; set; }
     }
 }

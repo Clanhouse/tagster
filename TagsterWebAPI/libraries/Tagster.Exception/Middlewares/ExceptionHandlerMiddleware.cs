@@ -40,7 +40,7 @@ namespace Tagster.Exception.Middlewares
             var exceptionResponse = await _exceptionToResponseMapper.Map(exception);
             if (exceptionResponse is null)
             {
-                _logger.LogWarning(exception, exception.Message);
+                _logger.LogWarning(exception, "{message}", exception.Message);
                 await context.Response.WriteAsync(string.Empty);
                 return;
             }

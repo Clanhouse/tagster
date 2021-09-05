@@ -9,10 +9,10 @@ namespace Tagster.Exception.Logger
             switch (statusCode)
             {
                 case >= 500:
-                    logger.LogError(exception, exception.Message);
+                    logger.LogError(exception, "{message}", exception.Message);
                     break;
                 default:
-                    logger.LogWarning(exception, exception.Message);
+                    logger.LogWarning(exception, "{message}", exception.Message);
                     break;
             }
         }

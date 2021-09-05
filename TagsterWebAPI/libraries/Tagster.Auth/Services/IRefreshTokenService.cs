@@ -6,7 +6,7 @@ namespace Tagster.Auth.Services
 {
     public interface IRefreshTokenService
     {
-        Task<string> CreateAsync(Guid userId);
+        Task<string> CreateAsync(int userId);
         Task RevokeAsync(string refreshToken);
         Task<AuthDto> UseAsync(string refreshToken);
     }
