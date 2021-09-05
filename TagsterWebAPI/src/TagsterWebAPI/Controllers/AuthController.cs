@@ -3,8 +3,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tagster.Application.Commands.RefreshTokens;
+using Tagster.Application.Commands.SignIn;
+using Tagster.Application.Commands.SignOut;
 using Tagster.Application.Commands.SignUp;
-using Tagster.DataAccess.DBContexts;
+using Tagster.Auth.Dtos;
+using Tagster.Infrastructure.Services;
 
 namespace TagsterWebAPI.Controllers
 {
@@ -13,12 +17,12 @@ namespace TagsterWebAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly TagsterDbContext _tagsterDbContext;
+        private readonly ICookieFactory _cookieFactory;
 
-        public AuthController(IMediator mediator, TagsterDbContext tagsterDbContext)
+        public AuthController(IMediator mediator, ICookieFactory cookieFactory)
         {
             _mediator = mediator;
-            this._tagsterDbContext = tagsterDbContext;
+            _cookieFactory = cookieFactory;
         }
 
         /// <summary>
@@ -33,70 +37,63 @@ namespace TagsterWebAPI.Controllers
         public async Task<IActionResult> SignUp([FromBody] SignUp command, CancellationToken cancellationToken)
         {
             if (!command.Password.Equals(command.ConfirmPassword))
-            {
                 return BadRequest("Passwords do not match!");
-            }
 
             await _mediator.Send(command, cancellationToken);
             return Accepted();
         }
 
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //    => new string[] { "tagster authentication" };
+        /// <summary>
+        /// Sign in user 
+        /// </summary>
+        /// <param name="command">Request body which user would be sign in</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>AuthDto</returns>
+        [HttpPost("sign-in")]
+        [ProducesResponseType(typeof(AuthDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> SignIn([FromBody] SignIn command, CancellationToken cancellationToken)
+        {
+            var token = await _mediator.Send(command, cancellationToken);
+            _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
+            return Ok(token);
+        }
 
-        //[HttpPost]
-        //[Route("SignUp")]
-        //public async Task<IActionResult> SignUp(SignUpViewModel signUpViewModel)
-        //{
-        //    if (signUpViewModel.Password == signUpViewModel.ConfirmPassword
-        //        && signUpViewModel.Password.Length >= 9)
-        //    {
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        return Unauthorized();
-        //    }
-        //}
+        /// <summary>
+        /// Sign out user and revoke access and refresh token
+        /// </summary>
+        /// <param name="command">Request body which user would be sign out</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>status code 202</returns>
+        [HttpPost("sign-out")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> SignOut([FromBody] SignOut command, CancellationToken cancellationToken)
+        {
+            command.RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this);
+            await _mediator.Send(command, cancellationToken);
+            return Accepted();
+        }
 
-        //[HttpPost]
-        //[Route("")]
-        //public IActionResult SignIn()
-        //    => Ok(new SignInViewModel());
 
-        //[Authorize]
-        //[HttpPost]
-        //[Route("SignIn")]
-        //public async Task<IActionResult> SignIn(SignInViewModel signInViewModel)
-        //{
-        //    await _signInManager.PasswordSignInAsync(signInViewModel.Email,
-        //        signInViewModel.Password, false, false);
-        //    return Ok();
-        //}
+        /// <summary>
+        /// Refresh token after expire access token
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns>AuthDto</returns>
+        [HttpPost("refresh-token")]
+        [ProducesResponseType(typeof(AuthDto), StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(RevokedRefreshTokenException)/typeof(InvalidRefreshTokenException)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]                   // typeof(UserNotFoundException)
+        public async Task<IActionResult> Refresh_Token(CancellationToken cancellationToken)
+        {
+            var command = new RefreshTokens { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };
 
-        //[HttpPost]
-        //[Route("SignOut")]
-        //public async Task<IActionResult> SignOut()
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    return Ok();
-        //}
-
-        //[HttpGet("{id}")]
-        //public string Get(int id) => "value";
-
-        //[AllowAnonymous]
-        //[HttpPost("authenticate")]
-        //public IActionResult Authenticate([FromBody] UserCredential userCredential)
-        //{
-        //    var token = _jwtAuthenticationManager.Authenticate(userCredential);
-        //    if (token == null)
-        //    {
-        //        return Unauthorized();
-        //    }
-
-        //    return Ok(token);
-        //}
+            var token = await _mediator.Send<AuthDto>(command, cancellationToken);
+            _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
+            return Accepted(token);
+        }
     }
 }

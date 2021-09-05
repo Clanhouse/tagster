@@ -42,6 +42,9 @@ namespace Tagster.Swagger.Builders
             return this;
         }
 
-        public SwaggerOptions Build() => _options;
+        public SwaggerOptions Build()
+        {
+            return _options;
+        }
     }
 }

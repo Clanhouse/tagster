@@ -14,14 +14,19 @@ namespace Tagster.Infrastructure.Extensions
     public static class Extension
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-            => services
-            .AddJwt(configuration)
-            .AddRedis(configuration)
-            .AddErrorHandler<ExceptionToResponseMapper>()
-            .AddDataAccess(configuration.GetConnectionString("DefaultConnection"))
-            .AddTransient<ITagsService, TagsService>();
+        {
+            return services
+                       .AddJwt(configuration)
+                       .AddRedis(configuration)
+                       .AddErrorHandler<ExceptionToResponseMapper>()
+                       .AddDataAccess(configuration.GetConnectionString("DefaultConnection"))
+                       .AddTransient<ITagsService, TagsService>()
+                       .AddTransient<ICookieFactory, CookieFactory>();
+        }
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
-            => app.UseErrorHandler();
+        {
+            return app.UseErrorHandler();
+        }
     }
 }

@@ -1,6 +1,4 @@
 ﻿namespace Tagster.Auth.Models
 {
-    public class SignIn
-    {
-    }
+    public record SignIn(string Email, string Password);
 }

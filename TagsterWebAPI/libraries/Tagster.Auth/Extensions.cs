@@ -21,7 +21,9 @@ namespace Tagster.Auth
             string sectionName = SectionName, Action<JwtBearerOptions> optionsFactory = null)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
+            {
                 sectionName = SectionName;
+            }
 
             JwtOptions options = new();
             configuration.GetSection(sectionName).Bind(options);
@@ -61,7 +63,9 @@ namespace Tagster.Auth
                     option.IncludeErrorDetails = options.IncludeErrorDetails;
                     option.TokenValidationParameters = tokenValidationParameters;
                     if (!string.IsNullOrWhiteSpace(options.Challenge))
+                    {
                         option.Challenge = options.Challenge;
+                    }
 
                     optionsFactory?.Invoke(option);
                 });
@@ -73,6 +77,8 @@ namespace Tagster.Auth
         }
 
         public static IApplicationBuilder UseAccessTokenValidator(this IApplicationBuilder app)
-            => app.UseMiddleware<AccessTokenValidatorMiddleware>();
+        {
+            return app.UseMiddleware<AccessTokenValidatorMiddleware>();
+        }
     }
 }

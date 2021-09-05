@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Tagster.Exception.Factories;
 using Tagster.Exception.Mappers;
-using Tagster.Exception.Models;
 using Tagster.Exception.Middlewares;
-using System.Threading.Tasks;
-using System.Text.Json;
+using Tagster.Exception.Models;
 
 namespace Tagster.Exception
 {
     public static class Extensions
     {
-        public static IServiceCollection AddErrorHandler<T>(this IServiceCollection services, 
+        public static IServiceCollection AddErrorHandler<T>(this IServiceCollection services,
             JsonSerializerOptions serializerOptions = null)
             where T : class, IExceptionToResponseMapper
         {
@@ -19,7 +19,7 @@ namespace Tagster.Exception
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
-            
+
             return services
                 .AddSingleton(serializerOptions)
                 .AddTransient<ExceptionHandlerMiddleware>()
@@ -28,11 +28,16 @@ namespace Tagster.Exception
         }
 
         public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
-            => builder.UseMiddleware<ExceptionHandlerMiddleware>();
+        {
+            return builder.UseMiddleware<ExceptionHandlerMiddleware>();
+        }
 
         private class EmptyExceptionToResponseMapper : IExceptionToResponseMapper
         {
-            public Task<ExceptionResponse> Map(System.Exception exception) => null;
+            public Task<ExceptionResponse> Map(System.Exception exception)
+            {
+                return null;
+            }
         }
     }
 }

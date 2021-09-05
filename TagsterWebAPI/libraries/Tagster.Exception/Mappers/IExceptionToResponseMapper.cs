@@ -1,5 +1,5 @@
-﻿using Tagster.Exception.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Tagster.Exception.Models;
 
 namespace Tagster.Exception.Mappers
 {

@@ -4,5 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Tagster.DataAccess.Entities
 {
     [Table("Profiles")]
-    public record Profile(int Id, string Name, string LastName, ICollection<Tag> ProfileTags);
+    public record Profile
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public ICollection<Tag> ProfileTags { get; set; }
+    } 
 }

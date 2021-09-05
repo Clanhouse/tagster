@@ -1,6 +1,6 @@
-﻿using Tagster.Exception.Models;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
+using Tagster.Exception.Models;
 
 namespace Tagster.Exception.Factories
 {
@@ -27,7 +27,7 @@ namespace Tagster.Exception.Factories
         /// <param name="code"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public Task<ExceptionResponse> Create(string code, string message, 
+        public Task<ExceptionResponse> Create(string code, string message,
             HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError);
     }
 }

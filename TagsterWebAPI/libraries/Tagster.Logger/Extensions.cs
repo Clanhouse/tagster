@@ -18,19 +18,21 @@ namespace Tagster.Logger
         public static IHostBuilder UseLogging(this IHostBuilder hostBuilder, string appName, string appVersion,
             Action<LoggerConfiguration> configure = null,
             string loggerSectionName = LoggerSectionName)
-            => hostBuilder.UseSerilog((context, loggerConfiguration) =>
-            {
-                if (string.IsNullOrWhiteSpace(loggerSectionName))
-                {
-                    loggerSectionName = LoggerSectionName;
-                }
+        {
+            return hostBuilder.UseSerilog((context, loggerConfiguration) =>
+                        {
+                            if (string.IsNullOrWhiteSpace(loggerSectionName))
+                            {
+                                loggerSectionName = LoggerSectionName;
+                            }
 
-                LoggerOptions loggerOptions = new();
-                context.Configuration.GetSection(loggerSectionName).Bind(loggerOptions);
+                            LoggerOptions loggerOptions = new();
+                            context.Configuration.GetSection(loggerSectionName).Bind(loggerOptions);
 
-                MapOptions(loggerOptions, appName, appVersion, loggerConfiguration, context.HostingEnvironment.EnvironmentName);
-                configure?.Invoke(loggerConfiguration);
-            });
+                            MapOptions(loggerOptions, appName, appVersion, loggerConfiguration, context.HostingEnvironment.EnvironmentName);
+                            configure?.Invoke(loggerConfiguration);
+                        });
+        }
 
         private static void MapOptions(LoggerOptions loggerOptions, string appName, string appVersion,
             LoggerConfiguration loggerConfiguration, string environmentName)
@@ -112,8 +114,10 @@ namespace Tagster.Logger
         }
 
         private static LogEventLevel GetLogEventLevel(string level)
-            => Enum.TryParse<LogEventLevel>(level, true, out var logLevel)
-                ? logLevel
-                : LogEventLevel.Information;
+        {
+            return Enum.TryParse<LogEventLevel>(level, true, out var logLevel)
+                           ? logLevel
+                           : LogEventLevel.Information;
+        }
     }
 }

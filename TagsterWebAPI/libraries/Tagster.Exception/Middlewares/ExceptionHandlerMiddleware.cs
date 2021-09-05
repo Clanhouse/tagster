@@ -45,9 +45,9 @@ namespace Tagster.Exception.Middlewares
                 return;
             }
             var statusCode = (int)(exceptionResponse?.StatusCode ?? HttpStatusCode.BadRequest);
-            
+
             _logger.LogException(exception, statusCode);
-            
+
             context.Response.StatusCode = statusCode;
             context.Response.ContentType = "application/json";
 

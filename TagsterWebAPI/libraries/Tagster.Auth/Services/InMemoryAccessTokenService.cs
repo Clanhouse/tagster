@@ -25,20 +25,28 @@ namespace Tagster.Auth.Services
         }
 
         public Task<bool> IsCurrentActiveToken()
-            => IsActiveAsync(GetCurrentAsync());
+        {
+            return IsActiveAsync(GetCurrentAsync());
+        }
 
         public Task DeactivateCurrentAsync()
-            => DeactivateAsync(GetCurrentAsync());
+        {
+            return DeactivateAsync(GetCurrentAsync());
+        }
 
         public async Task<bool> IsActiveAsync(string token)
-            => string.IsNullOrWhiteSpace(await _cache.GetStringAsync(GetKey(token)));
+        {
+            return string.IsNullOrWhiteSpace(await _cache.GetStringAsync(GetKey(token)));
+        }
 
         public async Task DeactivateAsync(string token)
-            => await _cache.SetAsync(GetKey(token), Encoding.ASCII.GetBytes("revoked"),
-                new DistributedCacheEntryOptions
-                {
-                    AbsoluteExpirationRelativeToNow = _expires
-                });
+        {
+            await _cache.SetAsync(GetKey(token), Encoding.ASCII.GetBytes("revoked"),
+                           new DistributedCacheEntryOptions
+                           {
+                               AbsoluteExpirationRelativeToNow = _expires
+                           });
+        }
 
         private string GetCurrentAsync()
         {
@@ -50,6 +58,9 @@ namespace Tagster.Auth.Services
                 : authorizationHeader.Single().Split(' ').Last();
         }
 
-        private static string GetKey(string token) => $"blacklisted-tokens:{token}";
+        private static string GetKey(string token)
+        {
+            return $"blacklisted-tokens:{token}";
+        }
     }
 }

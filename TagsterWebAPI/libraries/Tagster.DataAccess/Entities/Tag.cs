@@ -3,5 +3,9 @@
 namespace Tagster.DataAccess.Entities
 {
     [Table("Tags")]
-    public record Tag(int Id, string TagName, int ProfileId);
+    public record Tag {
+        public int Id { get; set; }
+        public string TagName { get; set; }
+        public int ProfileId { get; set; }
+    }
 }

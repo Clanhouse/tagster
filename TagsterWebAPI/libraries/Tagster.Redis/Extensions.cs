@@ -13,7 +13,9 @@ namespace Tagster.Redis
             string sectionName = SectionName)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
+            {
                 sectionName = SectionName;
+            }
 
             RedisOptions options = new();
             configuration.GetSection(sectionName).Bind(options);
@@ -22,13 +24,17 @@ namespace Tagster.Redis
 
         public static IServiceCollection AddRedis(this IServiceCollection service,
             Func<IRedisOptionsBuilder, IRedisOptionsBuilder> buildOptions)
-            => service.AddRedis(buildOptions(new RedisOptionsBuilder()).Build());
+        {
+            return service.AddRedis(buildOptions(new RedisOptionsBuilder()).Build());
+        }
 
         public static IServiceCollection AddRedis(this IServiceCollection service, RedisOptions options)
-            => service.AddStackExchangeRedisCache(o =>
-            {
-                o.Configuration = options.ConnectionString;
-                o.InstanceName = options.Instance;
-            });
+        {
+            return service.AddStackExchangeRedisCache(o =>
+                        {
+                            o.Configuration = options.ConnectionString;
+                            o.InstanceName = options.Instance;
+                        });
+        }
     }
 }

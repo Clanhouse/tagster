@@ -9,7 +9,8 @@ namespace Tagster.Auth.Factory
     internal static class TokenValidationFactory
     {
         public static TokenValidationParameters CreateParameters(JwtOptions options)
-            => new()
+        {
+            return new()
             {
                 RequireAudience = options.RequireAudience,
                 ValidIssuer = options.ValidIssuer,
@@ -27,6 +28,7 @@ namespace Tagster.Auth.Factory
                 RequireSignedTokens = options.RequireSignedTokens,
                 ClockSkew = TimeSpan.Zero
             };
+        }
 
         public static void AddAuthenticationType(this TokenValidationParameters tokenValidationParameters,
             JwtOptions options)

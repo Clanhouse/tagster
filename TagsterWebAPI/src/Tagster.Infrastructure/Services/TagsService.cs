@@ -13,15 +13,18 @@ namespace Tagster.Infrastructure.Services
         private readonly TagsterDbContext _tagsterDb;
 
         public TagsService(TagsterDbContext tagsterDb)
-           => _tagsterDb = tagsterDb;
+        {
+            _tagsterDb = tagsterDb;
+        }
 
         public async Task<ICollection<Tag>[]> GetList(string profileName)
-            => await _tagsterDb
-                .Profiles
-                .Where(profile => profile.Name.Equals(profileName))
-                .Include(profile => profile.ProfileTags)
-                .Select(profile => profile.ProfileTags)
-                .ToArrayAsync();
-
+        {
+            return await _tagsterDb
+                           .Profiles
+                           .Where(profile => profile.Name.Equals(profileName))
+                           .Include(profile => profile.ProfileTags)
+                           .Select(profile => profile.ProfileTags)
+                           .ToArrayAsync();
+        }
     }
 }

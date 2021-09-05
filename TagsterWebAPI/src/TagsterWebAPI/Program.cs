@@ -7,14 +7,18 @@ namespace TagsterWebAPI
     public class Program
     {
         public static void Main(string[] args)
-            => CreateHostBuilder(args).Build().Run();
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-            .UseLogging("TagsterWebAPI", typeof(Program).Assembly.GetName().Version.ToString());
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+.ConfigureWebHostDefaults(webBuilder =>
+{
+    webBuilder.UseStartup<Startup>();
+})
+.UseLogging("TagsterWebAPI", typeof(Program).Assembly.GetName().Version.ToString());
+        }
     }
 }

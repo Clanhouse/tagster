@@ -12,7 +12,9 @@ namespace Tagster.Application.Services
         //private readonly IRng _rng;
 
         public RefreshTokenService(TagsterDbContext tagsterDb)
-            => _tagsterDb = tagsterDb;
+        {
+            _tagsterDb = tagsterDb;
+        }
 
         public async Task<string> CreateAsync(Guid userId)
         {

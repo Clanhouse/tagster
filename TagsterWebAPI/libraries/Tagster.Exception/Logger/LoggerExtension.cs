@@ -6,10 +6,15 @@ namespace Tagster.Exception.Logger
     {
         public static void LogException(this ILogger logger, System.Exception exception, int statusCode)
         {
-            if (statusCode >= 500)
-                logger.LogError(exception, exception.Message);
-            else
-                logger.LogWarning(exception, exception.Message);
-        } 
+            switch (statusCode)
+            {
+                case >= 500:
+                    logger.LogError(exception, exception.Message);
+                    break;
+                default:
+                    logger.LogWarning(exception, exception.Message);
+                    break;
+            }
+        }
     }
 }

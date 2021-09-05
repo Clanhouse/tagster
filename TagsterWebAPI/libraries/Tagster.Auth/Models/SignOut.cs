@@ -1,6 +1,4 @@
 ﻿namespace Tagster.Auth.Models
 {
-    public class SignOut
-    {
-    }
+    public record SignOut(string AccessToken, string RefreshToken);
 }
