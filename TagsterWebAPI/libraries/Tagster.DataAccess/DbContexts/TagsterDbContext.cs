@@ -3,7 +3,7 @@ using Tagster.DataAccess.Entities;
 
 namespace Tagster.DataAccess.DBContexts
 {
-    public class TagsterDbContext : DbContext, ITagsterDbContext
+    public class TagsterDbContext : DbContext
     {
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Profile> Profiles { get; set; }
@@ -11,14 +11,6 @@ namespace Tagster.DataAccess.DBContexts
 
         public TagsterDbContext(DbContextOptions options) : base(options)
         {
-
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Tag>().ToTable("Tags");
-            modelBuilder.Entity<Profile>().ToTable("Profiles");
-            modelBuilder.Entity<User>().ToTable("Users");
         }
     }
 }

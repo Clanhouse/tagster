@@ -8,10 +8,10 @@ namespace Tagster.Application.Services
 {
     internal sealed class RefreshTokenService : IRefreshTokenService
     {
-        private readonly ITagsterDbContext _tagsterDb;
+        private readonly TagsterDbContext _tagsterDb;
         //private readonly IRng _rng;
 
-        public RefreshTokenService(ITagsterDbContext tagsterDb)
+        public RefreshTokenService(TagsterDbContext tagsterDb)
             => _tagsterDb = tagsterDb;
 
         public async Task<string> CreateAsync(Guid userId)

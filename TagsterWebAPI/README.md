@@ -6,6 +6,7 @@
 2. [Logger](#Logger)
 3. [Redis](#Redis)
 4. [Jwt](#Jwt)
+5. [ConnectionStrings](#ConnectionStrings)
 
 Example `appsetings.json` configuration file.
 
@@ -73,6 +74,9 @@ Example `appsetings.json` configuration file.
     "validateIssuer": false,
     "validateLifetime": true,
     "allowAnonymousEndpoints": ["/sign-in", "/sign-up"]
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": ""
   },
   "AllowedHosts": "*"
 }
@@ -229,4 +233,14 @@ Example `appsetings.json` configuration file.
   "validateLifetime": true,
   "allowAnonymousEndpoints": ["/sign-in", "/sign-up"]
 }
+```
+
+### ConnectionStrings
+
+- defaultConnection - sql connection string.
+
+```json
+"connectionStrings": {
+  "defaultConnection": ""
+},
 ```

@@ -10,9 +10,9 @@ namespace Tagster.Infrastructure.Services
 {
     internal sealed class TagsService : ITagsService
     {
-        private readonly ITagsterDbContext _tagsterDb;
+        private readonly TagsterDbContext _tagsterDb;
 
-        public TagsService(ITagsterDbContext tagsterDb)
+        public TagsService(TagsterDbContext tagsterDb)
            => _tagsterDb = tagsterDb;
 
         public async Task<ICollection<Tag>[]> GetList(string profileName)

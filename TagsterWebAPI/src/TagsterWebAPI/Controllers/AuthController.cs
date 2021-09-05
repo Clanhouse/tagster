@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.SignUp;
+using Tagster.DataAccess.DBContexts;
 
 namespace TagsterWebAPI.Controllers
 {
@@ -12,9 +13,13 @@ namespace TagsterWebAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly TagsterDbContext _tagsterDbContext;
 
-        public AuthController(IMediator mediator)
-            => _mediator = mediator;
+        public AuthController(IMediator mediator, TagsterDbContext tagsterDbContext)
+        {
+            _mediator = mediator;
+            this._tagsterDbContext = tagsterDbContext;
+        }
 
         /// <summary>
         /// Sign up user
@@ -28,7 +33,9 @@ namespace TagsterWebAPI.Controllers
         public async Task<IActionResult> SignUp([FromBody] SignUp command, CancellationToken cancellationToken)
         {
             if (!command.Password.Equals(command.ConfirmPassword))
+            {
                 return BadRequest("Passwords do not match!");
+            }
 
             await _mediator.Send(command, cancellationToken);
             return Accepted();
