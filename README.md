@@ -28,7 +28,7 @@ dotnet build -c Release -o Publish
 
 ```json
  "ConnectionStrings": {
-    "DefaultConnection": ""
+    "DefaultConnection": "Server=(server name);Database=Tagster;Trusted_Connection=True;MultipleActiveResultSets=true"
   },
 ```
 
