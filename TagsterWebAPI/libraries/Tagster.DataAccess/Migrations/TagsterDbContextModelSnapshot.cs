@@ -37,6 +37,33 @@ namespace Tagster.DataAccess.Migrations
                     b.ToTable("Profiles");
                 });
 
+<<<<<<< HEAD
+=======
+            modelBuilder.Entity("Tagster.DataAccess.Entities.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("RevokedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RefreshTokens");
+                });
+
+>>>>>>> e56f5e008b44f871bf3346eb31d0999174b491f7
             modelBuilder.Entity("Tagster.DataAccess.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -59,9 +86,16 @@ namespace Tagster.DataAccess.Migrations
 
             modelBuilder.Entity("Tagster.DataAccess.Entities.User", b =>
                 {
+<<<<<<< HEAD
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+=======
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+>>>>>>> e56f5e008b44f871bf3346eb31d0999174b491f7
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");

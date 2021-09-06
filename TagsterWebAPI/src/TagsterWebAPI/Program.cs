@@ -12,6 +12,7 @@ namespace TagsterWebAPI
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)
+<<<<<<< HEAD
         {
             return Host.CreateDefaultBuilder(args)
 .ConfigureWebHostDefaults(webBuilder =>
@@ -20,5 +21,13 @@ namespace TagsterWebAPI
 })
 .UseLogging("TagsterWebAPI", typeof(Program).Assembly.GetName().Version.ToString());
         }
+=======
+            => Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            })
+            .UseLogging("TagsterWebAPI", typeof(Program).Assembly.GetName().Version.ToString());
+>>>>>>> e56f5e008b44f871bf3346eb31d0999174b491f7
     }
 }

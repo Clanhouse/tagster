@@ -35,6 +35,7 @@ namespace Tagster.Auth.Handlers
             _signingCredentials = new SigningCredentials(issuerSigningKey, _options.Algorithm);
         }
 
+<<<<<<< HEAD
         public JsonWebToken CreateToken(string userId, string email)
         {
             if (string.IsNullOrWhiteSpace(userId))
@@ -47,6 +48,15 @@ namespace Tagster.Auth.Handlers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId),
                 new Claim(JwtRegisteredClaimNames.UniqueName, userId),
+=======
+        public JsonWebToken CreateToken(int userId, string email)
+        {
+            var now = DateTime.UtcNow;
+            var jwtClaims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
+>>>>>>> e56f5e008b44f871bf3346eb31d0999174b491f7
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
             };
@@ -79,7 +89,11 @@ namespace Tagster.Auth.Handlers
             };
         }
 
+<<<<<<< HEAD
         public JsonWebRefreshToken CreateRefreshToken(string accessToken, Guid userId)
+=======
+        public JsonWebRefreshToken CreateRefreshToken(string accessToken, int userId)
+>>>>>>> e56f5e008b44f871bf3346eb31d0999174b491f7
         {
             _jwtSecurityTokenHandler.ValidateToken(accessToken, _tokenValidationParameters,
                 out var validatedSecurityToken);
