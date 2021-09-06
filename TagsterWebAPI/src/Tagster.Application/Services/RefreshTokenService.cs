@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Epilepsy_Health_App.Services.Identity.Application.Exceptions;
 using Tagster.Application.Exceptions;
 using Tagster.Auth.Dtos;
-using Tagster.Auth.Models;
 using Tagster.Auth.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
@@ -28,7 +27,7 @@ namespace Tagster.Application.Services
         {
             var token = _rng.Generate(removeSpecialChars: true);
             await _tagsterDb.RefreshTokens.AddAsync(
-                new RefreshToken(0, token, DateTime.UtcNow, DateTime.UtcNow.AddDays(7)));
+                new RefreshToken(token, DateTime.UtcNow, userId, DateTime.UtcNow.AddDays(7)));
             await _tagsterDb.SaveChangesAsync();
 
             return token;
@@ -36,32 +35,33 @@ namespace Tagster.Application.Services
 
         public async Task RevokeAsync(string refreshToken)
         {
-            var token = _tagsterDb.RefreshTokens.FirstOrDefault(x=>x.Token.Equals(refreshToken));
+            var token = _tagsterDb.RefreshTokens.FirstOrDefault(x => x.Token.Equals(refreshToken));
             if (token is null)
                 throw new InvalidRefreshTokenException();
 
             _tagsterDb.RefreshTokens.Update(
-                new RefreshToken(token.Id, token.Token, token.CreatedAt, DateTime.UtcNow));
+                new RefreshToken(token.Token, token.CreatedAt, token.UserId, DateTime.UtcNow));
             await _tagsterDb.SaveChangesAsync();
         }
 
         public async Task<AuthDto> UseAsync(string refreshToken)
         {
-            var token = _tagsterDb.RefreshTokens.FirstOrDefault(x=>x.Token.Equals(refreshToken));
+            var token = _tagsterDb.RefreshTokens.FirstOrDefault(x => x.Token.Equals(refreshToken));
 
             if (token is null)
                 throw new InvalidRefreshTokenException();
 
-
             if (DateTime.Compare(DateTime.Now, token.RevokedAt.Value) > 0)
                 throw new RevokedRefreshTokenException();
 
-            var user = await _userRepository.GetAsync(token.UserId);
+            var user = await _tagsterDb.Users.FindAsync(token.UserId);
             if (user is null)
                 throw new UserNotFoundException(token.UserId);
 
             var auth = _jwtProvider.Create(token.UserId, user.Email);
-            await _refreshTokenRepository.UpdateAsync(new RefreshToken(token.Id, token.UserId, token.Token, DateTime.UtcNow, DateTime.UtcNow.AddDays(7)));
+            _tagsterDb.RefreshTokens.Update(
+               new RefreshToken(token.Id, token.Token, DateTime.UtcNow, token.UserId, DateTime.UtcNow.AddDays(7)));
+            await _tagsterDb.SaveChangesAsync();
 
             auth.RefreshToken = refreshToken;
 

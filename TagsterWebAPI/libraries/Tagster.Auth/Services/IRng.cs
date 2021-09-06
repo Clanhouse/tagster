@@ -1,4 +1,4 @@
-﻿namespace Tagster.Application.Services
+﻿namespace Tagster.Auth.Services
 {
     public interface IRng
     {

@@ -15,7 +15,7 @@ namespace Tagster.Application.Commands.SignUp
 
         public async Task<Unit> Handle(SignUp request, CancellationToken cancellationToken)
         {
-            await _identityService.SignUpAsync(new Auth.Models.SignUp(request.Password, request.Email), cancellationToken);
+            await _identityService.SignUpAsync(new Auth.Models.SignUp(request.Email, request.Password), cancellationToken);
             return Unit.Value;
         }
     }

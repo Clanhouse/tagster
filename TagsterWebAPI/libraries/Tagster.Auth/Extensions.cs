@@ -37,6 +37,7 @@ namespace Tagster.Auth
             service.AddTransient<IJwtHandler, JwtHandler>()
                 .AddTransient<AccessTokenValidatorMiddleware>()
                 .AddTransient<IPasswordService, PasswordService>()
+                .AddTransient<IRng, Rng>()
                 .AddSingleton<IPasswordHasher<IPasswordService>, PasswordHasher<IPasswordService>>()
                 .AddSingleton<IAccessTokenService, InMemoryAccessTokenService>()
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

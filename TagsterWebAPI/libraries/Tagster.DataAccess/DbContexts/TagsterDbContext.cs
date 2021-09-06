@@ -13,5 +13,24 @@ namespace Tagster.DataAccess.DBContexts
         public TagsterDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Tag>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Profile>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<RefreshToken>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+        }
     }
 }

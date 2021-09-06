@@ -12,14 +12,19 @@ namespace Tagster.DataAccess.Entities
         public string Token { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime? RevokedAt { get; private set; }
+        public int UserId { get; set; }
 
-        public RefreshToken(int id, string token, DateTime createdAt,
-           DateTime? revokedAt = null)
+        public RefreshToken(string token, DateTime createdAt,
+           int userId, DateTime? revokedAt = null)
         {
-            Id = id;
             Token = token;
             CreatedAt = createdAt;
             RevokedAt = revokedAt;
+            UserId = userId;
         }
+
+        public RefreshToken(int id, string token, DateTime createdAt,
+          int userId, DateTime? revokedAt = null) : this(token, createdAt, userId, revokedAt)
+            => Id = id;
     }
 }
