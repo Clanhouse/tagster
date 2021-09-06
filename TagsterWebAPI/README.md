@@ -76,7 +76,7 @@ Example `appsetings.json` configuration file.
     "allowAnonymousEndpoints": ["/sign-in", "/sign-up"]
   },
   "ConnectionStrings": {
-    "DefaultConnection": ""
+    "DefaultConnection": "Server=(server name);Database=Tagster;Trusted_Connection=True;MultipleActiveResultSets=true"
   },
   "AllowedHosts": "*"
 }
@@ -241,6 +241,6 @@ Example `appsetings.json` configuration file.
 
 ```json
 "connectionStrings": {
-  "defaultConnection": ""
+  "defaultConnection": "Server=(server name);Database=Tagster;Trusted_Connection=True;MultipleActiveResultSets=true"
 },
 ```
