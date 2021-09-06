@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tagster.DataAccess.Entities
 {
-    public class Profile
+    [Table("Profiles")]
+    public record Profile
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public ICollection<Tag> ProfileTags { get; set; } = new List<Tag>();
-    }
+        public ICollection<Tag> ProfileTags { get; set; }
+    } 
 }

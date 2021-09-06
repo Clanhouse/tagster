@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Services;
 using Tagster.DataAccess.Entities;
-using Microsoft.AspNetCore.Authorization;
 
 namespace TagsterWebAPI.Controllers
 {
@@ -15,11 +14,9 @@ namespace TagsterWebAPI.Controllers
         private readonly ITagsService _tagService;
 
         public TagsController(ITagsService tagService)
-            => _tagService = tagService;
-
-        /*[HttpGet]
-        public string StartMessage()
-            => "Welcome!";*/
+        {
+            _tagService = tagService;
+        }
 
         /// <summary>
         /// Get all tags for profile
@@ -31,9 +28,8 @@ namespace TagsterWebAPI.Controllers
         [Route("{profileName}")]
         [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
         public async Task<IActionResult> TagsOnProfile(string profileName)
-            => Ok(await _tagService.GetList(profileName));
-
-
-
+        {
+            return Ok(await _tagService.GetList(profileName));
+        }
     }
 }
