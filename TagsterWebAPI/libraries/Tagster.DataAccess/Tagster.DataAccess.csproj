@@ -20,4 +20,10 @@
 	  <Folder Include="Migrations\" />
 	</ItemGroup>
 
+  <ItemGroup>
+    <None Update="Models\FakeData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
