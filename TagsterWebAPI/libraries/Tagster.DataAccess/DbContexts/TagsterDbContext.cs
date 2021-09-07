@@ -8,11 +8,6 @@ namespace Tagster.DataAccess.DBContexts
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<User> Users { get; set; }
-<<<<<<< HEAD
-
-        public TagsterDbContext(DbContextOptions options) : base(options)
-        {
-=======
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public TagsterDbContext(DbContextOptions options) : base(options)
@@ -36,7 +31,6 @@ namespace Tagster.DataAccess.DBContexts
             modelBuilder.Entity<RefreshToken>()
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
->>>>>>> e56f5e008b44f871bf3346eb31d0999174b491f7
         }
     }
 }
