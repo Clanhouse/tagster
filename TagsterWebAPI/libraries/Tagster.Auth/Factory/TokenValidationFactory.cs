@@ -53,8 +53,6 @@ namespace Tagster.Auth.Factory
                     certificate = hasPassword
                         ? new X509Certificate2(options.Certificate.Location, password)
                         : new X509Certificate2(options.Certificate.Location);
-                    var keyType = certificate.HasPrivateKey ? "with private key" : "with public key only";
-                    Console.WriteLine($"Loaded X.509 certificate from location: '{options.Certificate.Location}' {keyType}.");
                 }
 
                 if (!string.IsNullOrWhiteSpace(options.Certificate.RawData))
@@ -63,21 +61,15 @@ namespace Tagster.Auth.Factory
                     certificate = hasPassword
                         ? new X509Certificate2(rawData, password)
                         : new X509Certificate2(rawData);
-                    var keyType = certificate.HasPrivateKey ? "with private key" : "with public key only";
-                    Console.WriteLine($"Loaded X.509 certificate from raw data {keyType}.");
                 }
 
                 if (certificate is { })
                 {
                     if (string.IsNullOrWhiteSpace(options.Algorithm))
-                    {
                         options.Algorithm = SecurityAlgorithms.RsaSha256;
-                    }
 
                     hasCertificate = true;
                     tokenValidationParameters.IssuerSigningKey = new X509SecurityKey(certificate);
-                    var actionType = certificate.HasPrivateKey ? "issuing" : "validating";
-                    Console.WriteLine($"Using X.509 certificate for {actionType} tokens.");
                 }
             }
             if (!string.IsNullOrWhiteSpace(options.IssuerSigningKey) && !hasCertificate)
@@ -89,7 +81,6 @@ namespace Tagster.Auth.Factory
 
                 var rawKey = Encoding.UTF8.GetBytes(options.IssuerSigningKey);
                 tokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(rawKey);
-                Console.WriteLine("Using symmetric encryption for issuing tokens.");
             }
         }
 

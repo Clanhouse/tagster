@@ -1,5 +1,4 @@
-﻿using System;
-using Tagster.Auth.Dtos;
+﻿using Tagster.Auth.Dtos;
 
 namespace Tagster.Application.Services
 {

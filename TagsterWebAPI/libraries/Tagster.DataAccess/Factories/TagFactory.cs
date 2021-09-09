@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tagster.DataAccess.Models;
 using Tagster.DataAccess.Entities;
 
@@ -18,8 +15,11 @@ namespace Tagster.DataAccess.Factories
             for (int j = 0; j < rand.Next(maxTagsPerProfile); j++)
             {
                 string tagName = fakeData.Tags[rand.Next(fakeData.Tags.Length)];
-                Tag tag = new Tag();
-                tag.TagName = tagName;
+                Tag tag = new()
+                {
+                    TagName = tagName
+                };
+
                 tags.Add(tag);
             }
             return tags;

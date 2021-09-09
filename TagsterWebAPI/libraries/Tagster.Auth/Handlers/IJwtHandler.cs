@@ -1,4 +1,3 @@
-using System;
 using Tagster.Auth.Models;
 
 namespace Tagster.Auth.Handlers

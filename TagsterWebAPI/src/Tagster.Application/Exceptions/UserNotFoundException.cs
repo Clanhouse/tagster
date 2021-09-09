@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using Tagster.Exception.Models;
 
 namespace Epilepsy_Health_App.Services.Identity.Application.Exceptions
