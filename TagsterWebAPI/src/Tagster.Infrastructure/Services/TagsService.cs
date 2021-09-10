@@ -1,18 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tagster.Application.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
+using Tagster.DataAccess.Factories;
 
 namespace Tagster.Infrastructure.Services
 {
     internal sealed class TagsService : ITagsService
     {
-        private readonly ITagsterDbContext _tagsterDb;
+        private readonly TagsterDbContext _tagsterDb;
+        //private readonly TagsterDbContext _context;
 
-        public TagsService(ITagsterDbContext tagsterDb)
+        public TagsService(TagsterDbContext tagsterDb)
            => _tagsterDb = tagsterDb;
 
         public async Task<ICollection<Tag>[]> GetList(string profileName) 
@@ -23,5 +26,12 @@ namespace Tagster.Infrastructure.Services
                 .Select(profile => profile.ProfileTags)
                 .ToArrayAsync();
 
+        public async Task InstertData(string surname, string name, ICollection<Tag> tags)
+        {
+            Profile profile = ProfileFactory.Create(surname, name, tags);
+
+            await _tagsterDb.Profiles.AddAsync(profile);
+            //await _tagsterDb.SaveChangesAsync();
+        }
     }
 }
