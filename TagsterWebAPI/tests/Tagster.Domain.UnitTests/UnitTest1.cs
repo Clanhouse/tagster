@@ -7,6 +7,8 @@ namespace Tagster.Domain.UnitTests
         //dummy test
         [Fact]
         public void Test1()
-            => Assert.True(true);
+        {
+            Assert.True(true);
+        }
     }
 }

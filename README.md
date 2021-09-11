@@ -1,6 +1,6 @@
 # Tagster
 
-Tagsster is a backend and frontend application that allows you to add tags to browsed profiles on [LinkedIn](https://www.linkedin.com).
+Tagster is a backend and frontend application that allows you to add tags to browsed profiles on [LinkedIn](https://www.linkedin.com).
 
 ## Prerequisites
 
@@ -24,21 +24,12 @@ dotnet build -c Release -o Publish
 ```
 
 4. Go to `Publish` folder.
-5. Change connection string in `appsettings.json`
-
-```json
- "ConnectionStrings": {
-    "DefaultConnection": "Server=(server name);Database=Tagster;Trusted_Connection=True;MultipleActiveResultSets=true"
-  },
-```
-
+5. Configure `appsettings.json`. To see more go to [backend configuration](./TagsterWebAPI/README.md)
 6. Start application
 
 ```shell
 TagsterWebAPI.exe
 ```
-
-After start you should see logs from application.
 
 ### Extension
 
