@@ -6,5 +6,6 @@ namespace Tagster.Application.Extensions
     {
         public static IServiceCollection AddApplication(this IServiceCollection services) 
             => services;
+
     }
 }

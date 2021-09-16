@@ -10,5 +10,6 @@ namespace Tagster.DataAccess.Extensions
             => services.AddDbContext<TagsterDbContext>(options => options
             .UseSqlServer(connectionString))
             .AddScoped<ITagsterDbContext, TagsterDbContext>();
+        
     }
 }

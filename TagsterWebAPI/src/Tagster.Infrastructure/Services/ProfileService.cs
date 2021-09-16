@@ -25,7 +25,7 @@ namespace Tagster.Infrastructure.Services
             };
 
             await _context.Profiles.AddAsync(profile);
-            await _context.SaveChangesAsync();
+             await _context.SaveChangesAsync();
         }
     }
 }

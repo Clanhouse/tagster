@@ -1,14 +1,17 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Tagster.DataAccess.Entities;
 using Tagster.Infrastructure.Extensions;
 
 namespace TagsterWebAPI
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration) 
             => Configuration = configuration;
 
@@ -18,7 +21,9 @@ namespace TagsterWebAPI
         {
             services.AddControllers();
             services.AddSwaggerGen()
-                .AddInfrastructure();
+                .AddInfrastructure()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<TagValidator>()
+                .RegisterValidatorsFromAssemblyContaining<ProfileValidator>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

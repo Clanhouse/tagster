@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -26,7 +27,10 @@ namespace TagsterWebAPI.Controllers
         [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SetTags(string href, ICollection<Tag> tags)
-            => Ok(await _tagService.PutList(href, tags));
-        
+        {
+            if (ModelState.IsValid)
+                return BadRequest();
+            return Ok(await _tagService.PutList(href, tags));
+        }
     }
 }
