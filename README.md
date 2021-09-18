@@ -9,6 +9,7 @@ You need install:
 - [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
 - [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
 - [Chrome](https://www.google.com/chrome)
+- [NPM](https://nodejs.org/)
 
 ## Usage
 
@@ -33,11 +34,22 @@ TagsterWebAPI.exe
 
 ### Extension
 
-2. Open Chrome and go to: "chrome://extensions/"
-3. Install extension:
-   - Drag & drop folder "extension" on that page.
+2. Open console in folder "extension"
+3. Get all dependences using command 
+```shell
+npm install 
+```
+4. Run local development server using:
+```shell
+npm run serve
+```
+This command should create folder "dist" 
+
+5. Open Chrome and go to: "chrome://extensions/"
+6. Install extension in chrome:
+   - Drag & drop folder "dist" on that page.
    - Another way to install:
      - click "bundle the extension" -> "extension root directory" -> "browse"
-     - Find Extension folder, open it, press "select folder" -> "bundle the extension"
+     - Find "dist" folder, open it, press "select folder" -> "bundle the extension"
      - Now, click "Load unpacked" -> choose same folder as previous & press "select folder"
-4. Extension installed. Click on puzzle icon, in the upper right corner of the screen to use and manage.
+7. Extension installed. Click on puzzle icon, in the upper right corner of the screen to use and manage.
