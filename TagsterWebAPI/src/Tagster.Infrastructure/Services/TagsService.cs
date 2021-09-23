@@ -26,12 +26,12 @@ namespace Tagster.Infrastructure.Services
                 .Select(profile => profile.ProfileTags)
                 .ToArrayAsync();
 
-        public async Task InstertData(string surname, string name, ICollection<Tag> tags)
+        public async Task InstertDataAsync(string surname, string name, ICollection<Tag> tags)
         {
             Profile profile = ProfileFactory.Create(surname, name, tags);
 
             await _tagsterDb.Profiles.AddAsync(profile);
-            //await _tagsterDb.SaveChangesAsync();
+            await _tagsterDb.SaveChangesAsync();
         }
     }
 }

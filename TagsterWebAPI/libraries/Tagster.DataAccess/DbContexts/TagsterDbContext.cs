@@ -15,8 +15,8 @@ namespace Tagster.DataAccess.DBContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Tag>().ToTable("Tag");
-            modelBuilder.Entity<Profile>().ToTable("Profile");
+            modelBuilder.Entity<Tag>().ToTable("Tags");
+            modelBuilder.Entity<Profile>().ToTable("Profiles");
         }
     }
 }
