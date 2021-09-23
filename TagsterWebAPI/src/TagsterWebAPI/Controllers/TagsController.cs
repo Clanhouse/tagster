@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tagster.Application.Commands.AddTagsToProfile;
 using Tagster.Application.Services;
 using Tagster.DataAccess.Entities;
 
@@ -12,10 +14,12 @@ namespace TagsterWebAPI.Controllers
     public class TagsController : ControllerBase
     {
         private readonly ITagsService _tagService;
+        private readonly IMediator _mediator;
 
-        public TagsController(ITagsService tagService)
+        public TagsController(ITagsService tagService, IMediator mediator)
         {
             _tagService = tagService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -31,10 +35,10 @@ namespace TagsterWebAPI.Controllers
             => Ok(await _tagService.GetList(profileName));
 
         [HttpPut]
-        [Route("{name}/{surname}/{tags}")]
-        public async Task<IActionResult> InsertData(string name, string surname, ICollection<Tag> tags)
+        [Route("")]
+        public async Task<IActionResult> InsertData([FromBody] AddTagsToProfile command)
         {
-            await _tagService.InstertDataAsync(surname, name, tags);
+            await _mediator.Send(command);
             return Ok();
         }
     }
