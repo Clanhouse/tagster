@@ -31,8 +31,8 @@ namespace TagsterWebAPI.Controllers
         public async Task<IActionResult> TagsOnProfile(string profileName)
             => Ok(await _tagService.GetList(profileName));
 
-        [HttpGet]
-        [Route("insert/{name}/{surname}/{tags}")]
+        [HttpPut]
+        [Route("{name}/{surname}/{tags}")]
         public async Task<IActionResult> InsertData(string name, string surname, ICollection<Tag> tags)
         {
             await _tagService.InstertDataAsync(surname, name, tags);
