@@ -27,9 +27,9 @@ namespace Tagster.Infrastructure.Services
                 .Select(profile => profile.ProfileTags)
                 .ToArrayAsync();
 
-        public async Task InstertDataAsync(string surname, string name, ICollection<Tag> tags)
+        public async Task InstertDataAsync(Profile profile)
         {
-            Profile profile = ProfileFactory.Create(surname, name, tags); //PARAMETERS SHOULD BE CLASS (MODEL)
+            //Profile profile = ProfileFactory.Create(surname, name, tags); //PARAMETERS SHOULD BE CLASS (MODEL)
 
             await _tagsterDb.Profiles.AddAsync(profile);
             await _tagsterDb.SaveChangesAsync();
