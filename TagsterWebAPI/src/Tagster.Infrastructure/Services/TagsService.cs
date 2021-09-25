@@ -29,8 +29,6 @@ namespace Tagster.Infrastructure.Services
 
         public async Task InstertDataAsync(Profile profile)
         {
-            //Profile profile = ProfileFactory.Create(surname, name, tags); //PARAMETERS SHOULD BE CLASS (MODEL)
-
             await _tagsterDb.Profiles.AddAsync(profile);
             await _tagsterDb.SaveChangesAsync();
         }

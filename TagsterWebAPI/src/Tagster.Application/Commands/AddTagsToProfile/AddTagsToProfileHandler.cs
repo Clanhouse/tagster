@@ -20,9 +20,9 @@ namespace Tagster.Application.Commands.AddTagsToProfile
 
         public async Task<Unit> Handle(AddTagsToProfile request, CancellationToken cancellationToken)
         {
-            ProfileFactory.Create(request.Surname, request.Name, request.Tag);
+            Profile profile = ProfileFactory.Create(request.Name, request.Surname, request.Tags);
 
-            await _tagService.InstertDataAsync(request.Name,"", new List<Tag>());
+            await _tagService.InstertDataAsync(profile);
             return Unit.Value;
         }
     }
