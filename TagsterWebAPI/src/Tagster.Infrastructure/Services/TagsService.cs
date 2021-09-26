@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Tagster.Application.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
-using Tagster.DataAccess.Factories;
 
 namespace Tagster.Infrastructure.Services
 {
