@@ -4,7 +4,7 @@ using MediatR;
 using Tagster.Application.Services;
 using Tagster.CQRS.Commands.Handlers;
 using Tagster.DataAccess.Entities;
-using Tagster.DataAccess.Factories;
+using Tagster.Application.Factories;
 
 namespace Tagster.Application.Commands.AddTagsToProfile
 {
@@ -19,7 +19,7 @@ namespace Tagster.Application.Commands.AddTagsToProfile
 
         public async Task<Unit> Handle(AddTagsToProfile request, CancellationToken cancellationToken)
         {
-            Profile profile = ProfileFactory.Create(request.Name, request.Surname, request.Tags);
+            Profile profile = ProfileFactory.Create(request);
 
             await _tagService.InstertDataAsync(profile);
             return Unit.Value;
