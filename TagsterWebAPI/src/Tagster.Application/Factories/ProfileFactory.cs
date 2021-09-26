@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Tagster.Application.Commands.AddTagsToProfile;
+﻿using Tagster.Application.Commands.AddTagsToProfile;
 using Tagster.DataAccess.Entities;
 
 namespace Tagster.Application.Factories

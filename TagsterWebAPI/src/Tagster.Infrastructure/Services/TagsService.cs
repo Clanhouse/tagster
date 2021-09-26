@@ -11,7 +11,6 @@ namespace Tagster.Infrastructure.Services
     internal sealed class TagsService : ITagsService
     {
         private readonly TagsterDbContext _tagsterDb;
-        //private readonly TagsterDbContext _context;
 
         public TagsService(TagsterDbContext tagsterDb)
            => _tagsterDb = tagsterDb;
