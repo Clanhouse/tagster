@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Tagster.DataAccess.Models;
 using Tagster.DataAccess.Entities;
 
-namespace Tagster.DataAccess.Factories
+namespace Tagster.Application.Factories
 {
     public class TagFactory
     {

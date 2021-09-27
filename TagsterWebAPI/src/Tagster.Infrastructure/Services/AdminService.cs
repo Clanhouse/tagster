@@ -38,7 +38,7 @@ namespace Tagster.Infrastructure.Services
 
                 ICollection<Tag> tags = TagFactory.Create(maxTagsPerProfile, fakeData);
 
-                Profile profile = ProfileFactory.Create(i, surname, name, tags);
+                Profile profile = ProfileFactory.Create(surname, name, tags);
 
                 await _context.Profiles.AddAsync(profile);
             }
