@@ -9,9 +9,7 @@ namespace TagsterWebAPI.Controllers
     {
         private readonly IAdminService _adminService;
 
-        public AdminController()
-        {
-        }
+ 
 
         public AdminController(IAdminService adminService)
             => _adminService = adminService;

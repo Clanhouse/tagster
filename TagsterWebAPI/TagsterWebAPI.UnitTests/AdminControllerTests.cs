@@ -12,14 +12,14 @@ namespace TagsterWebAPI.UnitTests
     {
         [Fact]
         /// Generates (profilesCount) profiles and assigns to them number of tags between 0 and (maxTagsPerProfile)
-        public void Generates_Profiles_AssignsToThemNumberOfTags_Between_0_and_Max()
+        public async void Generates_Profiles_AssignsToThemNumberOfTags_Between_0_and_Max()
         {
             //Arrange
-            var adminController = new AdminController(); 
+            var admin = new AdminController();
 
             //Act
-
-
+            /*await admin.CreateFakeDataAsync(1, 7);
+            return Ok();*/
             //Assert
         }
     }
