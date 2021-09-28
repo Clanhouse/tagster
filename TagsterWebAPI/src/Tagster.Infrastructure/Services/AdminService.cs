@@ -5,9 +5,9 @@ using Tagster.Application.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
 using Tagster.DataAccess.Models;
-using Tagster.DataAccess.Factories;
 using System.Text.Json;
 using System.IO;
+using Tagster.Application.Factories;
 
 namespace Tagster.Infrastructure.Services
 {
