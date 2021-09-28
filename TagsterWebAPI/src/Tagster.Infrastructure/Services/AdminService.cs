@@ -15,12 +15,8 @@ namespace Tagster.Infrastructure.Services
     internal sealed class AdminService : IAdminService
     {
         private readonly TagsterDbContext _context;
-        private readonly GenFakeData request;
 
-        public AdminService(TagsterDbContext context)
-        {
-            _context = context;
-        }
+        public AdminService(TagsterDbContext context) => _context = context;
 
         public async Task CreateFakeDataAsync(GenFakeData request)
         {
@@ -32,13 +28,13 @@ namespace Tagster.Infrastructure.Services
             string json = new StreamReader(Path.Combine(AppContext.BaseDirectory, "FakeData.json")).ReadToEnd();
 
             FakeData fakeData = JsonSerializer.Deserialize<FakeData>(json);
-            for (int i = 0; i < request.profilesCount; i++)
+            for (int i = 0; i < request.ProfilesCount; i++)
             {
                 string name = fakeData.Names[rand.Next(fakeData.Names.Length)];
 
                 string surname = fakeData.Surnames[rand.Next(fakeData.Surnames.Length)];
 
-                ICollection<Tag> tags = TagFactory.Create(request.maxTagsPerProfile, fakeData);
+                ICollection<Tag> tags = TagFactory.Create(request.MaxTagsPerProfile, fakeData);
 
                 request.Tags = tags;
                 request.Name = name;

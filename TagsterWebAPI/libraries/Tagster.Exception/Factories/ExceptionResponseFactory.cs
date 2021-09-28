@@ -1,10 +1,12 @@
 ﻿using System.Net;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Tagster.Exception.Models;
 
+[assembly: InternalsVisibleTo("Tagster.Exception.UnitTests")]
 namespace Tagster.Exception.Factories
 {
-    public sealed class ExceptionResponseFactory : IExceptionResponseFactory
+    internal sealed class ExceptionResponseFactory : IExceptionResponseFactory
     {
         public Task<ExceptionResponse> Create(BaseException ex)
         {
