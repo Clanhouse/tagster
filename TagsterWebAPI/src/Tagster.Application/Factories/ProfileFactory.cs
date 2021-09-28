@@ -1,4 +1,5 @@
 ﻿using Tagster.Application.Commands.AddTagsToProfile;
+using Tagster.Application.Commands.GenFakeData;
 using Tagster.DataAccess.Entities;
 
 namespace Tagster.Application.Factories
@@ -7,6 +8,8 @@ namespace Tagster.Application.Factories
     {
         public static Profile Create(AddTagsToProfile request)
                 => new() { Name = request.Name, LastName = request.Surname, ProfileTags = request.Tags };
+        public static Profile RandCreate(GenFakeData request)
+        => new() { Name = request.Name, LastName = request.Surname, ProfileTags = request.Tags };
 
     }
 }
