@@ -245,10 +245,6 @@ Example `appsetings.json` configuration file.
 
 ```json
 "connectionStrings": {
-<<<<<<< HEAD
-  "defaultConnection": ""
-=======
   "defaultConnection": "Server=(server name);Database=Tagster;Trusted_Connection=True;MultipleActiveResultSets=true"
->>>>>>> e56f5e008b44f871bf3346eb31d0999174b491f7
 },
 ```
