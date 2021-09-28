@@ -4,7 +4,7 @@ using Tagster.Exception.Models;
 
 namespace Tagster.Exception.Factories
 {
-    internal sealed class ExceptionResponseFactory : IExceptionResponseFactory
+    public sealed class ExceptionResponseFactory : IExceptionResponseFactory
     {
         public Task<ExceptionResponse> Create(BaseException ex)
         {
