@@ -18,15 +18,16 @@ You need install:
 ### Backend
 
 2. Open terminal and go to folder [`TagsterWebAPI`](./TagsterWebAPI).
-3. Build and publish application with commands below
+3. Initialize database.
+4. Build and publish application with commands below
 
 ```shell
 dotnet build -c Release -o Publish
 ```
 
-4. Go to `Publish` folder.
-5. Configure `appsettings.json`. To see more go to [backend configuration](./TagsterWebAPI/README.md)
-6. Start application
+5. Go to `Publish` folder.
+6. Configure `appsettings.json`. To see more go to [backend configuration](./TagsterWebAPI/README.md)
+7. Start application
 
 ```shell
 TagsterWebAPI.exe
@@ -35,15 +36,19 @@ TagsterWebAPI.exe
 ### Extension
 
 2. Open console in folder "extension"
-3. Get all dependences using command 
+3. Get all dependences using command
+
 ```shell
-npm install 
+npm install
 ```
+
 4. Run local development server using:
+
 ```shell
 npm run serve
 ```
-This command should create folder "dist" 
+
+This command should create folder "dist"
 
 5. Open Chrome and go to: "chrome://extensions/"
 6. Install extension in chrome:
