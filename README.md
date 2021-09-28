@@ -58,3 +58,5 @@ This command should create folder "dist"
      - Find "dist" folder, open it, press "select folder" -> "bundle the extension"
      - Now, click "Load unpacked" -> choose same folder as previous & press "select folder"
 7. Extension installed. Click on puzzle icon, in the upper right corner of the screen to use and manage.
+
+dotnet ef dbcontext script -p .\libraries\Tagster.DataAccess\Tagster.DataAccess.csproj -s .\src\TagsterWebAPI\TagsterWebAPI.csproj -o script.sql
