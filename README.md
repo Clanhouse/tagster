@@ -18,7 +18,19 @@ You need install:
 ### Backend
 
 2. Open terminal and go to folder [`TagsterWebAPI`](./TagsterWebAPI).
-3. Initialize database.
+3. Generate sql srcipt to initialize database:
+
+- go to [TagsterWebAPI](./TagsterWebAPI/src/TagsterWebAPI) folder with .Net project
+- open [appsettings.json](./TagsterWebAPI/src/TagsterWebAPI/appsettings.json) and update `defaultConnection` for section `connectionStrings`
+- go to [TagsterWebAPI](./TagsterWebAPI) folder with .Net solution
+- generate scl script with command
+
+```bash
+dotnet ef dbcontext script -p .\libraries\Tagster.DataAccess\Tagster.DataAccess.csproj -s .\src\TagsterWebAPI\TagsterWebAPI.csproj -o script.sql
+```
+
+- use generated script to initialize database
+
 4. Build and publish application with commands below
 
 ```shell
@@ -58,5 +70,3 @@ This command should create folder "dist"
      - Find "dist" folder, open it, press "select folder" -> "bundle the extension"
      - Now, click "Load unpacked" -> choose same folder as previous & press "select folder"
 7. Extension installed. Click on puzzle icon, in the upper right corner of the screen to use and manage.
-
-dotnet ef dbcontext script -p .\libraries\Tagster.DataAccess\Tagster.DataAccess.csproj -s .\src\TagsterWebAPI\TagsterWebAPI.csproj -o script.sql
