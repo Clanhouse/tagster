@@ -1,44 +1,26 @@
 <template>
   <div>
-    <ul>
-      <li class="TagsterTag" v-for="(tag, index) in tags" :key="index">
-        <div class="form-group" v-if="editMode">
-          <input type="text" class="form-input" v-model.lazy="tag.tagName" />
-        </div>
-        <p v-edit @dblclick="editMode = !editMode">{{ tag.tagName }}</p>
-        <button @click="deleteTag(tag.id)">
-          <binIcon />
-        </button>
-      </li>
-      <li class="TagsterTag addTag" @click="addTag()">
-        <p>Click to add more tags</p>
-      </li>
-    </ul>
+    <div class="form-group" v-if="editMode">
+      <input type="text" class="form-input" v-model.lazy="tag.tagName" />
+    </div>
+    <p v-edit @dblclick="editMode = !editMode">{{ tag.tagName }}</p>
+    <button @click="deleteTag(tag.id)">
+      <binIcon />
+    </button>
   </div>
 </template>
 
 <script>
 import binIcon from "../svg/bin.vue";
 export default {
-  name: "GetAndShowTags",
-  components: {
-    binIcon,
-  },
+  name: "ShowTags",
+  components: { binIcon },
   data: function () {
     return {
-      tags: [],
+      editMode: false,
     };
   },
   methods: {
-    getTagsFromApi: async function () {
-      let vm = this;
-      await chrome.runtime.sendMessage(
-        { type: "GET_DATA", link: "hello" },
-        function (response) {
-          vm.tags = response.data[0];
-        }
-      );
-    },
     deleteTag: function (id) {
       let tags = this.tags;
       console.log(tags);
@@ -55,7 +37,7 @@ export default {
   },
 
   created() {
-    this.getTagsFromApi();
+    console.log("i live");
   },
 };
 </script>
