@@ -17,7 +17,7 @@ You need install:
 
 ### Backend
 
-2. Open terminal and go to folder [`TagsterWebAPI`](./TagsterWebAPI).
+2. Open terminal and go to folder [TagsterWebAPI](./TagsterWebAPI).
 3. Generate sql srcipt to initialize database:
 
 - go to [TagsterWebAPI](./TagsterWebAPI/src/TagsterWebAPI) folder with .Net project
