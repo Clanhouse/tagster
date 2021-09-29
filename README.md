@@ -10,6 +10,7 @@ You need install:
 - [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
 - [Chrome](https://www.google.com/chrome)
 - [NPM](https://nodejs.org/)
+- [dotnet-ef](https://docs.microsoft.com/en-us/ef/core/cli/dotnet)
 
 ## Usage
 
