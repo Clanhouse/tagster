@@ -10,7 +10,7 @@ You need install:
 - [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
 - [Chrome](https://www.google.com/chrome)
 - [NPM](https://nodejs.org/)
-- [dotnet-ef](https://docs.microsoft.com/en-us/ef/core/cli/dotnet)
+- [dotnet-ef](https://github.com/dotnet/efcore)
 
 ## Usage
 
@@ -22,7 +22,7 @@ You need install:
 3. Generate sql srcipt to initialize database:
 
 - go to [TagsterWebAPI](./TagsterWebAPI/src/TagsterWebAPI) folder with .Net project
-- open [appsettings.json](./TagsterWebAPI/src/TagsterWebAPI/appsettings.json) and update `defaultConnection` for section `connectionStrings`
+- open [appsettings.json](./TagsterWebAPI/src/TagsterWebAPI/appsettings.json) and update `defaultConnection` for section `connectionStrings`. More information about building connection string [here](https://www.connectionstrings.com/sql-server/)
 - go to [TagsterWebAPI](./TagsterWebAPI) folder with .Net solution
 - generate scl script with command
 
@@ -38,7 +38,7 @@ dotnet ef dbcontext script -p .\libraries\Tagster.DataAccess\Tagster.DataAccess.
 dotnet build -c Release -o Publish
 ```
 
-5. Go to `Publish` folder.
+5. Go to `./TagsterWebAPI/Publish` folder.
 6. Configure `appsettings.json`. To see more go to [backend configuration](./TagsterWebAPI/README.md)
 7. Start application
 
