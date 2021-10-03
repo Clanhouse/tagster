@@ -1,32 +1,49 @@
 <template>
   <div>
+    <TagsterLogo />
     <ul>
-      <li class="TagsterTag" v-for="(tag, index) in tags" :key="index">
-        <div class="form-group" v-if="editMode">
-          <input type="text" class="form-input" v-model.lazy="tag.tagName" />
-        </div>
-        <p v-edit @dblclick="editMode = !editMode">{{ tag.tagName }}</p>
-        <button @click="deleteTag(tag.id)">
-          <binIcon />
-        </button>
+      <li
+        class="TagsterTag"
+        is="ShowTags"
+        v-for="(tag, index) in tags"
+        :key="index"
+        :tag="tag"
+        @delete-tag="deleteTag"
+      >
+        <ShowTags />
       </li>
-      <li class="TagsterTag addTag" @click="addTag()">
-        <p>Click to add more tags</p>
+      <li class="TagsterTag addTag">
+        <p v-if="!addNewTagMode" @click="addNewTagMode = !addNewTagMode">
+          Click to add more tags
+        </p>
+        <input
+          v-else
+          @keyup.enter="addNewTag"
+          @dblclick="addNewTag"
+          type="text"
+          v-autowidth="{ maxWidth: '960px', minWidth: '20px', comfortZone: 0 }"
+          v-model="newTag"
+          v-focus
+        />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import binIcon from "../svg/bin.vue";
+import ShowTags from "./ShowTags.vue";
+import TagsterLogo from "./TagsterLogo.vue";
 export default {
   name: "GetAndShowTags",
   components: {
-    binIcon,
+    ShowTags,
+    TagsterLogo,
   },
   data: function () {
     return {
       tags: [],
+      newTag: "",
+      addNewTagMode: false,
     };
   },
   methods: {
@@ -41,17 +58,16 @@ export default {
     },
     deleteTag: function (id) {
       let tags = this.tags;
-      console.log(tags);
       tags = tags.filter((tag) => {
         return tag.id !== id;
       });
-      console.log(tags);
       this.tags = tags;
     },
-    editTag: function (id) {
-      console.log(id); //TODO: implements edit
+    addNewTag: function () {
+      this.addNewTagMode = false;
+      this.tags.push({ id: 8, profileId: 8, tagName: this.newTag });
+      //TODO: implements Add
     },
-    addTag: function () {},
   },
 
   created() {
@@ -80,14 +96,6 @@ export default {
 .TagsterTag p {
   cursor: pointer;
 }
-
-button {
-  margin-left: 0.5em;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .addTag {
   background-color: #32a852;
   color: white;
@@ -95,12 +103,5 @@ button {
 }
 .addTag p {
   font-weight: 500;
-}
-
-.good {
-  background-color: green;
-}
-.bad {
-  background-color: red;
 }
 </style>
