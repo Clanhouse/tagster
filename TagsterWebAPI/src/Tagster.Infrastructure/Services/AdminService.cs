@@ -5,9 +5,10 @@ using Tagster.Application.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
 using Tagster.DataAccess.Models;
-using Tagster.DataAccess.Factories;
 using System.Text.Json;
 using System.IO;
+using Tagster.Application.Factories;
+using Tagster.Application.Commands.AddTagsToProfile;
 
 namespace Tagster.Infrastructure.Services
 {
@@ -38,7 +39,12 @@ namespace Tagster.Infrastructure.Services
 
                 ICollection<Tag> tags = TagFactory.Create(maxTagsPerProfile, fakeData);
 
-                Profile profile = ProfileFactory.Create(surname, name, tags);
+                Profile profile = ProfileFactory.Create(new AddTagsToProfile()
+                {
+                    Surname = surname,
+                    Name = name,
+                    Tags = tags
+                });
 
                 await _context.Profiles.AddAsync(profile);
             }
