@@ -10,13 +10,14 @@ namespace Tagster.Exception.Factories
     {
         public Task<ExceptionResponse> Create(BaseException ex)
         {
-            return Task.FromResult(new ExceptionResponse(new { code = ex.Code, reason = ex.Message }, ex.StatusCode));
+            return Task.FromResult(new ExceptionResponse(new { Code = ex.Code, Reason = ex.Message }, ex.StatusCode));
         }
 
         public Task<ExceptionResponse> Create(string code, string message,
             HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError)
         {
-            return Task.FromResult(new ExceptionResponse(new { code, reason = message }, httpStatusCode));
+            
+            return Task.FromResult(new ExceptionResponse(new { Code = code, Reason = message }, httpStatusCode));
         }
 
         public Task<ExceptionResponse> Create(object @object, HttpStatusCode httpStatusCode)

@@ -8,26 +8,47 @@ namespace Tagster.Exception.UnitTests.Factories
 {
     public class ExceptionResponseFactoryTests
     {
+        public IExceptionResponseFactory Factory { get; set; }
+        public ExceptionResponseFactoryTests()
+        {
+            Factory = new ExceptionResponseFactory();
+        }
+
+
+
         [Fact]
         public async Task Create_CreateExceptionResponseFromAppException_TypeShouldBeExceptionResponse()
         {
-            IExceptionResponseFactory factory = new ExceptionResponseFactory();
-
-            var result = await factory.Create(new TestException(""));
+            
+            var result = await Factory.Create(new TestException(""));
 
             result.ShouldBeAssignableTo(typeof(ExceptionResponse));
         }
 
-        //[Theory]
-        //[InlineData("", "")]
-        //public async Task Create_CreateExceptionResponseFromAppException_CodeShouldEqualExcepted(string excepted, string code)
-        //{
-        //    IExceptionResponseFactory factory = new ExceptionResponseFactory();
+        [Theory]
+        [InlineData("")]
+        public async Task Create_CreateExceptionResponseFromAppException_CodeShouldEqualExcepted(string excepted)
+        {
+            
+            var result = await Factory.Create(new TestException2(excepted));
 
-        //    var result = await factory.Create(new TestException2(code));
+            result.Response.GetType().GetProperty(nameof(AppException.Code)).GetValue(result.Response, null).ShouldBe(excepted);
 
-        //    result.Response.GetType().GetProperty("Code").GetValue(result, null).ShouldBe(excepted);
-        //}
+        }
+
+        [Theory]
+        [InlineData("123456789")]
+        [InlineData("abnbsmnbhegygeyrgfur")]
+        [InlineData("!@#$%^&*()")]
+        [InlineData("")]
+        public async Task Create_CreateExceptionResponseFromAppException_ReasonShouldEqualExcepted(string excepted)
+        {
+            
+            var result = await Factory.Create(new TestException3(excepted));
+
+            result.Response.GetType().GetProperty("Reason").GetValue(result.Response, null).ShouldBe(excepted);
+
+        }
     }
 
     internal class TestException : AppException
@@ -44,6 +65,16 @@ namespace Tagster.Exception.UnitTests.Factories
         public TestException2(string code) : base("")
         {
             Code = code;
+        }
+    }
+
+    internal class TestException3 : AppException
+    {
+        public override string Message { get; }
+
+        public TestException3(string message) : base("")
+        {
+            Message = message;
         }
     }
 }
