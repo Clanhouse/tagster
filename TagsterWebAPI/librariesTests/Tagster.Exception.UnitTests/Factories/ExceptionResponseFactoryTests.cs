@@ -26,6 +26,9 @@ namespace Tagster.Exception.UnitTests.Factories
         }
 
         [Theory]
+        [InlineData("123456789")]
+        [InlineData("abnbsmnbhegygeyrgfur")]
+        [InlineData("!@#$%^&*()")]
         [InlineData("")]
         public async Task Create_CreateExceptionResponseFromAppException_CodeShouldEqualExcepted(string excepted)
         {
@@ -47,6 +50,20 @@ namespace Tagster.Exception.UnitTests.Factories
             var result = await Factory.Create(new TestException3(excepted));
 
             result.Response.GetType().GetProperty("Reason").GetValue(result.Response, null).ShouldBe(excepted);
+
+        }
+
+        [Theory]
+        [InlineData("123456789")]
+        [InlineData("abnbsmnbhegygeyrgfur")]
+        [InlineData("!@#$%^&*()")]
+        [InlineData("")]
+        public async Task Create_CreateExceptionResponseFromAppException_StatusCodeShouldEqualExcepted(string excepted)
+        {
+
+            var result = await Factory.Create(new TestException4(excepted));
+
+            result.Response.GetType().GetProperty(nameof(AppException.StatusCode)).GetValue(result.Response, null).ShouldBe(excepted);
 
         }
     }
@@ -77,4 +94,14 @@ namespace Tagster.Exception.UnitTests.Factories
             Message = message;
         }
     }
+
+/*    internal class TestException4 : AppException
+    {
+        public override string Message { get; }
+
+        public TestException4(string message) : base("")
+        {
+            Message = message;
+        }
+    }*/
 }
