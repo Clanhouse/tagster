@@ -16,15 +16,23 @@
         <p v-if="!addNewTagMode" @click="addNewTagMode = !addNewTagMode">
           Click to add more tags
         </p>
-        <input
-          v-else
-          @keyup.enter="addNewTag"
-          @dblclick="addNewTag"
-          type="text"
-          v-autowidth="{ maxWidth: '960px', minWidth: '20px', comfortZone: 0 }"
-          v-model="newTag"
-          v-focus
-        />
+        <div v-else class="form-group">
+          <input
+            @dblclick="addNewTag"
+            @keyup.enter="addNewTag"
+            @keyup.escape="cancelladdNewTag"
+            type="text"
+            v-autowidth="{
+              maxWidth: '960px',
+              minWidth: '20px',
+              comfortZone: 0,
+            }"
+            v-model="newTag"
+            v-focus
+          />
+          <button @click="addNewTag">✔</button>
+          <button @click="cancelladdNewTag">✖</button>
+        </div>
       </li>
     </ul>
   </div>
@@ -65,8 +73,14 @@ export default {
     },
     addNewTag: function () {
       this.addNewTagMode = false;
-      this.tags.push({ id: 8, profileId: 8, tagName: this.newTag });
-      //TODO: implements Add
+      if (this.newTag != "") {
+        this.tags.push({ id: 8, profileId: 8, tagName: this.newTag });
+        this.newTag = "";
+      }
+    },
+    cancelladdNewTag: function () {
+      this.addNewTagMode = false;
+      this.newTag = "";
     },
   },
 
@@ -103,5 +117,9 @@ export default {
 }
 .addTag p {
   font-weight: 500;
+}
+button {
+  font-size: 1em;
+  margin: 0.1em;
 }
 </style>

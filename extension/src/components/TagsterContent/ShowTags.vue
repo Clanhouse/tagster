@@ -4,11 +4,13 @@
       <input
         @keyup.enter="acceptChanges"
         @dblclick="acceptChanges"
+        @blur="acceptChanges"
         type="text"
         v-autowidth="{ maxWidth: '960px', minWidth: '20px', comfortZone: 0 }"
         v-model="tag.tagName"
         v-focus
       />
+      <button @click="acceptChanges">✔</button>
     </div>
     <p v-else @dblclick="editTag">{{ tag.tagName }}</p>
     <button @click="deleteTag(tag.id)">
@@ -31,11 +33,9 @@ export default {
 
   methods: {
     deleteTag: function (id) {
-      console.log(id);
       this.$emit("delete-tag", id);
     },
-    editTag: function (id) {
-      console.log(id); //TODO: implements edit
+    editTag: function () {
       this.editMode = true;
     },
     acceptChanges: function () {
