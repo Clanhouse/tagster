@@ -48,6 +48,43 @@ namespace Tagster.Exception.UnitTests.Factories
             var exception = await _factory.Create(new TestException(excepted));
             exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
         }
+
+        [Fact]
+        public async Task Create_CreateExceptionResponsePassingCodeMessageAndHttpStatusCode_TypeShouldBeExceptionResponse()
+            => (await _factory.Create("", "")).ShouldBeAssignableTo(typeof(ExceptionResponse));
+
+        [Theory]
+        [InlineData("username_exception")]
+        [InlineData("password_exception")]
+        [InlineData("!@#$%^&*()")]
+        [InlineData("")]
+        public async Task Create_CreateExceptionResponsePassingCodeMessageAndHttpStatusCode_CodeShouldEqualExcepted(string excepted)
+        {
+            var exception = await _factory.Create(excepted, "");
+            exception.Response.GetType().GetProperty(nameof(AppException.Code)).GetValue(exception.Response, null).ShouldBe(excepted);
+        }
+
+        [Theory]
+        [InlineData("username_exception")]
+        [InlineData("password_exception")]
+        [InlineData("!@#$%^&*()")]
+        [InlineData("")]
+        public async Task Create_CreateExceptionResponsePassingCodeMessageAndHttpStatusCode_ReasonShouldEqualExcepted(string excepted)
+        {
+            var exception = await _factory.Create("", excepted);
+            exception.Response.GetType().GetProperty("Reason").GetValue(exception.Response, null).ShouldBe(excepted);
+        }
+
+        [Theory]
+        [InlineData(HttpStatusCode.Accepted)]
+        [InlineData(HttpStatusCode.OK)]
+        [InlineData(HttpStatusCode.Forbidden)]
+        [InlineData(HttpStatusCode.InternalServerError)]
+        public async Task Create_CreateExceptionResponsePassingCodeMessageAndHttpStatusCode_StatusCodeShouldEqualExcepted(HttpStatusCode excepted)
+        {
+            var exception = await _factory.Create("", "", excepted);
+            exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
+        }
     }
 
     internal class TestException : AppException
