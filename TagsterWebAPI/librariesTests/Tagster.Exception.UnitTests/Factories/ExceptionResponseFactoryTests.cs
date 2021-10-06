@@ -85,21 +85,22 @@ namespace Tagster.Exception.UnitTests.Factories
             var exception = await _factory.Create("", "", excepted);
             exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
         }
+        /*
+                [Fact] // Test of third method.
+                public async Task Create_CreateExceptionResponseFromAppException_TypeShouldBeObjectAndHttpStatusCodeExceptionResponse()
+                    => (await _factory.Create(new TestException())).ShouldBeAssignableTo(typeof(ExceptionResponse));
+                [Theory]
+                [InlineData(HttpStatusCode.Accepted)]
+                [InlineData(HttpStatusCode.OK)]
+                [InlineData(HttpStatusCode.Forbidden)]
+                [InlineData(HttpStatusCode.InternalServerError)]
 
-        [Fact]
-        public async Task Create_CreateExceptionResponseFromAppException_TypeShouldBeObjectAndHttpStatusCodeExceptionResponse()
-            => (await _factory.Create(new TestException())).ShouldBeAssignableTo(typeof(ExceptionResponse));
-        [Theory]
-        [InlineData(HttpStatusCode.Accepted)]
-        [InlineData(HttpStatusCode.OK)]
-        [InlineData(HttpStatusCode.Forbidden)]
-        [InlineData(HttpStatusCode.InternalServerError)]
+                public async Task Create_CreateExceptionResponsePassingHttpStatusCode_StatusCodeShouldEqualExcepted(HttpStatusCode excepted)
+                {
+                    var exception = await _factory.Create(2);
+                    exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
+                }*/
 
-        public async Task Create_CreateExceptionResponsePassingHttpStatusCode_StatusCodeShouldEqualExcepted(HttpStatusCode excepted)
-        {
-            var exception = await _factory.Create("",excepted);
-            exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
-        }
     }
 
     internal class TestException : AppException
