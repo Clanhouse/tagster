@@ -3,27 +3,18 @@ using Tagster.Exception.Factories;
 using Tagster.Exception.Models;
 using Xunit;
 using Shouldly;
+using System.Net;
 
 namespace Tagster.Exception.UnitTests.Factories
 {
     public class ExceptionResponseFactoryTests
     {
-        public IExceptionResponseFactory Factory { get; set; }
-        public ExceptionResponseFactoryTests()
-        {
-            Factory = new ExceptionResponseFactory();
-        }
-
-
+        private readonly IExceptionResponseFactory _factory;
+        public ExceptionResponseFactoryTests() => _factory = new ExceptionResponseFactory();
 
         [Fact]
         public async Task Create_CreateExceptionResponseFromAppException_TypeShouldBeExceptionResponse()
-        {
-            
-            var result = await Factory.Create(new TestException(""));
-
-            result.ShouldBeAssignableTo(typeof(ExceptionResponse));
-        }
+            => (await _factory.Create(new TestException(""))).ShouldBeAssignableTo(typeof(ExceptionResponse));
 
         [Theory]
         [InlineData("123456789")]
@@ -32,11 +23,8 @@ namespace Tagster.Exception.UnitTests.Factories
         [InlineData("")]
         public async Task Create_CreateExceptionResponseFromAppException_CodeShouldEqualExcepted(string excepted)
         {
-            
-            var result = await Factory.Create(new TestException2(excepted));
-
-            result.Response.GetType().GetProperty(nameof(AppException.Code)).GetValue(result.Response, null).ShouldBe(excepted);
-
+            var exception = await _factory.Create(new TestException(code: excepted));
+            exception.Response.GetType().GetProperty(nameof(AppException.Code)).GetValue(exception.Response, null).ShouldBe(excepted);
         }
 
         [Theory]
@@ -46,62 +34,36 @@ namespace Tagster.Exception.UnitTests.Factories
         [InlineData("")]
         public async Task Create_CreateExceptionResponseFromAppException_ReasonShouldEqualExcepted(string excepted)
         {
-            
-            var result = await Factory.Create(new TestException3(excepted));
-
-            result.Response.GetType().GetProperty("Reason").GetValue(result.Response, null).ShouldBe(excepted);
-
+            var exception = await _factory.Create(new TestException(message: excepted));
+            exception.Response.GetType().GetProperty("Reason").GetValue(exception.Response, null).ShouldBe(excepted);
         }
 
         [Theory]
-        [InlineData("123456789")]
-        [InlineData("abnbsmnbhegygeyrgfur")]
-        [InlineData("!@#$%^&*()")]
-        [InlineData("")]
-        public async Task Create_CreateExceptionResponseFromAppException_StatusCodeShouldEqualExcepted(string excepted)
+        [InlineData(HttpStatusCode.Accepted)]
+        [InlineData(HttpStatusCode.OK)]
+        [InlineData(HttpStatusCode.Forbidden)]
+        [InlineData(HttpStatusCode.InternalServerError)]
+        public async Task Create_CreateExceptionResponseFromAppException_StatusCodeShouldEqualExcepted(HttpStatusCode excepted)
         {
-
-            var result = await Factory.Create(new TestException4(excepted));
-
-            result.Response.GetType().GetProperty(nameof(AppException.StatusCode)).GetValue(result.Response, null).ShouldBe(excepted);
-
+            var exception = await _factory.Create(new TestException(excepted));
+            exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
         }
     }
 
     internal class TestException : AppException
     {
-        public TestException(string message) : base(message)
-        {
-        }
-    }
-
-    internal class TestException2 : AppException
-    {
         public override string Code { get; }
+        public override string Message { get; }
+        public override HttpStatusCode StatusCode { get; }
 
-        public TestException2(string code) : base("")
+
+        public TestException(string message = "", string code = "") : base(message)
         {
+            Message = message;
             Code = code;
         }
+
+        public TestException(HttpStatusCode statusCode) : base("")
+            => StatusCode = statusCode;
     }
-
-    internal class TestException3 : AppException
-    {
-        public override string Message { get; }
-
-        public TestException3(string message) : base("")
-        {
-            Message = message;
-        }
-    }
-
-/*    internal class TestException4 : AppException
-    {
-        public override string Message { get; }
-
-        public TestException4(string message) : base("")
-        {
-            Message = message;
-        }
-    }*/
 }
