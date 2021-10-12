@@ -3,10 +3,9 @@ ARG VERSION=5.0
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
 ARG CONFIGURATION=Release
-COPY *.csproj ./
+COPY . .
 RUN dotnet restore
 
-COPY . .
 RUN dotnet publish \
     -c $CONFIGURATION \
     -o publish \
