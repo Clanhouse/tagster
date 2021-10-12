@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  service:
+    build: ./TagsterWebAPI
+    restart: unless-stopped
+    ports:
+      - 5000:80
+  seq:
+    image: datalust/seq
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 5342:80
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    restart: unless-stopped
+    environment:
+      - SA_PASSWORD=Your_password123
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
