@@ -13,6 +13,8 @@ services:
     ports:
       - 5341:5341
       - 5342:80
+    volumes:
+      - seq-data:/data
   db:
     image: "mcr.microsoft.com/mssql/server"
     restart: unless-stopped
@@ -20,4 +22,19 @@ services:
       - SA_PASSWORD=Your_password123
       - ACCEPT_EULA=Y
     ports:
-      - 5341:5341
+      - 15591:1433
+      - 5022:5022
+    volumes: 
+      - db-backups:/var/opt/mssql/backups
+      - db-sqlserver:/var/opt/sqlserver
+      - db-mssql:/var/opt/mssql
+volumes:
+  seq-data:
+    external: true
+  db-backups:
+    external: true
+  db-sqlserver:
+    external: true
+  db-mssql:
+    external: true
+  
