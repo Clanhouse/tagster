@@ -16,7 +16,7 @@ services:
     volumes:
       - seq-data:/data
   db:
-    image: "mcr.microsoft.com/mssql/server"
+    image: mcr.microsoft.com/mssql/server
     restart: unless-stopped
     environment:
       - SA_PASSWORD=Your_password123
@@ -28,6 +28,11 @@ services:
       - db-backups:/var/opt/mssql/backups
       - db-sqlserver:/var/opt/sqlserver
       - db-mssql:/var/opt/mssql
+  redis:
+    image: redis:latest
+    volumes: 
+      - redis-data:/usr/local/etc/redis
+
 volumes:
   seq-data:
     external: true
@@ -37,4 +42,5 @@ volumes:
     external: true
   db-mssql:
     external: true
-  
+  redis-data:
+    external: true
