@@ -16,7 +16,6 @@ namespace Tagster.Exception.Factories
         public Task<ExceptionResponse> Create(string code, string message,
             HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError)
         {
-            
             return Task.FromResult(new ExceptionResponse(new { Code = code, Reason = message }, httpStatusCode));
         }
 

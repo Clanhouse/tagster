@@ -85,21 +85,33 @@ namespace Tagster.Exception.UnitTests.Factories
             var exception = await _factory.Create("", "", excepted);
             exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
         }
-        /*
-                [Fact] // Test of third method.
-                public async Task Create_CreateExceptionResponseFromAppException_TypeShouldBeObjectAndHttpStatusCodeExceptionResponse()
-                    => (await _factory.Create(new TestException())).ShouldBeAssignableTo(typeof(ExceptionResponse));
-                [Theory]
-                [InlineData(HttpStatusCode.Accepted)]
-                [InlineData(HttpStatusCode.OK)]
-                [InlineData(HttpStatusCode.Forbidden)]
-                [InlineData(HttpStatusCode.InternalServerError)]
 
-                public async Task Create_CreateExceptionResponsePassingHttpStatusCode_StatusCodeShouldEqualExcepted(HttpStatusCode excepted)
-                {
-                    var exception = await _factory.Create(2);
-                    exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
-                }*/
+        [Fact]
+        public async Task Create_CreateExceptionResponseUsingObjectAndStatusCode_TypeShouldBeObjectAndHttpStatusCodeExceptionResponse()
+            => (await _factory.Create(new { Code = "" }, HttpStatusCode.Accepted)).ShouldBeAssignableTo(typeof(ExceptionResponse));
+
+        [Theory]
+        [InlineData(HttpStatusCode.Accepted)]
+        [InlineData(HttpStatusCode.OK)]
+        [InlineData(HttpStatusCode.Forbidden)]
+        [InlineData(HttpStatusCode.InternalServerError)]
+
+        public async Task Create_CreateExceptionResponsePassingHttpStatusCode_StatusCodeShouldEqualExcepted(HttpStatusCode excepted)
+        {
+            var exception = await _factory.Create(new { Code = "" }, excepted);
+            exception.GetType().GetProperty(nameof(ExceptionResponse.StatusCode)).GetValue(exception, null).ShouldBe(excepted);
+        }
+
+        [Theory]
+        [InlineData(HttpStatusCode.Accepted)]
+        [InlineData(HttpStatusCode.OK)]
+        [InlineData(HttpStatusCode.Forbidden)]
+        [InlineData(HttpStatusCode.InternalServerError)]
+        public async Task Create_CreateExceptionResponsePassingHttpStatusCode_ReasonShouldEqualExcepted(object excepted)
+        {
+            var exception = await _factory.Create(excepted, HttpStatusCode.BadRequest);
+            exception.GetType().GetProperty(nameof(ExceptionResponse.Response)).GetValue(exception, null).ShouldBe(excepted);
+        }
 
     }
 
