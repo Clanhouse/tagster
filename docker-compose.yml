@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     ports:
       - 5000:80
+    volumes:
+      - tagter-web-api-configuration:/app/Configuration
   seq:
     image: datalust/seq
     restart: unless-stopped
@@ -34,6 +36,8 @@ services:
       - redis-data:/usr/local/etc/redis
 
 volumes:
+  tagter-web-api-configuration:
+    external: true
   seq-data:
     external: true
   db-backups:
