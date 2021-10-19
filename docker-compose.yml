@@ -7,6 +7,10 @@ services:
       - 5000:80
     volumes:
       - tagter-web-api-configuration:/app/Configuration
+    depends_on:
+      - seq
+      - db
+      - redis
   seq:
     image: datalust/seq
     restart: unless-stopped
