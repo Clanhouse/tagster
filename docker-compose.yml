@@ -4,15 +4,21 @@ services:
     build: ./TagsterWebAPI
     restart: unless-stopped
     ports:
-      - 5000:80
+      - 5000:5000
     volumes:
       - tagter-web-api-configuration:/app/Configuration
     depends_on:
       - seq
       - db
       - redis
+    deploy:
+      resources:
+        limits:
+          memory: 300m
+        reservations:
+          memory: 100m
   seq:
-    image: datalust/seq
+    image: datalust/seq:latest
     restart: unless-stopped
     environment:
       - ACCEPT_EULA=Y
@@ -21,8 +27,14 @@ services:
       - 5342:80
     volumes:
       - seq-data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 300m
+        reservations:
+          memory: 100m
   db:
-    image: mcr.microsoft.com/mssql/server
+    image: mcr.microsoft.com/mssql/server:latest
     restart: unless-stopped
     environment:
       - SA_PASSWORD=Your_password123
@@ -34,10 +46,22 @@ services:
       - db-backups:/var/opt/mssql/backups
       - db-sqlserver:/var/opt/sqlserver
       - db-mssql:/var/opt/mssql
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+        reservations:
+          memory: 100m
   redis:
     image: redis:latest
     volumes: 
       - redis-data:/usr/local/etc/redis
+    deploy:
+      resources:
+        limits:
+          memory: 300m
+        reservations:
+          memory: 100m
 
 volumes:
   tagter-web-api-configuration:
@@ -52,3 +76,8 @@ volumes:
     external: true
   redis-data:
     external: true
+
+networks: 
+  default:
+    external: false
+    name: tagster-network
