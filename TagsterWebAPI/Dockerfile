@@ -17,7 +17,6 @@ EXPOSE 5000
 WORKDIR /app
 CMD [ "TagsterWebAPI.dll" ]
 ENV DOTNET_RUNNING_IN_CONTAINER=true \
-    ASPNETCORE_ENVIRONMENT=Docker
-
+    ASPNETCORE_ENVIRONMENT=Docker 
 COPY --from=build /app/publish .
 ENTRYPOINT [ "dotnet" ]
