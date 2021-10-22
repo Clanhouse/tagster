@@ -73,9 +73,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 300m
-        reservations:
           memory: 100m
+        reservations:
+          memory: 50m
 
 volumes:
   tagter-web-api-configuration:
