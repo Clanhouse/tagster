@@ -28,5 +28,10 @@ namespace Tagster.Infrastructure.Services
             await _tagsterDb.Profiles.AddAsync(profile);
             await _tagsterDb.SaveChangesAsync();
         }
+
+        public async Task GetHref(string Href)
+        {
+            //displays href probably?
+        }
     }
 }

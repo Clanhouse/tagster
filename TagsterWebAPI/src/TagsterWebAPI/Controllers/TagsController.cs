@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.AddTagsToProfile;
+using Tagster.Application.Commands.GetProfile;
 using Tagster.Application.Services;
 using Tagster.DataAccess.Entities;
 
@@ -37,6 +38,13 @@ namespace TagsterWebAPI.Controllers
         [HttpPut]
         [Route("")]
         public async Task<IActionResult> InsertData([FromBody] AddTagsToProfile command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProfileHref(GetProfile command)
         {
             await _mediator.Send(command);
             return Ok();

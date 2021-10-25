@@ -8,5 +8,6 @@ namespace Tagster.Application.Services
     {
         Task<ICollection<Tag>[]> GetList(string profileName);
         Task InstertDataAsync(Profile profile);
+        Task GetHref(string Href);
     }
 }
