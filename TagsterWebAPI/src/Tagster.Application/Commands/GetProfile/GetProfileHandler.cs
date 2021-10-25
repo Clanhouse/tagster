@@ -10,7 +10,7 @@ using Tagster.CQRS.Commands.Handlers;
 
 namespace Tagster.Application.Commands.GetProfile
 {
-    public sealed class GetProfileHandler : ICommandHandler<GetProfile>
+    internal sealed class GetProfileHandler : ICommandHandler<GetProfile>
     {
         private readonly ITagsService _tagService;
         public GetProfileHandler(ITagsService tagService)

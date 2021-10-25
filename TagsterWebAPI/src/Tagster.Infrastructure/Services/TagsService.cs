@@ -31,7 +31,7 @@ namespace Tagster.Infrastructure.Services
 
         public async Task GetHref(string Href)
         {
-            //displays href probably?
+            //displays href
         }
     }
 }
