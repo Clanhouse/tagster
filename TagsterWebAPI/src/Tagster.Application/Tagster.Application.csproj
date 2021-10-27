@@ -17,9 +17,4 @@
     <ProjectReference Include="..\Tagster.Domain\Tagster.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\" />
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
 </Project>

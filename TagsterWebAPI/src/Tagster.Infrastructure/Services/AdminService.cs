@@ -44,6 +44,7 @@ namespace Tagster.Infrastructure.Services
                     Surname = surname,
                     Name = name,
                     Tags = tags
+                    //Href = href dodać to!!!
                 });
 
                 await _context.Profiles.AddAsync(profile);

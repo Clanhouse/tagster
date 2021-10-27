@@ -6,7 +6,7 @@ namespace Tagster.Application.Factories
     public class ProfileFactory
     {
         public static Profile Create(AddTagsToProfile request)
-                => new() { Name = request.Name, LastName = request.Surname, ProfileTags = request.Tags };
+                => new() { Name = request.Name, LastName = request.Surname, ProfileTags = request.Tags , Href = request.Href};
 
     }
 }

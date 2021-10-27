@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.AddTagsToProfile;
-using Tagster.Application.Commands.GetProfile;
+using Tagster.Application.Queries.GetProfile;
 using Tagster.Application.Services;
 using Tagster.DataAccess.Entities;
 
@@ -44,10 +44,11 @@ namespace TagsterWebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProfileHref(GetProfile command)
+        [Route("get/{href}")]
+        public async Task<IActionResult> GetProfileWithTagsByHref(string href)
         {
-            await _mediator.Send(command);
-            return Ok();
+             //kacper-antoniak-191409215 - przykladowy href, trzeba dac do bazy i poozniej wyciagac
+            return Ok(await _mediator.Send(new GetProfileWithTags { Href = href }));
         }
     }
 }
