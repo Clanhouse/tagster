@@ -16,7 +16,7 @@ namespace Tagster.Application.Queries.GetProfile
 
         public async Task<ProfileDto> Handle(GetProfileWithTags request, CancellationToken cancellationToken)
         {
-            return default;
+            return await _tagService.GetHref(request.Href);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tagster.Application.Dtos;
 using Tagster.Application.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
@@ -15,7 +16,7 @@ namespace Tagster.Infrastructure.Services
         public TagsService(TagsterDbContext tagsterDb)
            => _tagsterDb = tagsterDb;
 
-        public async Task<ICollection<Tag>[]> GetList(string profileName) 
+        public async Task<ICollection<Tag>[]> GetList(string profileName)
             => await _tagsterDb
                 .Profiles
                 .Where(profile => profile.Name.Equals(profileName))
@@ -29,9 +30,27 @@ namespace Tagster.Infrastructure.Services
             await _tagsterDb.SaveChangesAsync();
         }
 
-        public async Task GetHref(string Href)
+        /*public async Task GetHref(string Href)
+            => await _tagsterDb
+                .Profiles
+                .Where(profile => profile.Href.Equals(Href))
+                .Include(profile => profile.ProfileTags)
+                .Include(profile => profile.Name)
+                .Include(profile => profile.LastName)
+                .Select(profile => profile.ProfileTags)
+                .ToArrayAsync();*/
+
+        public async Task<ProfileDto> GetHref(string Href)
         {
-            //displays hrefs
+            //string href = Href.Href;
+            return await _tagsterDb
+              .Profiles
+              .Where(profile => profile.Href.Equals(Href))
+              .Include(profile => profile.ProfileTags)
+              .Include(profile => profile.Name)
+              .Include(profile => profile.LastName)
+              .Select(profile => profile.Name)
+              .ToArrayAsync();
         }
     }
 }
