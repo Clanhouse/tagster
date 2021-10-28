@@ -47,7 +47,6 @@ namespace TagsterWebAPI.Controllers
         [Route("get/{href}")]
         public async Task<IActionResult> GetProfileWithTagsByHref(string href)
         {
-             //kacper-antoniak-191409215 - przykladowy href, trzeba dac do bazy i poozniej wyciagac
             return Ok(await _mediator.Send(new GetProfileWithTags { Href = href }));
         }
     }

@@ -30,27 +30,17 @@ namespace Tagster.Infrastructure.Services
             await _tagsterDb.SaveChangesAsync();
         }
 
-        /*public async Task GetHref(string Href)
-            => await _tagsterDb
-                .Profiles
-                .Where(profile => profile.Href.Equals(Href))
-                .Include(profile => profile.ProfileTags)
-                .Include(profile => profile.Name)
-                .Include(profile => profile.LastName)
-                .Select(profile => profile.ProfileTags)
-                .ToArrayAsync();*/
-
-        public async Task<ProfileDto> GetHref(string Href)
+        public async Task<ProfileDto> GetHref(string href)
         {
-            //string href = Href.Href;
-            return await _tagsterDb
+            await _tagsterDb
               .Profiles
-              .Where(profile => profile.Href.Equals(Href))
+              .Where(profile => profile.Href.Equals(href))
               .Include(profile => profile.ProfileTags)
               .Include(profile => profile.Name)
               .Include(profile => profile.LastName)
               .Select(profile => profile.Name)
               .ToArrayAsync();
+            return default;
         }
     }
 }
