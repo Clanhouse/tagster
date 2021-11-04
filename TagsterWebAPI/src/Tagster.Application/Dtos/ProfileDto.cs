@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Tagster.DataAccess.Entities;
 
 namespace Tagster.Application.Dtos
 {
@@ -8,6 +9,6 @@ namespace Tagster.Application.Dtos
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Href { get; set; }
-        public ICollection<TagDto> ProfileTags { get; set; }
+        public ICollection<Tag> ProfileTags { get; set; }
     }
 }
