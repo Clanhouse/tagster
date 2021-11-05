@@ -8,7 +8,7 @@ namespace Tagster.Application.Services
     public interface ITagsService
     {
         Task<ICollection<Tag>[]> GetList(string profileName);
-        Task<ProfileDto> GetHref(ProfileDto profileDto);
+        Task<Profile> GetProfileWithTags(string href);
         Task InstertDataAsync(Profile profile);
     }
 }

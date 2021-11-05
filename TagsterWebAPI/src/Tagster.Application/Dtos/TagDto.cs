@@ -2,6 +2,6 @@
 {
     public record TagDto
     {
-        public string TagName { get; set; }
+        public string Name { get; set; }
     }
 }
