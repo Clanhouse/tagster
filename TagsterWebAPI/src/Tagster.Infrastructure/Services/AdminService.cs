@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.IO;
 using Tagster.Application.Factories;
 using Tagster.Application.Commands.GenFakeData;
+using Tagster.Application.Commands.AddTagsToProfile;
 
 namespace Tagster.Infrastructure.Services
 {
@@ -41,6 +42,12 @@ namespace Tagster.Infrastructure.Services
                 request.Surname = surname;
 
                 Profile profile = ProfileFactory.RandCreate(request);
+                Profile profile = ProfileFactory.Create(new AddTagsToProfile()
+                {
+                    Surname = surname,
+                    Name = name,
+                    Tags = tags
+                });
 
                 await _context.Profiles.AddAsync(profile);
             }
