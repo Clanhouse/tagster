@@ -42,7 +42,7 @@ namespace Tagster.Infrastructure.Services
                 request.Surname = surname;
 
                 Profile profile = ProfileFactory.RandCreate(request);
-                Profile profile = ProfileFactory.Create(new AddTagsToProfile()
+                profile = ProfileFactory.Create(new AddTagsToProfile()
                 {
                     Surname = surname,
                     Name = name,
