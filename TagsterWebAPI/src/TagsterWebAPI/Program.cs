@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.IO;
+using System.Net;
 using Tagster.Logger;
 
 namespace TagsterWebAPI
@@ -16,7 +19,17 @@ namespace TagsterWebAPI
             .UseLogging("TagsterWebAPI", typeof(Program).Assembly.GetName().Version.ToString())
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseStartup<Startup>();
+                webBuilder.ConfigureAppConfiguration((webHost, config) =>
+                {
+                    config.AddJsonFile(Path.Combine("Configuration", "appsettings.json"), false, true)
+                    .AddJsonFile(Path.Combine("Configuration", $"appsettings.{webHost.HostingEnvironment.EnvironmentName}.json"), true, true)
+                    .AddEnvironmentVariables();
+                })
+                .UseKestrel(opts =>
+                {
+                    opts.Listen(IPAddress.Any, 9000);
+                })
+                .UseStartup<Startup>();
             });
     }
 }

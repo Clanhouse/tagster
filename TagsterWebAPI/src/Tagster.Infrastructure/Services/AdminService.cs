@@ -8,6 +8,7 @@ using Tagster.DataAccess.Models;
 using System.Text.Json;
 using System.IO;
 using Tagster.Application.Factories;
+using Tagster.Application.Commands.GenFakeData;
 using Tagster.Application.Commands.AddTagsToProfile;
 
 namespace Tagster.Infrastructure.Services
@@ -16,12 +17,9 @@ namespace Tagster.Infrastructure.Services
     {
         private readonly TagsterDbContext _context;
 
-        public AdminService(TagsterDbContext context)
-        {
-            _context = context;
-        }
+        public AdminService(TagsterDbContext context) => _context = context;
 
-        public async Task CreateFakeDataAsync(int profilesCount, int maxTagsPerProfile)
+        public async Task CreateFakeDataAsync(GenFakeData request)
         {
             Random rand = new();
 
@@ -31,7 +29,7 @@ namespace Tagster.Infrastructure.Services
             string json = new StreamReader(Path.Combine(AppContext.BaseDirectory, "FakeData.json")).ReadToEnd();
 
             FakeData fakeData = JsonSerializer.Deserialize<FakeData>(json);
-            for (int i = 0; i < profilesCount; i++)
+            for (int i = 0; i < request.ProfilesCount; i++)
             {
                 string name = fakeData.Names[rand.Next(fakeData.Names.Length)];
 

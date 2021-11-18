@@ -34,7 +34,7 @@ namespace TagsterWebAPI.Controllers
         [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
         public async Task<IActionResult> TagsOnProfile(string profileName)
             => Ok(await _tagService.GetList(profileName));
-
+         
         [HttpPut]
         [Route("")]
         public async Task<IActionResult> InsertData([FromBody] AddTagsToProfile command)
