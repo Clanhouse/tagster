@@ -32,13 +32,11 @@ namespace Tagster.Infrastructure.Services
 
         public async Task<Profile> GetProfileWithTags(string href)
         {
-            Profile profileInfo = _tagsterDb
+            Profile profileInfo = await _tagsterDb
                 .Profiles
                 .Where(profile => profile.Href.Equals(href))
                 .Include(profile => profile.ProfileTags)
-                .Include(profile => profile.Name)
-                .Include(profile => profile.LastName)
-                .FirstOrDefault();
+                .SingleOrDefaultAsync();
 
             return profileInfo;
         }

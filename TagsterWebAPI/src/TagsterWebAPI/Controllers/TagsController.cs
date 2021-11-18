@@ -47,7 +47,8 @@ namespace TagsterWebAPI.Controllers
         [Route("get/{href}")]
         public async Task<IActionResult> GetProfileWithTagsByHref(string href)
         {
-            return Ok(await _mediator.Send(new GetProfileWithTags { Href = href }));
+            var profile = await _mediator.Send(new GetProfileWithTags { Href = href });
+            return profile == null ? NotFound() : Ok(profile);
         }
     }
 }

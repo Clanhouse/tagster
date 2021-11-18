@@ -5,6 +5,7 @@ using Tagster.CQRS.Queries.Handlers;
 using Tagster.Application.Dtos;
 using Tagster.DataAccess.Entities;
 using Tagster.DataAccess.DBContexts;
+using System.Linq;
 
 namespace Tagster.Application.Queries.GetProfile
 {
@@ -26,13 +27,16 @@ namespace Tagster.Application.Queries.GetProfile
 
         private static ProfileDto Map(Profile profile)
         {
+            if(profile == null) 
+                return null;
+
             ProfileDto profileDto = new();
 
             profileDto.Href = profile.Href;
             profileDto.Id = profile.Id;
             profileDto.Name = profile.Name;
             profileDto.LastName = profile.LastName;
-            profileDto.ProfileTags = profile.ProfileTags;
+            profileDto.ProfileTags = profile.ProfileTags.Select(pt => new TagDto { Name = pt.TagName }).ToList();
 
             return profileDto;
         }
