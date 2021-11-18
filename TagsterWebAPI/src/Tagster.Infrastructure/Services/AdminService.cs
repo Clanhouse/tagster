@@ -37,7 +37,7 @@ namespace Tagster.Infrastructure.Services
 
                 string href = fakeData.Hrefs[rand.Next(fakeData.Hrefs.Length)];
 
-                ICollection<Tag> tags = TagFactory.Create(maxTagsPerProfile, fakeData);
+                ICollection<Tag> tags = TagFactory.Create(request.MaxTagsPerProfile, fakeData);
 
                 Profile profile = ProfileFactory.Create(new AddTagsToProfile()
                 {
