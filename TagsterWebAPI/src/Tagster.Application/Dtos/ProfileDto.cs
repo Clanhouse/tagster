@@ -9,6 +9,6 @@ namespace Tagster.Application.Dtos
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Href { get; set; }
-        public ICollection<TagDto> ProfileTags { get; set; }
+        public ICollection<TagDto> Tags { get; set; }
     }
 }
