@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tagster.Application.Dtos;
 using Tagster.Application.Services;
 using Tagster.DataAccess.DBContexts;
 using Tagster.DataAccess.Entities;
@@ -15,7 +16,7 @@ namespace Tagster.Infrastructure.Services
         public TagsService(TagsterDbContext tagsterDb)
            => _tagsterDb = tagsterDb;
 
-        public async Task<ICollection<Tag>[]> GetList(string profileName) 
+        public async Task<ICollection<Tag>[]> GetList(string profileName)
             => await _tagsterDb
                 .Profiles
                 .Where(profile => profile.Name.Equals(profileName))
@@ -27,6 +28,17 @@ namespace Tagster.Infrastructure.Services
         {
             await _tagsterDb.Profiles.AddAsync(profile);
             await _tagsterDb.SaveChangesAsync();
+        }
+
+        public async Task<Profile> GetProfileWithTags(string href)
+        {
+            Profile profileInfo = await _tagsterDb
+                .Profiles
+                .Where(profile => profile.Href.Equals(href))
+                .Include(profile => profile.ProfileTags)
+                .SingleOrDefaultAsync();
+
+            return profileInfo;
         }
     }
 }

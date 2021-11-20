@@ -5,5 +5,6 @@
         public string[] Names { get; set; }
         public string[] Surnames { get; set; }
         public string[] Tags { get; set; }
+        public string[] Hrefs { get; set; }
     }
 }

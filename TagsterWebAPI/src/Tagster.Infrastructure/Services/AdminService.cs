@@ -35,18 +35,16 @@ namespace Tagster.Infrastructure.Services
 
                 string surname = fakeData.Surnames[rand.Next(fakeData.Surnames.Length)];
 
+                string href = fakeData.Hrefs[rand.Next(fakeData.Hrefs.Length)];
+
                 ICollection<Tag> tags = TagFactory.Create(request.MaxTagsPerProfile, fakeData);
 
-                request.Tags = tags;
-                request.Name = name;
-                request.Surname = surname;
-
-                Profile profile = ProfileFactory.RandCreate(request);
-                profile = ProfileFactory.Create(new AddTagsToProfile()
+                Profile profile = ProfileFactory.Create(new AddTagsToProfile()
                 {
                     Surname = surname,
                     Name = name,
-                    Tags = tags
+                    Tags = tags,
+                    Href = href
                 });
 
                 await _context.Profiles.AddAsync(profile);

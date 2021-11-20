@@ -8,6 +8,7 @@ namespace Tagster.Application.Commands.AddTagsToProfile
     {
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string Href { get; set; }
         public ICollection<Tag> Tags { get; set; }
     }
 }
