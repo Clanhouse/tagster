@@ -85,8 +85,8 @@ namespace TagsterWebAPI.Controllers
         /// <returns>AuthDto</returns>
         [HttpPost("refresh-token")]
         [ProducesResponseType(typeof(AuthDto), StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(RevokedRefreshTokenException)/typeof(InvalidRefreshTokenException)
-        [ProducesResponseType(StatusCodes.Status404NotFound)]                   // typeof(UserNotFoundException)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Refresh_Token(CancellationToken cancellationToken)
         {
             var command = new RefreshTokens { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };

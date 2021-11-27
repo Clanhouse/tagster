@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.AddTagsToProfile;
 using Tagster.Application.Queries.GetProfile;
-using Tagster.Application.Services;
-using Tagster.DataAccess.Entities;
+using Tagster.Application.Queries.GetTags;
+using Tagster.Domain.Entities;
 
 namespace TagsterWebAPI.Controllers
 {
@@ -14,14 +14,10 @@ namespace TagsterWebAPI.Controllers
     [Route("[controller]")]
     public class TagsController : ControllerBase
     {
-        private readonly ITagsService _tagService;
         private readonly IMediator _mediator;
 
-        public TagsController(ITagsService tagService, IMediator mediator)
-        {
-            _tagService = tagService;
-            _mediator = mediator;
-        }
+        public TagsController(IMediator mediator) 
+            => _mediator = mediator;
 
         /// <summary>
         /// Get all tags for profile
@@ -33,7 +29,7 @@ namespace TagsterWebAPI.Controllers
         [Route("{profileName}")]
         [ProducesResponseType(typeof(ICollection<Tag>[]), StatusCodes.Status200OK)]
         public async Task<IActionResult> TagsOnProfile(string profileName)
-            => Ok(await _tagService.GetList(profileName));
+            => Ok(await _mediator.Send(new GetTags { ProfileName = profileName }));
          
         [HttpPut]
         [Route("")]

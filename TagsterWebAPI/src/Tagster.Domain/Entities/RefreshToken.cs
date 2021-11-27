@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Tagster.DataAccess.Entities
+namespace Tagster.Domain.Entities
 {
     [Table("RefreshTokens")]
     public class RefreshToken

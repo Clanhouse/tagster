@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tagster.Application.Services;
-using Tagster.DataAccess.DBContexts;
-using Tagster.DataAccess.Entities;
 using Tagster.DataAccess.Models;
 using System.Text.Json;
 using System.IO;
 using Tagster.Application.Factories;
 using Tagster.Application.Commands.GenFakeData;
 using Tagster.Application.Commands.AddTagsToProfile;
+using Tagster.Infrastructure.EF;
+using Tagster.Domain.Entities;
 
 namespace Tagster.Infrastructure.Services
 {

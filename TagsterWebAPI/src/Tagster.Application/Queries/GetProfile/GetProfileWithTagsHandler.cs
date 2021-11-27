@@ -1,29 +1,21 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Tagster.Application.Services;
 using Tagster.CQRS.Queries.Handlers;
 using Tagster.Application.Dtos;
-using Tagster.DataAccess.Entities;
-using Tagster.DataAccess.DBContexts;
 using System.Linq;
+using Tagster.Domain.Entities;
+using Tagster.Domain.Repositories;
 
 namespace Tagster.Application.Queries.GetProfile
 {
     internal sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags, ProfileDto>
     {
-        private readonly ITagsService _tagService;
-        public GetProfileWithTagsHandler(ITagsService tagService)
-        {
-            _tagService = tagService;
-        }
-        private readonly TagsterDbContext _tagsterDb;
-        public GetProfileWithTagsHandler(TagsterDbContext tagsterDb)
-            => _tagsterDb = tagsterDb;
+        private readonly ITagsRepository _repository;
+        public GetProfileWithTagsHandler(ITagsRepository repository) 
+            => _repository = repository;
 
-        public async Task<ProfileDto> Handle(GetProfileWithTags request, CancellationToken cancellationToken)
-        {
-            return Map(await _tagService.GetProfileWithTags(request.Href));
-        }
+        public async Task<ProfileDto> Handle(GetProfileWithTags request, CancellationToken cancellationToken) 
+            => Map(await _repository.GetProfileWithTags(request.Href));
 
         private static ProfileDto Map(Profile profile)
         {
@@ -36,7 +28,7 @@ namespace Tagster.Application.Queries.GetProfile
             profileDto.Id = profile.Id;
             profileDto.Name = profile.Name;
             profileDto.LastName = profile.LastName;
-            profileDto.Tags = profile.ProfileTags.Select(pt => new TagDto { Name = pt.TagName }).ToList();
+            profileDto.Tags = profile.Tags.Select(pt => new TagDto { Name = pt.Name }).ToList();
 
             return profileDto;
         }
