@@ -10,12 +10,6 @@ You need install docker and docker-compose:
 
 ## Usage
 
-Create defined volumes from [docker-compose.yml](./docker-compose.yml) using below command changing name of volume:
-
-```bash
-docker volume create --name=db-mssql
-```
-
 Build and start containers:
 
 ```bash
