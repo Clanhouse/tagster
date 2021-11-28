@@ -10,7 +10,6 @@ You need install:
 - [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
 - [Chrome](https://www.google.com/chrome)
 - [NPM](https://nodejs.org/)
-- [dotnet-ef](https://github.com/dotnet/efcore)
 
 ## Usage
 
@@ -24,13 +23,6 @@ You need install:
 - go to [TagsterWebAPI](./TagsterWebAPI/src/TagsterWebAPI) folder with .Net project
 - open [appsettings.json](./TagsterWebAPI/src/TagsterWebAPI/Configuration/appsettings.json) and update `defaultConnection` for section `connectionStrings`. More information about building connection string [here](https://www.connectionstrings.com/sql-server/)
 - go to [TagsterWebAPI](./TagsterWebAPI) folder with .Net solution
-- generate scl script with command
-
-```bash
-dotnet ef dbcontext script -p .\libraries\Tagster.DataAccess\Tagster.DataAccess.csproj -s .\src\TagsterWebAPI\TagsterWebAPI.csproj -o script.sql
-```
-
-- use generated script to initialize database
 
 4. Build and publish application with commands below
 
