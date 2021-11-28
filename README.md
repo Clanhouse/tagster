@@ -17,6 +17,12 @@ You need install:
 
 ### Backend
 
+#### Docker
+
+2. Go to [README.docker.md](./README.docker.md) and follow the instructions.
+
+#### Source build
+
 2. Open terminal and go to folder [TagsterWebAPI](./TagsterWebAPI).
 3. Generate sql srcipt to initialize database:
 
