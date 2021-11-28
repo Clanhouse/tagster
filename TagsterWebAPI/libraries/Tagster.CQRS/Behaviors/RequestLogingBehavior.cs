@@ -10,7 +10,7 @@ namespace Tagster.CQRS.Behaviors
     {
         private readonly ILogger<RequestLogingBehavior<TCommandOrQuery, TResult>> _logger;
 
-        public RequestLogingBehavior(ILogger<RequestLogingBehavior<TCommandOrQuery, TResult>> logger) 
+        public RequestLogingBehavior(ILogger<RequestLogingBehavior<TCommandOrQuery, TResult>> logger)
             => _logger = logger;
 
         public async Task<TResult> Handle(TCommandOrQuery commandOrQuery,
@@ -32,7 +32,7 @@ namespace Tagster.CQRS.Behaviors
             catch (System.Exception ex)
             {
                 sw.Stop();
-                _logger.LogWarning("End processing {name} in {elapsedMilliseconds}ms. With exception {exception}", 
+                _logger.LogWarning("End processing {name} in {elapsedMilliseconds}ms. With exception {exception}",
                     requestType.Name, sw.ElapsedMilliseconds, ex.Message);
                 throw;
             }
@@ -42,7 +42,9 @@ namespace Tagster.CQRS.Behaviors
         private void LogData(object @object)
         {
             if (@object is null)
+            {
                 return;
+            }
 
             _logger.LogInformation("Log data {name}", @object.GetType().Name);
         }

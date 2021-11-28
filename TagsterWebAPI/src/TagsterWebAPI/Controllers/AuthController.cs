@@ -37,7 +37,9 @@ namespace TagsterWebAPI.Controllers
         public async Task<IActionResult> SignUp([FromBody] SignUp command, CancellationToken cancellationToken)
         {
             if (!command.Password.Equals(command.ConfirmPassword))
+            {
                 return BadRequest("Passwords do not match!");
+            }
 
             await _mediator.Send(command, cancellationToken);
             return Accepted();
@@ -91,7 +93,7 @@ namespace TagsterWebAPI.Controllers
         {
             var command = new RefreshTokens { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };
 
-            var token = await _mediator.Send<AuthDto>(command, cancellationToken);
+            var token = await _mediator.Send(command, cancellationToken);
             _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
             return Accepted(token);
         }

@@ -22,7 +22,7 @@ namespace Tagster.Application.Services
         private readonly ILogger<IdentityService> _logger;
 
         public IdentityService(IUserRepository userRepository, IPasswordService passwordService,
-            IRefreshTokenService refreshTokenService, IJwtProvider jwtProvider, 
+            IRefreshTokenService refreshTokenService, IJwtProvider jwtProvider,
             IAccessTokenService accessTokenService, ILogger<IdentityService> logger)
         {
             _userRepository = userRepository;

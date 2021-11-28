@@ -24,7 +24,7 @@ namespace Tagster.Infrastructure.EF.Repositories
             await _tagsterDb.SaveChangesAsync();
         }
 
-        public ValueTask<RefreshToken> Get(string refreshToken) 
+        public ValueTask<RefreshToken> Get(string refreshToken)
             => new(_refreshTokens.FirstOrDefault(x => x.Token.Equals(refreshToken)));
 
         public async ValueTask Update(RefreshToken refreshToken)

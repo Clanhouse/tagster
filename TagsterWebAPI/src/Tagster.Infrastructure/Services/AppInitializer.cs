@@ -12,7 +12,7 @@ namespace Tagster.Infrastructure.Services
     {
         private readonly IServiceProvider _serviceProvider;
 
-        public AppInitializer(IServiceProvider serviceProvider) 
+        public AppInitializer(IServiceProvider serviceProvider)
             => _serviceProvider = serviceProvider;
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -25,12 +25,14 @@ namespace Tagster.Infrastructure.Services
             foreach (var dbContextType in dbContextTypes)
             {
                 if (scope.ServiceProvider.GetService(dbContextType) is not DbContext dbContext)
+                {
                     continue;
+                }
 
                 await dbContext.Database.MigrateAsync(cancellationToken);
             }
         }
 
-        public Task StopAsync(CancellationToken cancellationToken) =>Task.CompletedTask;
+        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
     }
 }

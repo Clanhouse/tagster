@@ -1,16 +1,16 @@
-﻿using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Tagster.Application.Services;
 using Tagster.CQRS.Commands.Handlers;
 
 namespace Tagster.Application.Commands.GenFakeData
 {
-    class GenFakeDataHandler : ICommandHandler<GenFakeData>
+    internal class GenFakeDataHandler : ICommandHandler<GenFakeData>
     {
         private readonly IAdminService _adminService;
 
-        public GenFakeDataHandler(IAdminService adminService) 
+        public GenFakeDataHandler(IAdminService adminService)
         {
             _adminService = adminService;
         }

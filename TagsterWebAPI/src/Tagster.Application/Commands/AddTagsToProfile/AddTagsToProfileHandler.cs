@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Tagster.CQRS.Commands.Handlers;
 using Tagster.Application.Factories;
+using Tagster.CQRS.Commands.Handlers;
 using Tagster.Domain.Repositories;
 
 namespace Tagster.Application.Commands.AddTagsToProfile
@@ -11,7 +11,7 @@ namespace Tagster.Application.Commands.AddTagsToProfile
     {
         private readonly ITagsRepository _repository;
 
-        public AddTagsToProfileHandler(ITagsRepository repository) 
+        public AddTagsToProfileHandler(ITagsRepository repository)
             => _repository = repository;
 
         public async Task<Unit> Handle(AddTagsToProfile request, CancellationToken cancellationToken)

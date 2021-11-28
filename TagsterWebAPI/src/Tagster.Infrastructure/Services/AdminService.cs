@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Tagster.Application.Commands.AddTagsToProfile;
+using Tagster.Application.Commands.GenFakeData;
+using Tagster.Application.Factories;
 using Tagster.Application.Services;
 using Tagster.DataAccess.Models;
-using System.Text.Json;
-using System.IO;
-using Tagster.Application.Factories;
-using Tagster.Application.Commands.GenFakeData;
-using Tagster.Application.Commands.AddTagsToProfile;
-using Tagster.Infrastructure.EF;
 using Tagster.Domain.Entities;
+using Tagster.Infrastructure.EF;
 
 namespace Tagster.Infrastructure.Services
 {
@@ -23,8 +23,10 @@ namespace Tagster.Infrastructure.Services
         {
             Random rand = new();
 
-            if(!File.Exists(Path.Combine(AppContext.BaseDirectory, "FakeData.json")))
+            if (!File.Exists(Path.Combine(AppContext.BaseDirectory, "FakeData.json")))
+            {
                 throw new ArgumentException("File FakeData.json does not exist");
+            }
 
             string json = new StreamReader(Path.Combine(AppContext.BaseDirectory, "FakeData.json")).ReadToEnd();
 

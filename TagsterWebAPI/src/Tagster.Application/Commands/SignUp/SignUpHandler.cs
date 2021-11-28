@@ -10,7 +10,7 @@ namespace Tagster.Application.Commands.SignUp
     {
         private readonly IIdentityService _identityService;
 
-        public SignUpHandler(IIdentityService identityService) 
+        public SignUpHandler(IIdentityService identityService)
             => _identityService = identityService;
 
         public async Task<Unit> Handle(SignUp request, CancellationToken cancellationToken)

@@ -29,7 +29,7 @@ namespace Tagster.Exception.UnitTests.Middlewares
                 );
 
             await sut.InvokeAsync(context, _ => throw new System.Exception("msg"));
-            
+
             _loggerMock.Verify(
                 x => x.Log(
                     LogLevel.Warning,
@@ -38,7 +38,7 @@ namespace Tagster.Exception.UnitTests.Middlewares
                     It.IsAny<System.Exception>(),
                     It.Is<Func<It.IsAnyType, System.Exception, string>>((v, t) => true)));
         }
-        
+
         [Fact]
         public async Task HandleErrorAsync_NullExceptionResponse_ShouldWriteEmptyStringToResponse()
         {
@@ -52,7 +52,7 @@ namespace Tagster.Exception.UnitTests.Middlewares
             );
 
             await sut.InvokeAsync(context, _ => throw new System.Exception("msg"));
-            
+
             context.Response.Body.Seek(0, SeekOrigin.Begin);
             var reader = new StreamReader(context.Response.Body);
             var text = await reader.ReadToEndAsync();

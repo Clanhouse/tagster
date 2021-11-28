@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Tagster.Domain.Entities;
 using Tagster.Domain.Repositories;
 
@@ -24,7 +24,7 @@ namespace Tagster.Infrastructure.EF.Repositories
             => await _tags
             .Where(t => t.ProfileId.Equals(_profiles.FirstOrDefault(p => p.Name.Equals(profileName)).Id))
             .ToListAsync();
-        
+
         public async Task InstertDataAsync(Profile profile)
         {
             await _profiles.AddAsync(profile);
