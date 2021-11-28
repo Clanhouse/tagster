@@ -1,4 +1,4 @@
-ARG VERSION=5.0
+ARG VERSION=6.0
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app

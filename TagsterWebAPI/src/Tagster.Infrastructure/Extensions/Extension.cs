@@ -22,12 +22,14 @@ namespace Tagster.Infrastructure.Extensions
             .AddRedis(configuration)
             .AddErrorHandler<ExceptionToResponseMapper>()
             .AddDbContext<TagsterDbContext>(
-                opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
+                opt => opt.UseSqlServer(
+                    configuration.GetConnectionString("DefaultConnection")))
             .AddScoped<ITagsRepository, TagsRepository>()
             .AddScoped<IUserRepository, UserRepository>()
             .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
             .AddScoped<ICookieFactory, CookieFactory>()
-            .AddScoped<IAdminService, AdminService>();
+            .AddScoped<IAdminService, AdminService>()
+            .AddHostedService<AppInitializer>();
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
         {
