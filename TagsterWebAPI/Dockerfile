@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
 ARG CONFIGURATION=Release
 COPY . .
-RUN dotnet restore --no-cache --disable-parallel -v d
+RUN dotnet restore
 
 RUN dotnet publish \
     -c $CONFIGURATION \
