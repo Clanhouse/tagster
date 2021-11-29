@@ -6,7 +6,7 @@ Tagster is a backend and frontend application that allows you to add tags to bro
 
 You need install:
 
-- [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [.NET 6](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
 - [Chrome](https://www.google.com/chrome)
 - [NPM](https://nodejs.org/)
