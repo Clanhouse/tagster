@@ -8,6 +8,6 @@ namespace Tagster.Domain.Repositories
     {
         Task<ICollection<Tag>> GetList(string profileName);
         Task<Profile> GetProfileWithTags(string href);
-        Task InstertDataAsync(Profile profile);
+        Task InsertDataAsync(Profile profile);
     }
 }

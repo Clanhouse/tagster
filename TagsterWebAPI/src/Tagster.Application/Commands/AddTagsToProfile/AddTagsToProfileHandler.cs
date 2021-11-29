@@ -16,7 +16,7 @@ namespace Tagster.Application.Commands.AddTagsToProfile
 
         public async Task<Unit> Handle(AddTagsToProfile request, CancellationToken cancellationToken)
         {
-            await _repository.InstertDataAsync(ProfileFactory.Create(request));
+            await _repository.InsertDataAsync(ProfileFactory.Create(request));
             return Unit.Value;
         }
     }

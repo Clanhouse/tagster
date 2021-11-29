@@ -25,7 +25,7 @@ namespace Tagster.Infrastructure.EF.Repositories
             .Where(t => t.ProfileId.Equals(_profiles.FirstOrDefault(p => p.Name.Equals(profileName)).Id))
             .ToListAsync();
 
-        public async Task InstertDataAsync(Profile profile)
+        public async Task InsertDataAsync(Profile profile)
         {
             await _profiles.AddAsync(profile);
             await _tagsterDb.SaveChangesAsync();
