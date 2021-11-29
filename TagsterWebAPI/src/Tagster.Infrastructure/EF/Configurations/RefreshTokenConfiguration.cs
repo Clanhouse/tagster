@@ -8,8 +8,6 @@ namespace Tagster.Infrastructure.EF.Configurations
     {
         public void Configure(EntityTypeBuilder<RefreshToken> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id).ValueGeneratedOnAdd();
         }
     }
 }
