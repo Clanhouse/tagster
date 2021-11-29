@@ -4,21 +4,17 @@ using Tagster.Application.Services;
 using Tagster.CQRS.Queries.Handlers;
 using Tagster.Application.Dtos;
 using Tagster.DataAccess.Entities;
-using Tagster.DataAccess.DBContexts;
 using System.Linq;
 
 namespace Tagster.Application.Queries.GetProfile
 {
-    internal sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags, ProfileDto>
+    public sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags, ProfileDto>
     {
         private readonly ITagsService _tagService;
         public GetProfileWithTagsHandler(ITagsService tagService)
         {
             _tagService = tagService;
         }
-        private readonly TagsterDbContext _tagsterDb;
-        public GetProfileWithTagsHandler(TagsterDbContext tagsterDb)
-            => _tagsterDb = tagsterDb;
 
         public async Task<ProfileDto> Handle(GetProfileWithTags request, CancellationToken cancellationToken)
         {

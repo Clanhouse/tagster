@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Tagster.DataAccess.Entities;
 
 namespace Tagster.Application.Dtos
 {
