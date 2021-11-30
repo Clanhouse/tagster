@@ -8,7 +8,7 @@ using Tagster.Domain.Repositories;
 
 namespace Tagster.Application.Queries.GetProfile
 {
-    internal sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags, ProfileDto>
+    public sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags, ProfileDto>
     {
         private readonly ITagsRepository _repository;
         public GetProfileWithTagsHandler(ITagsRepository repository)
