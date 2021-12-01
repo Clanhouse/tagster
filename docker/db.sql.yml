@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=sql
+  db:
+    container_name: sql
+    image: mcr.microsoft.com/mssql/server:latest
+    restart: unless-stopped
+    networks:
+      - tagster
+    environment:
+      - SA_PASSWORD=Your_password123
+      - ACCEPT_EULA=Y
+    ports:
+      - 15591:1433
+      - 5022:5022
+    volumes:
+      - db-backups:/var/opt/mssql/backups
+      - db-sqlserver:/var/opt/sqlserver
+      - db-mssql:/var/opt/mssql
+    deploy:
+      resources:
+        limits:
+          memory: 2000m
+        reservations:
+          memory: 500m
+volumes:
+  db-backups:
+    external: false
+  db-sqlserver:
+    external: false
+  db-mssql:
+    external: false

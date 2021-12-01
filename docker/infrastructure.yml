@@ -2,7 +2,7 @@ version: "3.9"
 services:
   service:
     container_name: tagster
-    build: ./TagsterWebAPI
+    build: ../TagsterWebAPI
     restart: unless-stopped
     networks:
       - tagster
@@ -14,6 +14,8 @@ services:
       - seq
       - db
       - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT
     deploy:
       resources:
         limits:
@@ -38,28 +40,6 @@ services:
           memory: 300m
         reservations:
           memory: 100m
-  db:
-    container_name: sql
-    image: mcr.microsoft.com/mssql/server:latest
-    restart: unless-stopped
-    networks:
-      - tagster
-    environment:
-      - SA_PASSWORD=Your_password123
-      - ACCEPT_EULA=Y
-    ports:
-      - 15591:1433
-      - 5022:5022
-    volumes:
-      - db-backups:/var/opt/mssql/backups
-      - db-sqlserver:/var/opt/sqlserver
-      - db-mssql:/var/opt/mssql
-    deploy:
-      resources:
-        limits:
-          memory: 2000m
-        reservations:
-          memory: 500m
   redis:
     container_name: redis
     image: redis:latest
@@ -81,12 +61,6 @@ volumes:
   tagter-web-api-configuration:
     external: false
   seq-data:
-    external: false
-  db-backups:
-    external: false
-  db-sqlserver:
-    external: false
-  db-mssql:
     external: false
   redis-data:
     external: false

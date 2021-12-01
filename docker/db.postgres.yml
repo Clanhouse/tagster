@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=postgres
+  db:
+    container_name: postgres
+    image: postgres:latest
+    restart: unless-stopped
+    networks:
+      - tagster
+    environment:
+      - POSTGRES_PASSWORD=Your_password123
+      - POSTGRES_USER=tagster
+      - POSTGRES_DB=tagster
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          memory: 2000m
+        reservations:
+          memory: 500m
+volumes:
+  db-data:
+    external: false
