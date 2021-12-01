@@ -1,16 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
+using Shouldly;
 using Tagster.Exception.Factories;
 using Tagster.Exception.Models;
 using Xunit;
-using Shouldly;
-using System.Net;
 
 namespace Tagster.Exception.UnitTests.Factories
 {
     public class ExceptionResponseFactoryTests
     {
         private readonly IExceptionResponseFactory _factory;
-        public ExceptionResponseFactoryTests() => _factory = new ExceptionResponseFactory();
+        public ExceptionResponseFactoryTests()
+            => _factory = new ExceptionResponseFactory();
 
         [Fact]
         public async Task Create_CreateExceptionResponseFromAppException_TypeShouldBeExceptionResponse()

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tagster.DataAccess.Models;
-using Tagster.DataAccess.Entities;
+using Tagster.Domain.Entities;
 
 namespace Tagster.Application.Factories
 {
@@ -10,18 +10,16 @@ namespace Tagster.Application.Factories
         public static ICollection<Tag> Create(int maxTagsPerProfile, FakeData fakeData)
         {
             Random rand = new();
-            var tags = new List<Tag>();
+            List<Tag> tags = new();
 
             for (int j = 0; j < rand.Next(maxTagsPerProfile); j++)
             {
-                string tagName = fakeData.Tags[rand.Next(fakeData.Tags.Length)];
-                Tag tag = new()
+                tags.Add(new()
                 {
-                    TagName = tagName
-                };
-
-                tags.Add(tag);
+                    Name = fakeData.Tags[rand.Next(fakeData.Tags.Length)]
+                });
             }
+
             return tags;
         }
     }

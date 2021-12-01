@@ -1,8 +1,8 @@
+using System.IO;
+using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.IO;
-using System.Net;
 using Tagster.Logger;
 
 namespace TagsterWebAPI

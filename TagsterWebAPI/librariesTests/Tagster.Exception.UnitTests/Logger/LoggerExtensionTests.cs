@@ -29,7 +29,7 @@ namespace Tagster.Exception.UnitTests.Logger
                     It.IsAny<System.Exception>(),
                     It.Is<Func<It.IsAnyType, System.Exception, string>>((v, t) => true)));
         }
-        
+
         [Theory]
         [InlineData(200)]
         [InlineData(201)]
@@ -51,7 +51,7 @@ namespace Tagster.Exception.UnitTests.Logger
                     It.IsAny<System.Exception>(),
                     It.Is<Func<It.IsAnyType, System.Exception, string>>((v, t) => true)));
         }
-        
+
         [Theory]
         [InlineData(500)]
         [InlineData(400)]

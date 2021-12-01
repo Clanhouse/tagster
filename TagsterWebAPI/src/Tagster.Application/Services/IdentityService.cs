@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -8,25 +7,25 @@ using Tagster.Auth.Dtos;
 using Tagster.Auth.Exceptions;
 using Tagster.Auth.Models;
 using Tagster.Auth.Services;
-using Tagster.DataAccess.DBContexts;
-using Tagster.DataAccess.Entities;
+using Tagster.Domain.Entities;
+using Tagster.Domain.Repositories;
 
 namespace Tagster.Application.Services
 {
     public sealed class IdentityService : IIdentityService
     {
-        private readonly TagsterDbContext _tagsterDb;
+        private readonly IUserRepository _userRepository;
         private readonly IPasswordService _passwordService;
         private readonly IRefreshTokenService _refreshTokenService;
         private readonly IJwtProvider _jwtProvider;
         private readonly IAccessTokenService _accessTokenService;
         private readonly ILogger<IdentityService> _logger;
 
-        public IdentityService(TagsterDbContext tagsterDb, IPasswordService passwordService,
-            IRefreshTokenService refreshTokenService, IJwtProvider jwtProvider, 
+        public IdentityService(IUserRepository userRepository, IPasswordService passwordService,
+            IRefreshTokenService refreshTokenService, IJwtProvider jwtProvider,
             IAccessTokenService accessTokenService, ILogger<IdentityService> logger)
         {
-            _tagsterDb = tagsterDb;
+            _userRepository = userRepository;
             _passwordService = passwordService;
             _refreshTokenService = refreshTokenService;
             _jwtProvider = jwtProvider;
@@ -36,7 +35,7 @@ namespace Tagster.Application.Services
 
         public async Task SignUpAsync(SignUp command, CancellationToken cancellationToken)
         {
-            var user = _tagsterDb.Users.FirstOrDefault(x => x.Email.Equals(command.Email));
+            var user = await _userRepository.FindByEmailAsync(command.Email, cancellationToken);
             if (user is { })
             {
                 _logger.LogInformation("Email already in use: {email}", command.Email);
@@ -45,14 +44,13 @@ namespace Tagster.Application.Services
 
             var password = _passwordService.Hash(command.Password);
             user = new User(0, command.Email, password, DateTime.UtcNow);
-            await _tagsterDb.Users.AddAsync(user, cancellationToken);
-            await _tagsterDb.SaveChangesAsync(cancellationToken);
+            await _userRepository.AddAsync(user, cancellationToken);
             _logger.LogInformation("Created an account for the user with id: {id}.", user.Id);
         }
 
         public async Task<AuthDto> SignInAsync(SignIn command, CancellationToken cancellationToken)
         {
-            var user = _tagsterDb.Users.FirstOrDefault(x => x.Email.Equals(command.Email));
+            var user = await _userRepository.FindByEmailAsync(command.Email, cancellationToken);
             if (user is null || !_passwordService.IsValid(user.Password, command.Password))
             {
                 _logger.LogInformation("User with email: {email} was not found or password is incorrect.", command.Email);

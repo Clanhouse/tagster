@@ -3,28 +3,35 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Tagster.DataAccess.DBContexts;
+using Tagster.Infrastructure.EF;
 
-namespace Tagster.DataAccess.Migrations
+#nullable disable
+
+namespace Tagster.Infrastructure.Migrations
 {
     [DbContext(typeof(TagsterDbContext))]
-    partial class TagsterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211128112431_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasDefaultSchema("tagster")
+                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            modelBuilder.Entity("Tagster.DataAccess.Entities.Profile", b =>
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Tagster.Domain.Entities.Profile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Href")
                         .HasColumnType("nvarchar(max)");
@@ -37,15 +44,16 @@ namespace Tagster.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Profiles");
+                    b.ToTable("Profiles", "tagster");
                 });
 
-            modelBuilder.Entity("Tagster.DataAccess.Entities.RefreshToken", b =>
+            modelBuilder.Entity("Tagster.Domain.Entities.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -61,35 +69,37 @@ namespace Tagster.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", "tagster");
                 });
 
-            modelBuilder.Entity("Tagster.DataAccess.Entities.Tag", b =>
+            modelBuilder.Entity("Tagster.Domain.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TagName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", "tagster");
                 });
 
-            modelBuilder.Entity("Tagster.DataAccess.Entities.User", b =>
+            modelBuilder.Entity("Tagster.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -102,21 +112,21 @@ namespace Tagster.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", "tagster");
                 });
 
-            modelBuilder.Entity("Tagster.DataAccess.Entities.Tag", b =>
+            modelBuilder.Entity("Tagster.Domain.Entities.Tag", b =>
                 {
-                    b.HasOne("Tagster.DataAccess.Entities.Profile", null)
-                        .WithMany("ProfileTags")
+                    b.HasOne("Tagster.Domain.Entities.Profile", null)
+                        .WithMany("Tags")
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Tagster.DataAccess.Entities.Profile", b =>
+            modelBuilder.Entity("Tagster.Domain.Entities.Profile", b =>
                 {
-                    b.Navigation("ProfileTags");
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

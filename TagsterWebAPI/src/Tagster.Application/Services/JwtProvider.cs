@@ -7,7 +7,7 @@ namespace Tagster.Application.Services
     {
         private readonly IJwtHandler _jwtHandler;
 
-        public JwtProvider(IJwtHandler jwtHandler) 
+        public JwtProvider(IJwtHandler jwtHandler)
             => _jwtHandler = jwtHandler;
 
         public AuthDto Create(int userId, string email)

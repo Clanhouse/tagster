@@ -8,12 +8,12 @@ namespace Tagster.Application.Commands.SignIn
 {
     public class SignInHandler : ICommandHandler<SignIn, AuthDto>
     {
-        readonly IIdentityService _identityService;
+        private readonly IIdentityService _identityService;
 
-        public SignInHandler(IIdentityService identityService) 
+        public SignInHandler(IIdentityService identityService)
             => _identityService = identityService;
 
-        public Task<AuthDto> Handle(SignIn request, CancellationToken cancellationToken) 
+        public Task<AuthDto> Handle(SignIn request, CancellationToken cancellationToken)
             => _identityService.SignInAsync(new Auth.Models.SignIn(request.Email, request.Password), cancellationToken);
     }
 }

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tagster.Application.Services;
 using Tagster.Auth;
-using Tagster.DataAccess.Extensions;
+using Tagster.Domain.Repositories;
 using Tagster.Exception;
+using Tagster.Infrastructure.EF;
+using Tagster.Infrastructure.EF.Repositories;
 using Tagster.Infrastructure.Exceptions;
 using Tagster.Infrastructure.Services;
 using Tagster.Redis;
@@ -18,10 +21,15 @@ namespace Tagster.Infrastructure.Extensions
             .AddJwt(configuration)
             .AddRedis(configuration)
             .AddErrorHandler<ExceptionToResponseMapper>()
-            .AddDataAccess(configuration.GetConnectionString("DefaultConnection"))
-            .AddTransient<ITagsService, TagsService>()
-            .AddTransient<ICookieFactory, CookieFactory>()
-            .AddTransient<IAdminService, AdminService>();
+            .AddDbContext<TagsterDbContext>(
+                opt => opt.UseSqlServer(
+                    configuration.GetConnectionString("DefaultConnection")))
+            .AddScoped<ITagsRepository, TagsRepository>()
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
+            .AddScoped<ICookieFactory, CookieFactory>()
+            .AddScoped<IAdminService, AdminService>()
+            .AddHostedService<AppInitializer>();
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
         {

@@ -32,30 +32,30 @@ namespace Tagster.Auth.Handlers
 
             _options = options;
             _tokenValidationParameters = tokenValidationParameters;
-            _signingCredentials = new SigningCredentials(issuerSigningKey, _options.Algorithm);
+            _signingCredentials = new(issuerSigningKey, _options.Algorithm);
         }
 
         public JsonWebToken CreateToken(int userId, string email)
         {
             var now = DateTime.UtcNow;
-            var jwtClaims = new List<Claim>
+            List<Claim> jwtClaims = new()
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
+                new(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                new(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
+                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
             };
 
             if (!string.IsNullOrWhiteSpace(email))
             {
-                jwtClaims.Add(new Claim(ServerClaimNames.Email, email));
+                jwtClaims.Add(new(ServerClaimNames.Email, email));
             }
 
             var expires = _options.Expiry.HasValue
                 ? now.AddMilliseconds(_options.Expiry.Value.TotalMilliseconds)
                 : now.AddMinutes(_options.ExpiryMinutes);
 
-            var jwt = new JwtSecurityToken(
+            JwtSecurityToken jwt = new(
                 issuer: _options.Issuer,
                 audience: _options.ValidAudience,
                 claims: jwtClaims,
@@ -66,7 +66,7 @@ namespace Tagster.Auth.Handlers
 
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new JsonWebToken
+            return new()
             {
                 AccessToken = token,
                 RefreshToken = string.Empty,
@@ -83,10 +83,8 @@ namespace Tagster.Auth.Handlers
                 return null;
             }
 
-            using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
-            var randomBytes = new byte[128];
-            rngCryptoServiceProvider.GetBytes(randomBytes);
-            return new JsonWebRefreshToken(new Guid(), userId, Convert.ToBase64String(randomBytes), jwt.ValidTo, DateTime.Now);
+            return new(new Guid(), userId,
+                Convert.ToBase64String(RandomNumberGenerator.GetBytes(128)), jwt.ValidTo, DateTime.Now);
         }
     }
 }

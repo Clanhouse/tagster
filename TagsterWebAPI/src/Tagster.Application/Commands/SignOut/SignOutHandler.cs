@@ -8,7 +8,7 @@ namespace Tagster.Application.Commands.SignOut
 {
     public class SignOutHandler : ICommandHandler<SignOut>
     {
-        readonly IIdentityService _identityService;
+        private readonly IIdentityService _identityService;
 
         public SignOutHandler(IIdentityService identityService) => _identityService = identityService;
 

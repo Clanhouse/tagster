@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Tagster.CQRS.Commands;
-using Tagster.DataAccess.Entities;
+using Tagster.Domain.Entities;
 
 namespace Tagster.Application.Commands.AddTagsToProfile
 {

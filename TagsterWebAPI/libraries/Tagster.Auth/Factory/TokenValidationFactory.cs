@@ -66,7 +66,9 @@ namespace Tagster.Auth.Factory
                 if (certificate is { })
                 {
                     if (string.IsNullOrWhiteSpace(options.Algorithm))
+                    {
                         options.Algorithm = SecurityAlgorithms.RsaSha256;
+                    }
 
                     hasCertificate = true;
                     tokenValidationParameters.IssuerSigningKey = new X509SecurityKey(certificate);

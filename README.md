@@ -6,11 +6,10 @@ Tagster is a backend and frontend application that allows you to add tags to bro
 
 You need install:
 
-- [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [.NET 6](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [SQL server](https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads)
 - [Chrome](https://www.google.com/chrome)
 - [NPM](https://nodejs.org/)
-- [dotnet-ef](https://github.com/dotnet/efcore)
 
 ## Usage
 
@@ -18,19 +17,18 @@ You need install:
 
 ### Backend
 
+#### Docker
+
+2. Go to [README.docker.md](./README.docker.md) and follow the instructions.
+
+#### Source build
+
 2. Open terminal and go to folder [TagsterWebAPI](./TagsterWebAPI).
 3. Generate sql srcipt to initialize database:
 
 - go to [TagsterWebAPI](./TagsterWebAPI/src/TagsterWebAPI) folder with .Net project
 - open [appsettings.json](./TagsterWebAPI/src/TagsterWebAPI/Configuration/appsettings.json) and update `defaultConnection` for section `connectionStrings`. More information about building connection string [here](https://www.connectionstrings.com/sql-server/)
 - go to [TagsterWebAPI](./TagsterWebAPI) folder with .Net solution
-- generate scl script with command
-
-```bash
-dotnet ef dbcontext script -p .\libraries\Tagster.DataAccess\Tagster.DataAccess.csproj -s .\src\TagsterWebAPI\TagsterWebAPI.csproj -o script.sql
-```
-
-- use generated script to initialize database
 
 4. Build and publish application with commands below
 

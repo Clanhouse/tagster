@@ -21,7 +21,9 @@ namespace Tagster.Auth
             string sectionName = SectionName, Action<JwtBearerOptions> optionsFactory = null)
         {
             if (string.IsNullOrWhiteSpace(sectionName))
+            {
                 sectionName = SectionName;
+            }
 
             JwtOptions options = new();
             configuration.GetSection(sectionName).Bind(options);

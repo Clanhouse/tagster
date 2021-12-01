@@ -37,7 +37,9 @@ namespace TagsterWebAPI.Controllers
         public async Task<IActionResult> SignUp([FromBody] SignUp command, CancellationToken cancellationToken)
         {
             if (!command.Password.Equals(command.ConfirmPassword))
+            {
                 return BadRequest("Passwords do not match!");
+            }
 
             await _mediator.Send(command, cancellationToken);
             return Accepted();
@@ -85,13 +87,13 @@ namespace TagsterWebAPI.Controllers
         /// <returns>AuthDto</returns>
         [HttpPost("refresh-token")]
         [ProducesResponseType(typeof(AuthDto), StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(RevokedRefreshTokenException)/typeof(InvalidRefreshTokenException)
-        [ProducesResponseType(StatusCodes.Status404NotFound)]                   // typeof(UserNotFoundException)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Refresh_Token(CancellationToken cancellationToken)
         {
             var command = new RefreshTokens { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };
 
-            var token = await _mediator.Send<AuthDto>(command, cancellationToken);
+            var token = await _mediator.Send(command, cancellationToken);
             _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
             return Accepted(token);
         }
