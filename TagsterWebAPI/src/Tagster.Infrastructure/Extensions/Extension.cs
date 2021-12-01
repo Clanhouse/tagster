@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tagster.Application.Services;
@@ -21,9 +20,7 @@ namespace Tagster.Infrastructure.Extensions
             .AddJwt(configuration)
             .AddRedis(configuration)
             .AddErrorHandler<ExceptionToResponseMapper>()
-            .AddDbContext<TagsterDbContext>(
-                opt => opt.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")))
+            .UseDatabase(configuration)
             .AddScoped<ITagsRepository, TagsRepository>()
             .AddScoped<IUserRepository, UserRepository>()
             .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
