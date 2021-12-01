@@ -2,7 +2,7 @@ version: "3.9"
 services:
   service:
     container_name: tagster
-    build: ../TagsterWebAPI
+    build: ./TagsterWebAPI
     restart: unless-stopped
     networks:
       - tagster
@@ -40,6 +40,26 @@ services:
           memory: 300m
         reservations:
           memory: 100m
+  db:
+    container_name: postgres
+    image: postgres:latest
+    restart: unless-stopped
+    networks:
+      - tagster
+    environment:
+      - POSTGRES_PASSWORD=Your_password123
+      - POSTGRES_USER=tagster
+      - POSTGRES_DB=tagster
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          memory: 2000m
+        reservations:
+          memory: 500m
   redis:
     container_name: redis
     image: redis:latest
@@ -63,6 +83,8 @@ volumes:
   seq-data:
     external: false
   redis-data:
+    external: false
+  db-data:
     external: false
 
 networks:

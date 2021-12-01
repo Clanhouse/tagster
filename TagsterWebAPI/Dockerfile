@@ -13,10 +13,10 @@ RUN dotnet publish \
     --force
 
 FROM mcr.microsoft.com/dotnet/aspnet:$VERSION
-EXPOSE 5000
+EXPOSE 9000
 WORKDIR /app
 CMD [ "TagsterWebAPI.dll" ]
 ENV DOTNET_RUNNING_IN_CONTAINER=true \
-    ASPNETCORE_ENVIRONMENT=sql
+    ASPNETCORE_ENVIRONMENT=Docker
 COPY --from=build /app/publish .
 ENTRYPOINT [ "dotnet" ]

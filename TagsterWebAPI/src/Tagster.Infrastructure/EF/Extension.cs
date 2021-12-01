@@ -13,25 +13,7 @@ namespace Tagster.Infrastructure.EF
 
             return services
                 .AddDbContext<TagsterDbContext>(
-                opt => opt.Configure(databaseOption));
-        }
-
-
-        private static DbContextOptionsBuilder Configure(this DbContextOptionsBuilder builder, DatabaseOption options)
-        {
-            switch (options.Type)
-            {
-                case DatabaseType.SQLServer:
-                    builder.UseSqlServer(options.ConectionString);
-                    break;
-                case DatabaseType.PostgreSQL:
-                    builder.UseNpgsql(options.ConectionString);
-                    break;
-                default:
-                    break;
-            }
-
-            return builder;
+                opt => opt.UseNpgsql(databaseOption.ConectionString));
         }
     }
 }
