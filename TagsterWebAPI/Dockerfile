@@ -1,4 +1,5 @@
 ARG VERSION=6.0
+ARG PROCESSOR_ARCHITECTURE=
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
@@ -17,6 +18,6 @@ EXPOSE 5000
 WORKDIR /app
 CMD [ "TagsterWebAPI.dll" ]
 ENV DOTNET_RUNNING_IN_CONTAINER=true \
-    ASPNETCORE_ENVIRONMENT=Docker 
+    ASPNETCORE_ENVIRONMENT=Docker$PROCESSOR_ARCHITECTURE
 COPY --from=build /app/publish .
 ENTRYPOINT [ "dotnet" ]
