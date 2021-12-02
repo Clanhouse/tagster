@@ -1,14 +1,13 @@
-using Xunit;
+﻿using Xunit;
 
-namespace Tagster.Domain.UnitTests
+namespace Tagster.Domain.UnitTests;
+
+public class UnitTest1
 {
-    public class UnitTest1
+    //dummy test
+    [Fact]
+    public void Test1()
     {
-        //dummy test
-        [Fact]
-        public void Test1()
-        {
-            Assert.True(true);
-        }
+        Assert.True(true);
     }
 }

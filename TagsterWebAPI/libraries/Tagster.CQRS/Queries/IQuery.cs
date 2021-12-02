@@ -1,8 +1,7 @@
 ﻿using MediatR;
 
-namespace Tagster.CQRS.Queries
+namespace Tagster.CQRS.Queries;
+
+public interface IQuery<out TResult> : IRequest<TResult>
 {
-    public interface IQuery<out TResult> : IRequest<TResult>
-    {
-    }
 }

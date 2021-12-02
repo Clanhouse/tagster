@@ -1,9 +1,8 @@
 ﻿using Tagster.Auth.Dtos;
 
-namespace Tagster.Application.Services
+namespace Tagster.Application.Services;
+
+public interface IJwtProvider
 {
-    public interface IJwtProvider
-    {
-        AuthDto Create(int userId, string email);
-    }
+    AuthDto Create(int userId, string email);
 }

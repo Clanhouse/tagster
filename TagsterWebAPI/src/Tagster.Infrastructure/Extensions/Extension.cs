@@ -11,26 +11,25 @@ using Tagster.Infrastructure.Exceptions;
 using Tagster.Infrastructure.Services;
 using Tagster.Redis;
 
-namespace Tagster.Infrastructure.Extensions
-{
-    public static class Extension
-    {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-            => services
-            .AddJwt(configuration)
-            .AddRedis(configuration)
-            .AddErrorHandler<ExceptionToResponseMapper>()
-            .UseDatabase(configuration)
-            .AddScoped<ITagsRepository, TagsRepository>()
-            .AddScoped<IUserRepository, UserRepository>()
-            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
-            .AddScoped<ICookieFactory, CookieFactory>()
-            .AddScoped<IAdminService, AdminService>()
-            .AddHostedService<AppInitializer>();
+namespace Tagster.Infrastructure.Extensions;
 
-        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
-        {
-            return app.UseErrorHandler();
-        }
+public static class Extension
+{
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        => services
+        .AddJwt(configuration)
+        .AddRedis(configuration)
+        .AddErrorHandler<ExceptionToResponseMapper>()
+        .UseDatabase(configuration)
+        .AddScoped<ITagsRepository, TagsRepository>()
+        .AddScoped<IUserRepository, UserRepository>()
+        .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
+        .AddScoped<ICookieFactory, CookieFactory>()
+        .AddScoped<IAdminService, AdminService>()
+        .AddHostedService<AppInitializer>();
+
+    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+    {
+        return app.UseErrorHandler();
     }
 }

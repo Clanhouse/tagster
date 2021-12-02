@@ -1,15 +1,14 @@
-using Tagster.Swagger.Options;
+﻿using Tagster.Swagger.Options;
 
-namespace Tagster.Swagger.Builders
+namespace Tagster.Swagger.Builders;
+
+public interface ISwaggerOptionsBuilder
 {
-    public interface ISwaggerOptionsBuilder
-    {
-        ISwaggerOptionsBuilder Enable(bool enabled);
-        ISwaggerOptionsBuilder WithName(string name);
-        ISwaggerOptionsBuilder WithTitle(string title);
-        ISwaggerOptionsBuilder WithVersion(string version);
-        ISwaggerOptionsBuilder WithRoutePrefix(string routePrefix);
-        ISwaggerOptionsBuilder IncludeSecurity(bool includeSecurity);
-        SwaggerOptions Build();
-    }
+    ISwaggerOptionsBuilder Enable(bool enabled);
+    ISwaggerOptionsBuilder WithName(string name);
+    ISwaggerOptionsBuilder WithTitle(string title);
+    ISwaggerOptionsBuilder WithVersion(string version);
+    ISwaggerOptionsBuilder WithRoutePrefix(string routePrefix);
+    ISwaggerOptionsBuilder IncludeSecurity(bool includeSecurity);
+    SwaggerOptions Build();
 }

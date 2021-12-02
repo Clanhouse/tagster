@@ -1,24 +1,23 @@
-namespace Tagster.Redis.Builders
+﻿namespace Tagster.Redis.Builders;
+
+internal sealed class RedisOptionsBuilder : IRedisOptionsBuilder
 {
-    internal sealed class RedisOptionsBuilder : IRedisOptionsBuilder
+    private readonly RedisOptions _options = new();
+
+    public IRedisOptionsBuilder WithConnectionString(string connectionString)
     {
-        private readonly RedisOptions _options = new();
+        _options.ConnectionString = connectionString;
+        return this;
+    }
 
-        public IRedisOptionsBuilder WithConnectionString(string connectionString)
-        {
-            _options.ConnectionString = connectionString;
-            return this;
-        }
+    public IRedisOptionsBuilder WithInstance(string instance)
+    {
+        _options.Instance = instance;
+        return this;
+    }
 
-        public IRedisOptionsBuilder WithInstance(string instance)
-        {
-            _options.Instance = instance;
-            return this;
-        }
-
-        public RedisOptions Build()
-        {
-            return _options;
-        }
+    public RedisOptions Build()
+    {
+        return _options;
     }
 }

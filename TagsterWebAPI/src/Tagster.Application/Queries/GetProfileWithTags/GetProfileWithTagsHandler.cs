@@ -6,37 +6,36 @@ using Tagster.CQRS.Queries.Handlers;
 using Tagster.Domain.Entities;
 using Tagster.Domain.Repositories;
 
-namespace Tagster.Application.Queries.GetProfileWithTags
+namespace Tagster.Application.Queries.GetProfileWithTags;
+
+public sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags, ProfileDto>
 {
-    public sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags, ProfileDto>
+    private readonly ITagsRepository _repository;
+    public GetProfileWithTagsHandler(ITagsRepository repository)
     {
-        private readonly ITagsRepository _repository;
-        public GetProfileWithTagsHandler(ITagsRepository repository)
+        _repository = repository;
+    }
+
+    public async Task<ProfileDto> Handle(GetProfileWithTags request, CancellationToken cancellationToken)
+    {
+        return Map(await _repository.GetProfileWithTags(request.Href));
+    }
+
+    private static ProfileDto Map(Profile profile)
+    {
+        if (profile == null)
         {
-            _repository = repository;
+            return null;
         }
 
-        public async Task<ProfileDto> Handle(GetProfileWithTags request, CancellationToken cancellationToken)
-        {
-            return Map(await _repository.GetProfileWithTags(request.Href));
-        }
+        ProfileDto profileDto = new();
 
-        private static ProfileDto Map(Profile profile)
-        {
-            if (profile == null)
-            {
-                return null;
-            }
+        profileDto.Href = profile.Href;
+        profileDto.Id = profile.Id;
+        profileDto.Name = profile.Name;
+        profileDto.LastName = profile.LastName;
+        profileDto.Tags = profile.Tags.Select(pt => new TagDto { Name = pt.Name }).ToList();
 
-            ProfileDto profileDto = new();
-
-            profileDto.Href = profile.Href;
-            profileDto.Id = profile.Id;
-            profileDto.Name = profile.Name;
-            profileDto.LastName = profile.LastName;
-            profileDto.Tags = profile.Tags.Select(pt => new TagDto { Name = pt.Name }).ToList();
-
-            return profileDto;
-        }
+        return profileDto;
     }
 }

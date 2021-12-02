@@ -1,7 +1,6 @@
-﻿namespace Tagster.Auth.Models
+﻿namespace Tagster.Auth.Models;
+
+public struct ServerClaimNames
 {
-    public struct ServerClaimNames
-    {
-        public const string Email = "username";
-    }
+    public const string Email = "username";
 }

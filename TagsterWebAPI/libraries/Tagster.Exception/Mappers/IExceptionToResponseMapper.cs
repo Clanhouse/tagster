@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Tagster.Exception.Models;
 
-namespace Tagster.Exception.Mappers
+namespace Tagster.Exception.Mappers;
+
+public interface IExceptionToResponseMapper
 {
-    public interface IExceptionToResponseMapper
-    {
-        Task<ExceptionResponse> Map(System.Exception exception);
-    }
+    Task<ExceptionResponse> Map(System.Exception exception);
 }

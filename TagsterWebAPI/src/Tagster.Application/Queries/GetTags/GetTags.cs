@@ -2,10 +2,9 @@
 using Tagster.Application.Dtos;
 using Tagster.CQRS.Queries;
 
-namespace Tagster.Application.Queries.GetTags
+namespace Tagster.Application.Queries.GetTags;
+
+public class GetTags : IQuery<ICollection<TagDto>>
 {
-    public class GetTags : IQuery<ICollection<TagDto>>
-    {
-        public string ProfileName { get; set; }
-    }
+    public string ProfileName { get; set; }
 }

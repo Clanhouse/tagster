@@ -1,8 +1,7 @@
-﻿namespace Tagster.Auth.Services
+﻿namespace Tagster.Auth.Services;
+
+public interface IPasswordService
 {
-    public interface IPasswordService
-    {
-        bool IsValid(string hash, string password);
-        string Hash(string password);
-    }
+    bool IsValid(string hash, string password);
+    string Hash(string password);
 }

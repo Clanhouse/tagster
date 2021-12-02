@@ -1,10 +1,9 @@
-﻿namespace Tagster.DataAccess.Models
+﻿namespace Tagster.DataAccess.Models;
+
+public class FakeData
 {
-    public class FakeData
-    {
-        public string[] Names { get; set; }
-        public string[] Surnames { get; set; }
-        public string[] Tags { get; set; }
-        public string[] Hrefs { get; set; }
-    }
+    public string[] Names { get; set; }
+    public string[] Surnames { get; set; }
+    public string[] Tags { get; set; }
+    public string[] Hrefs { get; set; }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -11,43 +11,42 @@ using Tagster.CQRS;
 using Tagster.Infrastructure.Extensions;
 using Tagster.Swagger;
 
-namespace TagsterWebAPI
+namespace TagsterWebAPI;
+
+public class Startup
 {
-    public class Startup
+    public IConfiguration Configuration { get; }
+
+    public Startup(IConfiguration configuration)
+        => Configuration = configuration;
+
+    public void ConfigureServices(IServiceCollection services)
     {
-        public IConfiguration Configuration { get; }
+        services.AddControllers();
+        services.AddSwaggerDocs(Configuration,
+            Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"))
+            .AddApplication()
+            .AddInfrastructure(Configuration)
+            .AddCQRS(GetType().Assembly, typeof(Tagster.Infrastructure.Extensions.Extension).Assembly,
+            typeof(Tagster.Application.Extensions.Extension).Assembly);
+    }
 
-        public Startup(IConfiguration configuration)
-            => Configuration = configuration;
-
-        public void ConfigureServices(IServiceCollection services)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            services.AddControllers();
-            services.AddSwaggerDocs(Configuration,
-                Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"))
-                .AddApplication()
-                .AddInfrastructure(Configuration)
-                .AddCQRS(GetType().Assembly, typeof(Tagster.Infrastructure.Extensions.Extension).Assembly,
-                typeof(Tagster.Application.Extensions.Extension).Assembly);
+            app.UseDeveloperExceptionPage();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseCors(x => x
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader())
-                .UseSwaggerDocs()
-                .UseHttpsRedirection()
-                .UseRouting()
-                .UseAuthentication()
-                .UseAuthorization()
-                .UseEndpoints(endpoints => { endpoints.MapControllers(); });
-        }
+        app.UseCors(x => x
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader())
+            .UseSwaggerDocs()
+            .UseHttpsRedirection()
+            .UseRouting()
+            .UseAuthentication()
+            .UseAuthorization()
+            .UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

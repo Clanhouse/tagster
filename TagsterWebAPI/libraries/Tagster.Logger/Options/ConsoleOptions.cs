@@ -1,7 +1,6 @@
-namespace Tagster.Logger.Options
+﻿namespace Tagster.Logger.Options;
+
+public class ConsoleOptions
 {
-    public class ConsoleOptions
-    {
-        public bool Enabled { get; set; }
-    }
+    public bool Enabled { get; set; }
 }

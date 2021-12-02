@@ -1,10 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.AddTagsToProfile;
-using Tagster.Application.Queries.GetProfile;
 using Tagster.Application.Queries.GetTags;
 using Tagster.Domain.Entities;
 
