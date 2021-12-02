@@ -28,5 +28,5 @@ internal class UserRepository : IUserRepository
         => await _users.FindAsync(new object[] { id }, cancellationToken: cancellationToken);
 
     public ValueTask<User> FindByEmailAsync(string email, CancellationToken cancellationToken = default)
-        => new(_users.FirstOrDefault(x => x.Email.Equals(email, System.StringComparison.OrdinalIgnoreCase)));
+        => new(_users.FirstOrDefault(x => x.Email == email));
 }
