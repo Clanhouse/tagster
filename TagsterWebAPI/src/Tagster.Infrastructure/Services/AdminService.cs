@@ -30,7 +30,7 @@ internal sealed class AdminService : IAdminService
 
         string json = new StreamReader(Path.Combine(AppContext.BaseDirectory, "FakeData.json")).ReadToEnd();
 
-        FakeData fakeData = JsonSerializer.Deserialize<FakeData>(json);
+        var fakeData = JsonSerializer.Deserialize<FakeData>(json);
         for (int i = 0; i < request.ProfilesCount; i++)
         {
             string name = fakeData.Names[rand.Next(fakeData.Names.Length)];
