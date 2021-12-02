@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -68,7 +69,7 @@ public static class Extensions
         LoggerOptions options)
     {
         var consoleOptions = options.Console ?? new ConsoleOptions();
-        var fileOptions = options.File ?? new FileOptions();
+        var fileOptions = options.File ?? new Options.FileOptions();
         var elkOptions = options.Elk ?? new ElkOptions();
         var seqOptions = options.Seq ?? new SeqOptions();
 
@@ -79,7 +80,7 @@ public static class Extensions
 
         if (fileOptions.Enabled)
         {
-            var path = string.IsNullOrWhiteSpace(fileOptions.Path) ? "logs/logs.txt" : fileOptions.Path;
+            var path = string.IsNullOrWhiteSpace(fileOptions.Path) ? Path.Combine("logs", "logs.log") : fileOptions.Path;
             if (!Enum.TryParse<RollingInterval>(fileOptions.Interval,
                 true, out var interval))
             {
