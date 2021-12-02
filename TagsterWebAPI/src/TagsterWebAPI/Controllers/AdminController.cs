@@ -21,8 +21,8 @@ public class AdminController : ControllerBase
     /// <param name="command"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("generate-fake-data/p{command.profilesCount}/max{command.maxTagsPerProfile}")]
-    public async Task<IActionResult> GenFakeData(GenFakeData command)
+    [Route("generate-fake-data")]
+    public async Task<IActionResult> GenFakeData([FromQuery]GenFakeData command)
     {
         await _mediator.Send(command);
         return Ok();
