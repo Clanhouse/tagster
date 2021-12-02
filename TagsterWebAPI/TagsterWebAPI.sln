@@ -42,10 +42,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Exception", "librar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Exception.UnitTests", "librariesTests\Tagster.Exception.UnitTests\Tagster.Exception.UnitTests.csproj", "{F108EDA1-EFC3-4891-93F5-6D836F56289F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlServerMigrations", "src\SqlServerMigrations\SqlServerMigrations.csproj", "{583C614C-DF61-47AA-AA72-B62245D538AF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresMigrations", "src\PostgresMigrations\PostgresMigrations.csproj", "{CC25957B-06C0-4337-926C-B7BAA47E999A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,14 +112,6 @@ Global
 		{F108EDA1-EFC3-4891-93F5-6D836F56289F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F108EDA1-EFC3-4891-93F5-6D836F56289F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F108EDA1-EFC3-4891-93F5-6D836F56289F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{583C614C-DF61-47AA-AA72-B62245D538AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{583C614C-DF61-47AA-AA72-B62245D538AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{583C614C-DF61-47AA-AA72-B62245D538AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{583C614C-DF61-47AA-AA72-B62245D538AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC25957B-06C0-4337-926C-B7BAA47E999A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC25957B-06C0-4337-926C-B7BAA47E999A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC25957B-06C0-4337-926C-B7BAA47E999A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC25957B-06C0-4337-926C-B7BAA47E999A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,8 +133,6 @@ Global
 		{2C0B6190-FFA4-405A-8ED1-A41724065650} = {F68BC180-9E59-473F-9ABF-4CE80C448174}
 		{01F8729D-F481-4473-8248-0B9F525D52F1} = {F68BC180-9E59-473F-9ABF-4CE80C448174}
 		{F108EDA1-EFC3-4891-93F5-6D836F56289F} = {D3D97CB2-9A56-4FC1-931E-EB8489D4D3B5}
-		{583C614C-DF61-47AA-AA72-B62245D538AF} = {D8B582DE-FB75-4F07-8929-FF87152DE9F8}
-		{CC25957B-06C0-4337-926C-B7BAA47E999A} = {D8B582DE-FB75-4F07-8929-FF87152DE9F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BA103DC-1387-4592-8CC0-8E1413788A57}
