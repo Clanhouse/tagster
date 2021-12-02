@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.AddTagsToProfile;
+using Tagster.Application.Queries.GetProfileWithTags;
 using Tagster.Application.Queries.GetTags;
 using Tagster.Domain.Entities;
 

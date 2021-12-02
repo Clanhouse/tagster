@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Epilepsy_Health_App.Services.Identity.Application.Exceptions;
 using Tagster.Application.Exceptions;
 using Tagster.Auth.Dtos;
 using Tagster.Auth.Services;
