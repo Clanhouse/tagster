@@ -6,7 +6,7 @@ using Tagster.CQRS.Queries.Handlers;
 using Tagster.Domain.Entities;
 using Tagster.Domain.Repositories;
 
-namespace Tagster.Application.Queries.GetProfile
+namespace Tagster.Application.Queries.GetProfileWithTags
 {
     public sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags, ProfileDto>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Tagster.Exception.Models;
 
-namespace Epilepsy_Health_App.Services.Identity.Application.Exceptions
+namespace Tagster.Application.Exceptions
 {
     public class UserNotFoundException : AppException
     {
