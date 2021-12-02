@@ -25,9 +25,7 @@ internal class AppInitializer : IHostedService
         foreach (var dbContextType in dbContextTypes)
         {
             if (scope.ServiceProvider.GetService(dbContextType) is not DbContext dbContext)
-            {
                 continue;
-            }
 
             await dbContext.Database.MigrateAsync(cancellationToken);
         }
