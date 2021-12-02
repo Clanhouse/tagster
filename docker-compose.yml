@@ -10,6 +10,7 @@ services:
       - 5000:9000
     volumes:
       - tagter-web-api-configuration:/app/Configuration
+      - tagster-web-api-logs:/app/logs
     depends_on:
       - seq
       - db
@@ -77,6 +78,8 @@ services:
 
 volumes:
   tagter-web-api-configuration:
+    external: false
+  tagster-web-api-logs:
     external: false
   seq-data:
     external: false
