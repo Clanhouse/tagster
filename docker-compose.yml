@@ -14,8 +14,6 @@ services:
       - seq
       - db
       - redis
-    environment:
-      - ASPNETCORE_ENVIRONMENT
     deploy:
       resources:
         limits:
