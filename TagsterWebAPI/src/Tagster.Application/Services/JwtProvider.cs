@@ -1,25 +1,24 @@
 ﻿using Tagster.Auth.Dtos;
 using Tagster.Auth.Handlers;
 
-namespace Tagster.Application.Services
+namespace Tagster.Application.Services;
+
+public class JwtProvider : IJwtProvider
 {
-    public class JwtProvider : IJwtProvider
+    private readonly IJwtHandler _jwtHandler;
+
+    public JwtProvider(IJwtHandler jwtHandler)
+        => _jwtHandler = jwtHandler;
+
+    public AuthDto Create(int userId, string email)
     {
-        private readonly IJwtHandler _jwtHandler;
+        var jwt = _jwtHandler.CreateToken(userId, email);
 
-        public JwtProvider(IJwtHandler jwtHandler)
-            => _jwtHandler = jwtHandler;
-
-        public AuthDto Create(int userId, string email)
+        return new AuthDto
         {
-            var jwt = _jwtHandler.CreateToken(userId, email);
-
-            return new AuthDto
-            {
-                Id = userId,
-                AccessToken = jwt.AccessToken,
-                RefreshToken = jwt.RefreshToken,
-            };
-        }
+            Id = userId,
+            AccessToken = jwt.AccessToken,
+            RefreshToken = jwt.RefreshToken,
+        };
     }
 }

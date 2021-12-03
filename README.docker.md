@@ -13,12 +13,12 @@ You need install docker and docker-compose:
 Build and start containers:
 
 ```bash
-docker-compose -f docker-compose.yml build
-docker-compose -f docker-compose.yml up -d
+docker-compose build
+docker-compose up -d
 ```
 
 If you want stop all containers use:
 
 ```bash
-docker-compose -f docker-compose.yml down
+docker-compose down
 ```

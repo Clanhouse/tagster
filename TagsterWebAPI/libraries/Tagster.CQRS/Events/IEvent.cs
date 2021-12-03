@@ -1,6 +1,5 @@
-﻿namespace Tagster.CQRS.Events
+﻿namespace Tagster.CQRS.Events;
+
+public interface IEvent
 {
-    public interface IEvent
-    {
-    }
 }

@@ -10,6 +10,7 @@ services:
       - 5000:9000
     volumes:
       - tagter-web-api-configuration:/app/Configuration
+      - tagster-web-api-logs:/app/logs
     depends_on:
       - seq
       - db
@@ -39,21 +40,19 @@ services:
         reservations:
           memory: 100m
   db:
-    container_name: sql
-    image: mcr.microsoft.com/mssql/server:latest
+    container_name: postgres
+    image: postgres:latest
     restart: unless-stopped
     networks:
       - tagster
     environment:
-      - SA_PASSWORD=Your_password123
-      - ACCEPT_EULA=Y
+      - POSTGRES_PASSWORD=Your_password123
+      - POSTGRES_USER=tagster
+      - POSTGRES_DB=tagster
     ports:
-      - 15591:1433
-      - 5022:5022
+      - 5432:5432
     volumes:
-      - db-backups:/var/opt/mssql/backups
-      - db-sqlserver:/var/opt/sqlserver
-      - db-mssql:/var/opt/mssql
+      - db-data:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
@@ -80,15 +79,13 @@ services:
 volumes:
   tagter-web-api-configuration:
     external: false
+  tagster-web-api-logs:
+    external: false
   seq-data:
     external: false
-  db-backups:
-    external: false
-  db-sqlserver:
-    external: false
-  db-mssql:
-    external: false
   redis-data:
+    external: false
+  db-data:
     external: false
 
 networks:

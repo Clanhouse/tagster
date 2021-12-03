@@ -1,7 +1,6 @@
-﻿namespace Tagster.Application.Dtos
+﻿namespace Tagster.Application.Dtos;
+
+public record TagDto
 {
-    public record TagDto
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

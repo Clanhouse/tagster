@@ -6,7 +6,7 @@
 2. [Logger](#Logger)
 3. [Redis](#Redis)
 4. [Jwt](#Jwt)
-5. [ConnectionStrings](#ConnectionStrings)
+5. [Database](#Database)
 
 Example `appsetings.json` configuration file.
 
@@ -75,8 +75,8 @@ Example `appsetings.json` configuration file.
     "validateLifetime": true,
     "allowAnonymousEndpoints": ["/sign-in", "/sign-up"]
   },
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=(server name);Database=Tagster;Trusted_Connection=True;MultipleActiveResultSets=true"
+  "database": {
+    "conectionString": "server=localhost;port=5432;database=tagster;username=tagster;password=Your_password123;"
   },
   "AllowedHosts": "*"
 }
@@ -235,12 +235,12 @@ Example `appsetings.json` configuration file.
 }
 ```
 
-### ConnectionStrings
+### Database
 
-- defaultConnection - sql connection string.
+- conectionString - sql connection string.
 
 ```json
-"connectionStrings": {
-  "defaultConnection": "Server=(server name);Database=Tagster;Trusted_Connection=True;MultipleActiveResultSets=true"
+"database": {
+    "conectionString": "server=localhost;port=5432;database=tagster;username=tagster;password=Your_password123;"
 },
 ```

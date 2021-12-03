@@ -40,7 +40,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Redis", "libraries\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Exception", "libraries\Tagster.Exception\Tagster.Exception.csproj", "{01F8729D-F481-4473-8248-0B9F525D52F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagster.Exception.UnitTests", "librariesTests\Tagster.Exception.UnitTests\Tagster.Exception.UnitTests.csproj", "{F108EDA1-EFC3-4891-93F5-6D836F56289F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tagster.Exception.UnitTests", "librariesTests\Tagster.Exception.UnitTests\Tagster.Exception.UnitTests.csproj", "{F108EDA1-EFC3-4891-93F5-6D836F56289F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15425DDF-81D9-44FB-8F62-8114E4584846}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

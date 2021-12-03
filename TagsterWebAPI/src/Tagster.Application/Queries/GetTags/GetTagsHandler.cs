@@ -6,19 +6,18 @@ using Tagster.Application.Dtos;
 using Tagster.CQRS.Queries.Handlers;
 using Tagster.Domain.Repositories;
 
-namespace Tagster.Application.Queries.GetTags
-{
-    internal class GetTagsHandler : IQueryHandler<GetTags, ICollection<TagDto>>
-    {
-        private readonly ITagsRepository _repository;
-        public GetTagsHandler(ITagsRepository repository)
-        {
-            _repository = repository;
-        }
+namespace Tagster.Application.Queries.GetTags;
 
-        public async Task<ICollection<TagDto>> Handle(GetTags request, CancellationToken cancellationToken)
-        {
-            return (await _repository.GetList(request.ProfileName)).Select(t => new TagDto { Name = t.Name }).ToList();
-        }
+internal class GetTagsHandler : IQueryHandler<GetTags, ICollection<TagDto>>
+{
+    private readonly ITagsRepository _repository;
+    public GetTagsHandler(ITagsRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<ICollection<TagDto>> Handle(GetTags request, CancellationToken cancellationToken)
+    {
+        return (await _repository.GetList(request.ProfileName)).Select(t => new TagDto { Name = t.Name }).ToList();
     }
 }

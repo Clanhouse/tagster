@@ -27,7 +27,7 @@ You need install:
 3. Generate sql srcipt to initialize database:
 
 - go to [TagsterWebAPI](./TagsterWebAPI/src/TagsterWebAPI) folder with .Net project
-- open [appsettings.json](./TagsterWebAPI/src/TagsterWebAPI/Configuration/appsettings.json) and update `defaultConnection` for section `connectionStrings`. More information about building connection string [here](https://www.connectionstrings.com/sql-server/)
+- open [appsettings.json](./TagsterWebAPI/src/TagsterWebAPI/Configuration/appsettings.json) and update `conectionString` for section `database`. More information about building connection string [here](https://www.connectionstrings.com/postgresql/)
 - go to [TagsterWebAPI](./TagsterWebAPI) folder with .Net solution
 
 4. Build and publish application with commands below

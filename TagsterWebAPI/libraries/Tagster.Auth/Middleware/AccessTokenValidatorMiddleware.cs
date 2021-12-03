@@ -7,35 +7,34 @@ using Microsoft.AspNetCore.Http;
 using Tagster.Auth.Options;
 using Tagster.Auth.Services;
 
-namespace Tagster.Auth.Middleware
+namespace Tagster.Auth.Middleware;
+
+public class AccessTokenValidatorMiddleware : IMiddleware
 {
-    public class AccessTokenValidatorMiddleware : IMiddleware
+    private readonly IAccessTokenService _accessTokenService;
+    private readonly IEnumerable<string> _endpoints;
+
+    public AccessTokenValidatorMiddleware(IAccessTokenService accessTokenService, JwtOptions options)
     {
-        private readonly IAccessTokenService _accessTokenService;
-        private readonly IEnumerable<string> _endpoints;
+        _accessTokenService = accessTokenService;
+        _endpoints = options.AllowAnonymousEndpoints ?? Enumerable.Empty<string>();
+    }
 
-        public AccessTokenValidatorMiddleware(IAccessTokenService accessTokenService, JwtOptions options)
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    {
+        var path = context.Request.Path.HasValue ? context.Request.Path.Value : string.Empty;
+        if (_endpoints.Contains(path))
         {
-            _accessTokenService = accessTokenService;
-            _endpoints = options.AllowAnonymousEndpoints ?? Enumerable.Empty<string>();
+            await next(context);
+            return;
         }
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        if (await _accessTokenService.IsCurrentActiveToken())
         {
-            var path = context.Request.Path.HasValue ? context.Request.Path.Value : string.Empty;
-            if (_endpoints.Contains(path))
-            {
-                await next(context);
-                return;
-            }
-
-            if (await _accessTokenService.IsCurrentActiveToken())
-            {
-                await next(context);
-                return;
-            }
-
-            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            await next(context);
+            return;
         }
+
+        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
     }
 }

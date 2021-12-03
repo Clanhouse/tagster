@@ -1,12 +1,11 @@
-using System;
+﻿using System;
 
-namespace Tagster.Auth.Dates
+namespace Tagster.Auth.Dates;
+
+internal static class Extensions
 {
-    internal static class Extensions
+    public static long ToTimestamp(this DateTime dateTime)
     {
-        public static long ToTimestamp(this DateTime dateTime)
-        {
-            return new DateTimeOffset(dateTime).ToUnixTimeSeconds();
-        }
+        return new DateTimeOffset(dateTime).ToUnixTimeSeconds();
     }
 }

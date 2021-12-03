@@ -4,104 +4,103 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Tagster.Auth.Options;
 
-namespace Tagster.Auth.Factory
+namespace Tagster.Auth.Factory;
+
+internal static class TokenValidationFactory
 {
-    internal static class TokenValidationFactory
+    public static TokenValidationParameters CreateParameters(JwtOptions options)
     {
-        public static TokenValidationParameters CreateParameters(JwtOptions options)
+        return new()
         {
-            return new()
-            {
-                RequireAudience = options.RequireAudience,
-                ValidIssuer = options.ValidIssuer,
-                ValidIssuers = options.ValidIssuers,
-                ValidateActor = options.ValidateActor,
-                ValidAudience = options.ValidAudience,
-                ValidAudiences = options.ValidAudiences,
-                ValidateAudience = options.ValidateAudience,
-                ValidateIssuer = options.ValidateIssuer,
-                ValidateLifetime = options.ValidateLifetime,
-                ValidateTokenReplay = options.ValidateTokenReplay,
-                ValidateIssuerSigningKey = options.ValidateIssuerSigningKey,
-                SaveSigninToken = options.SaveSignInToken,
-                RequireExpirationTime = options.RequireExpirationTime,
-                RequireSignedTokens = options.RequireSignedTokens,
-                ClockSkew = TimeSpan.Zero
-            };
-        }
+            RequireAudience = options.RequireAudience,
+            ValidIssuer = options.ValidIssuer,
+            ValidIssuers = options.ValidIssuers,
+            ValidateActor = options.ValidateActor,
+            ValidAudience = options.ValidAudience,
+            ValidAudiences = options.ValidAudiences,
+            ValidateAudience = options.ValidateAudience,
+            ValidateIssuer = options.ValidateIssuer,
+            ValidateLifetime = options.ValidateLifetime,
+            ValidateTokenReplay = options.ValidateTokenReplay,
+            ValidateIssuerSigningKey = options.ValidateIssuerSigningKey,
+            SaveSigninToken = options.SaveSignInToken,
+            RequireExpirationTime = options.RequireExpirationTime,
+            RequireSignedTokens = options.RequireSignedTokens,
+            ClockSkew = TimeSpan.Zero
+        };
+    }
 
-        public static void AddAuthenticationType(this TokenValidationParameters tokenValidationParameters,
-            JwtOptions options)
+    public static void AddAuthenticationType(this TokenValidationParameters tokenValidationParameters,
+        JwtOptions options)
+    {
+        if (!string.IsNullOrWhiteSpace(options.AuthenticationType))
         {
-            if (!string.IsNullOrWhiteSpace(options.AuthenticationType))
+            tokenValidationParameters.AuthenticationType = options.AuthenticationType;
+        }
+    }
+
+    public static void AddIssuerSigningKey(this TokenValidationParameters tokenValidationParameters,
+        JwtOptions options)
+    {
+        var hasCertificate = false;
+        if (options.Certificate is { })
+        {
+            X509Certificate2 certificate = null;
+            var password = options.Certificate.Password;
+            var hasPassword = !string.IsNullOrWhiteSpace(password);
+            if (!string.IsNullOrWhiteSpace(options.Certificate.Location))
             {
-                tokenValidationParameters.AuthenticationType = options.AuthenticationType;
+                certificate = hasPassword
+                    ? new X509Certificate2(options.Certificate.Location, password)
+                    : new X509Certificate2(options.Certificate.Location);
             }
-        }
 
-        public static void AddIssuerSigningKey(this TokenValidationParameters tokenValidationParameters,
-            JwtOptions options)
-        {
-            var hasCertificate = false;
-            if (options.Certificate is { })
+            if (!string.IsNullOrWhiteSpace(options.Certificate.RawData))
             {
-                X509Certificate2 certificate = null;
-                var password = options.Certificate.Password;
-                var hasPassword = !string.IsNullOrWhiteSpace(password);
-                if (!string.IsNullOrWhiteSpace(options.Certificate.Location))
+                var rawData = Convert.FromBase64String(options.Certificate.RawData);
+                certificate = hasPassword
+                    ? new X509Certificate2(rawData, password)
+                    : new X509Certificate2(rawData);
+            }
+
+            if (certificate is { })
+            {
+                if (string.IsNullOrWhiteSpace(options.Algorithm))
                 {
-                    certificate = hasPassword
-                        ? new X509Certificate2(options.Certificate.Location, password)
-                        : new X509Certificate2(options.Certificate.Location);
+                    options.Algorithm = SecurityAlgorithms.RsaSha256;
                 }
 
-                if (!string.IsNullOrWhiteSpace(options.Certificate.RawData))
-                {
-                    var rawData = Convert.FromBase64String(options.Certificate.RawData);
-                    certificate = hasPassword
-                        ? new X509Certificate2(rawData, password)
-                        : new X509Certificate2(rawData);
-                }
-
-                if (certificate is { })
-                {
-                    if (string.IsNullOrWhiteSpace(options.Algorithm))
-                    {
-                        options.Algorithm = SecurityAlgorithms.RsaSha256;
-                    }
-
-                    hasCertificate = true;
-                    tokenValidationParameters.IssuerSigningKey = new X509SecurityKey(certificate);
-                }
-            }
-            if (!string.IsNullOrWhiteSpace(options.IssuerSigningKey) && !hasCertificate)
-            {
-                if (string.IsNullOrWhiteSpace(options.Algorithm) || hasCertificate)
-                {
-                    options.Algorithm = SecurityAlgorithms.HmacSha256;
-                }
-
-                var rawKey = Encoding.UTF8.GetBytes(options.IssuerSigningKey);
-                tokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(rawKey);
+                hasCertificate = true;
+                tokenValidationParameters.IssuerSigningKey = new X509SecurityKey(certificate);
             }
         }
-
-        public static void AddNameClaimType(this TokenValidationParameters tokenValidationParameters,
-            JwtOptions options)
+        if (!string.IsNullOrWhiteSpace(options.IssuerSigningKey) && !hasCertificate)
         {
-            if (!string.IsNullOrWhiteSpace(options.NameClaimType))
+            if (string.IsNullOrWhiteSpace(options.Algorithm) || hasCertificate)
             {
-                tokenValidationParameters.NameClaimType = options.NameClaimType;
+                options.Algorithm = SecurityAlgorithms.HmacSha256;
             }
+
+            var rawKey = Encoding.UTF8.GetBytes(options.IssuerSigningKey);
+            tokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(rawKey);
         }
+    }
 
-        public static void AddRoleClaimType(this TokenValidationParameters tokenValidationParameters,
-            JwtOptions options)
+    public static void AddNameClaimType(this TokenValidationParameters tokenValidationParameters,
+        JwtOptions options)
+    {
+        if (!string.IsNullOrWhiteSpace(options.NameClaimType))
         {
-            if (!string.IsNullOrWhiteSpace(options.RoleClaimType))
-            {
-                tokenValidationParameters.RoleClaimType = options.RoleClaimType;
-            }
+            tokenValidationParameters.NameClaimType = options.NameClaimType;
+        }
+    }
+
+    public static void AddRoleClaimType(this TokenValidationParameters tokenValidationParameters,
+        JwtOptions options)
+    {
+        if (!string.IsNullOrWhiteSpace(options.RoleClaimType))
+        {
+            tokenValidationParameters.RoleClaimType = options.RoleClaimType;
         }
     }
 }

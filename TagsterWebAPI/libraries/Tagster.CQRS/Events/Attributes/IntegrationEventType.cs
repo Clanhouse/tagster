@@ -1,15 +1,14 @@
 ﻿using System;
 
-namespace Tagster.CQRS.Events.Attributes
-{
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public class IntegrationEventType : Attribute
-    {
-        public Type EventType { get; }
+namespace Tagster.CQRS.Events.Attributes;
 
-        public IntegrationEventType(Type eventType)
-        {
-            EventType = eventType;
-        }
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
+public class IntegrationEventType : Attribute
+{
+    public Type EventType { get; }
+
+    public IntegrationEventType(Type eventType)
+    {
+        EventType = eventType;
     }
 }
