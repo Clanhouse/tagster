@@ -26,14 +26,13 @@ public sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags
 
     private static ProfileDto Map(Profile profile)
     {
-        ProfileDto profileDto = new() { 
+        return new ProfileDto
+        { 
             Id = profile.Id,
             Href = profile.Href,
             Name = profile.Name,
             LastName = profile.LastName,
             Tags = profile.Tags.Select(pt => new TagDto { Name = pt.Name }).ToList()
         };
-
-        return profileDto;
     }
 }
