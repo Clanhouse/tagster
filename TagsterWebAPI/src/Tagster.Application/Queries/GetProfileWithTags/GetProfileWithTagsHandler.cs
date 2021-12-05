@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Tagster.Application.Dtos;
+using Tagster.Application.Exceptions;
 using Tagster.CQRS.Queries.Handlers;
 using Tagster.Domain.Entities;
 using Tagster.Domain.Repositories;
@@ -18,24 +19,20 @@ public sealed class GetProfileWithTagsHandler : IQueryHandler<GetProfileWithTags
 
     public async Task<ProfileDto> Handle(GetProfileWithTags request, CancellationToken cancellationToken)
     {
-        return Map(await _repository.GetProfileWithTags(request.Href));
+        var profile = await _repository.GetProfileWithTags(request.Href);
+        if(profile == null) throw new ProfileNotFoundException(request.Href);
+        return Map(profile);
     }
 
     private static ProfileDto Map(Profile profile)
     {
-        if (profile == null)
-        {
-            return null;
-        }
-
-        ProfileDto profileDto = new();
-
-        profileDto.Href = profile.Href;
-        profileDto.Id = profile.Id;
-        profileDto.Name = profile.Name;
-        profileDto.LastName = profile.LastName;
-        profileDto.Tags = profile.Tags.Select(pt => new TagDto { Name = pt.Name }).ToList();
-
-        return profileDto;
+        return new ProfileDto
+        { 
+            Id = profile.Id,
+            Href = profile.Href,
+            Name = profile.Name,
+            LastName = profile.LastName,
+            Tags = profile.Tags.Select(pt => new TagDto { Name = pt.Name }).ToList()
+        };
     }
 }

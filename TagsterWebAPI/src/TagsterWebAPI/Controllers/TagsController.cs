@@ -42,7 +42,5 @@ public class TagsController : ControllerBase
     [HttpGet]
     [Route("get/{href}")]
     public async Task<IActionResult> GetProfileWithTagsByHref(string href)
-        => await _mediator.Send(new GetProfileWithTags { Href = href }) == null
-        ? NotFound()
-        : Ok(await _mediator.Send(new GetProfileWithTags { Href = href }));
+        => Ok(await _mediator.Send(new GetProfileWithTags { Href = href }));
 }
