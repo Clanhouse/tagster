@@ -2,7 +2,7 @@
 
 public static class Role
 {
-    public static readonly string Admin = "Admin";
-    public static readonly string User = "User";
-    public static readonly string VIP = "VIP";
+    public const string Admin = "Admin";
+    public const string User = "User";
+    public const string VIP = "VIP";
 }
