@@ -12,7 +12,7 @@ using Tagster.Infrastructure.EF;
 namespace Tagster.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(TagsterDbContext))]
-    [Migration("20220106175603_AddRoleToUser")]
+    [Migration("20220106202642_AddRoleToUser")]
     partial class AddRoleToUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,9 +121,9 @@ namespace Tagster.Infrastructure.EF.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 1, 6, 17, 56, 2, 321, DateTimeKind.Utc).AddTicks(6509),
+                            CreatedAt = new DateTime(2022, 1, 6, 20, 26, 41, 443, DateTimeKind.Utc).AddTicks(8126),
                             Email = "admin@admin.com",
-                            Password = "secret",
+                            Password = "AQAAAAEAACcQAAAAEN7Q97rdcoKZ9+bM9iSC5Md+ry5oycxrN/Jvyfs7u0RARKav687ggnAEaqxdH4ooSw==",
                             Role = "Admin"
                         });
                 });

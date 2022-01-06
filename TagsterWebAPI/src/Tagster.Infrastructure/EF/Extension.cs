@@ -8,7 +8,7 @@ namespace Tagster.Infrastructure.EF;
 
 internal static class Extension
 {
-    public static IServiceCollection UseDatabase(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var databaseOption = configuration.GetSection(DatabaseOption.Name).Get<DatabaseOption>();
 

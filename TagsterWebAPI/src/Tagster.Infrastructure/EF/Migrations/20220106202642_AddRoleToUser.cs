@@ -20,7 +20,7 @@ public partial class AddRoleToUser : Migration
             schema: "tagster",
             table: "Users",
             columns: new[] { "Id", "CreatedAt", "Email", "Password", "Role" },
-            values: new object[] { 1, new DateTime(2022, 1, 6, 17, 56, 2, 321, DateTimeKind.Utc).AddTicks(6509), "admin@admin.com", "secret", "Admin" });
+            values: new object[] { 1, new DateTime(2022, 1, 6, 20, 26, 41, 443, DateTimeKind.Utc).AddTicks(8126), "admin@admin.com", "AQAAAAEAACcQAAAAEN7Q97rdcoKZ9+bM9iSC5Md+ry5oycxrN/Jvyfs7u0RARKav687ggnAEaqxdH4ooSw==", "Admin" });
     }
 
     protected override void Down(MigrationBuilder migrationBuilder)

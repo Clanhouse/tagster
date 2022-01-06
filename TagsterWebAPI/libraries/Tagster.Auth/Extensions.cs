@@ -35,9 +35,9 @@ public static class Extensions
         Action<JwtBearerOptions> optionsFactory = null)
     {
         service.AddTransient<IJwtHandler, JwtHandler>()
-            .AddTransient<AccessTokenValidatorMiddleware>()
-            .AddTransient<IPasswordService, PasswordService>()
-            .AddTransient<IRng, Rng>()
+            .AddScoped<AccessTokenValidatorMiddleware>()
+            .AddScoped<IPasswordService, PasswordService>()
+            .AddScoped<IRng, Rng>()
             .AddSingleton<IPasswordHasher<IPasswordService>, PasswordHasher<IPasswordService>>()
             .AddSingleton<IAccessTokenService, InMemoryAccessTokenService>()
             .AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

@@ -22,7 +22,7 @@ public static class Extension
         .AddJwt(configuration)
         .AddRedis(configuration)
         .AddErrorHandler<ExceptionToResponseMapper>()
-        .UseDatabase(configuration)
+        .AddDatabase(configuration)
         .AddScoped<ITagsRepository, TagsRepository>()
         .AddScoped<IUserRepository, UserRepository>()
         .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
