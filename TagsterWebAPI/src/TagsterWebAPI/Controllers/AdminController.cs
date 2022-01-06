@@ -1,11 +1,14 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.GenFakeData;
+using Tagster.Domain.Authorization;
 
 namespace TagsterWebAPI.Controllers;
 
 [Route("admin")]
+[Authorize(Roles = Role.Admin)]
 public class AdminController : ControllerBase
 {
     private readonly IMediator _mediator;
