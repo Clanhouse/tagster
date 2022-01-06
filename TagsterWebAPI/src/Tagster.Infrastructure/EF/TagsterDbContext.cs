@@ -29,9 +29,9 @@ internal class TagsterDbContext : DbContext
         modelBuilder.Entity<User>().HasData(DefaultUsers);
     }
 
-    private static IEnumerable<User> CreateDefaultUsers(string adminPassword, string adminEmail) 
+    private static IEnumerable<User> CreateDefaultUsers(string adminPassword, string adminEmail)
         => new List<User>()
         {
-            new (0,adminEmail, adminPassword, DateTime.UtcNow, Role.Admin),
+            new (1, adminEmail, adminPassword, DateTime.UtcNow, Role.Admin),
         };
 }
