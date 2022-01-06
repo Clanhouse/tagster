@@ -6,7 +6,6 @@ using Tagster.Auth;
 using Tagster.Domain.Repositories;
 using Tagster.Exception;
 using Tagster.Infrastructure.EF;
-using Tagster.Infrastructure.EF.Options;
 using Tagster.Infrastructure.EF.Repositories;
 using Tagster.Infrastructure.Exceptions;
 using Tagster.Infrastructure.Services;
@@ -18,7 +17,6 @@ public static class Extension
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         => services
-        .Configure<DatabaseOption>(configuration.GetSection(DatabaseOption.Name))
         .AddJwt(configuration)
         .AddRedis(configuration)
         .AddErrorHandler<ExceptionToResponseMapper>()
