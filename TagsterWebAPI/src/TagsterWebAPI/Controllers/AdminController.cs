@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Tagster.Application.Commands.ChangeUserRole;
 using Tagster.Application.Commands.GenFakeData;
 using Tagster.Domain.Authorization;
 
@@ -29,6 +30,14 @@ public class AdminController : ControllerBase
     {
         await _mediator.Send(command);
         return Ok();
+    }
+
+    [HttpPut]
+    [Route("user/role")]
+    public async Task<IActionResult> ChangeUserRole([FromBody] ChangeUserRole command)
+    {
+        await _mediator.Send(command);
+        return NoContent();
     }
 
 }

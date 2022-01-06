@@ -28,8 +28,6 @@ public static class Extension
         .AddScoped<IAdminService, AdminService>()
         .AddHostedService<DatabaseInitializer>();
 
-    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
-    {
-        return app.UseErrorHandler();
-    }
+    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app) 
+        => app.UseErrorHandler();
 }
