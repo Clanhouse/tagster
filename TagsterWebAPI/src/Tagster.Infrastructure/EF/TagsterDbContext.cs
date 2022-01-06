@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Tagster.Domain.Authorization;
 using Tagster.Domain.Entities;
 using Tagster.Infrastructure.EF.Options;
@@ -16,9 +17,9 @@ internal class TagsterDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-    public TagsterDbContext(DbContextOptions options, DatabaseOption adminOptions) : base(options)
+    public TagsterDbContext(DbContextOptions options, IOptions<DatabaseOption> adminOptions) : base(options)
     {
-        DefaultUsers = CreateDefaultUsers(adminOptions.AdminPassword, adminOptions.AdminEmail);
+        DefaultUsers = CreateDefaultUsers(adminOptions.Value.AdminPassword, adminOptions.Value.AdminEmail);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
