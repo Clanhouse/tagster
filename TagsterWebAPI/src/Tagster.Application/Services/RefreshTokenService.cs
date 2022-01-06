@@ -64,7 +64,7 @@ internal sealed class RefreshTokenService : IRefreshTokenService
             throw new UserNotFoundException(token.UserId);
         }
 
-        var auth = _jwtProvider.Create(token.UserId, user.Email);
+        var auth = _jwtProvider.Create(token.UserId, user.Email, user.Role);
         await _refreshTokenRepository.Update(new(token.Id, token.Token,
             DateTime.UtcNow, token.UserId, DateTime.UtcNow.AddDays(7)));
 

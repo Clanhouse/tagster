@@ -35,7 +35,7 @@ internal sealed class JwtHandler : IJwtHandler
         _signingCredentials = new(issuerSigningKey, _options.Algorithm);
     }
 
-    public JsonWebToken CreateToken(int userId, string email)
+    public JsonWebToken CreateToken(int userId, string email, string role)
     {
         var now = DateTime.UtcNow;
         List<Claim> jwtClaims = new()
@@ -44,6 +44,7 @@ internal sealed class JwtHandler : IJwtHandler
             new(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString()),
+            new(ClaimTypes.Role, role),
         };
 
         if (!string.IsNullOrWhiteSpace(email))

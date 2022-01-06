@@ -26,7 +26,7 @@ public static class Extension
         .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
         .AddScoped<ICookieFactory, CookieFactory>()
         .AddScoped<IAdminService, AdminService>()
-        .AddHostedService<AppInitializer>();
+        .AddHostedService<DatabaseInitializer>();
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {

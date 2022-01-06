@@ -7,6 +7,7 @@ using Tagster.Auth.Dtos;
 using Tagster.Auth.Exceptions;
 using Tagster.Auth.Models;
 using Tagster.Auth.Services;
+using Tagster.Domain.Authorization;
 using Tagster.Domain.Entities;
 using Tagster.Domain.Repositories;
 
@@ -43,7 +44,7 @@ public sealed class IdentityService : IIdentityService
         }
 
         var password = _passwordService.Hash(command.Password);
-        user = new User(0, command.Email, password, DateTime.UtcNow);
+        user = new User(0, command.Email, password, DateTime.UtcNow, Role.User);
         await _userRepository.AddAsync(user, cancellationToken);
         _logger.LogInformation("Created an account for the user with id: {id}.", user.Id);
     }
@@ -57,7 +58,7 @@ public sealed class IdentityService : IIdentityService
             throw new InvalidCredentialsException(command.Email);
         }
 
-        var auth = _jwtProvider.Create(user.Id, user.Email);
+        var auth = _jwtProvider.Create(user.Id, user.Email, user.Role);
         auth.RefreshToken = await _refreshTokenService.CreateAsync(user.Id);
 
         _logger.LogInformation("User with id: {id} has been authenticated.", user.Id);

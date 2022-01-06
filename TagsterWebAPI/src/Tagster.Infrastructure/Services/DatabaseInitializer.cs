@@ -8,11 +8,11 @@ using Microsoft.Extensions.Hosting;
 
 namespace Tagster.Infrastructure.Services;
 
-internal class AppInitializer : IHostedService
+internal class DatabaseInitializer : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public AppInitializer(IServiceProvider serviceProvider)
+    public DatabaseInitializer(IServiceProvider serviceProvider)
         => _serviceProvider = serviceProvider;
 
     public async Task StartAsync(CancellationToken cancellationToken)
