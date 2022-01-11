@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Tagster.Auth.Services;
 using Tagster.Domain.Authorization;
 using Tagster.Domain.Entities;
-using Tagster.Infrastructure.EF.Options;
 
 namespace Tagster.Infrastructure.EF;
 

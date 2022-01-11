@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.AddTagsToProfile;
@@ -12,6 +13,7 @@ namespace TagsterWebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize()]
 public class TagsController : ControllerBase
 {
     private readonly IMediator _mediator;
