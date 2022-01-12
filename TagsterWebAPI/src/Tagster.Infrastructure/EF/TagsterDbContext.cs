@@ -9,7 +9,6 @@ namespace Tagster.Infrastructure.EF;
 
 internal class TagsterDbContext : DbContext
 {
-    private readonly IEnumerable<User> DefaultUsers;
     private readonly IPasswordService _passwordService;
 
     public DbSet<Tag> Tags { get; set; }
@@ -17,17 +16,14 @@ internal class TagsterDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-    public TagsterDbContext(DbContextOptions options, IPasswordService passwordService) : base(options)
-    {
-        _passwordService = passwordService;
-        DefaultUsers = CreateDefaultUsers();
-    }
+    public TagsterDbContext(DbContextOptions options, IPasswordService passwordService) : base(options) 
+        => _passwordService = passwordService;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("tagster");
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-        modelBuilder.Entity<User>().HasData(DefaultUsers);
+        modelBuilder.Entity<User>().HasData(CreateDefaultUsers());
     }
 
     private IEnumerable<User> CreateDefaultUsers()
