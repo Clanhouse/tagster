@@ -9,4 +9,6 @@ public interface IUserRepository
     ValueTask<User> FindAsync(int id, CancellationToken cancellationToken = default);
     ValueTask<User> FindByEmailAsync(string email, CancellationToken cancellationToken = default);
     ValueTask AddAsync(User user, CancellationToken cancellationToken = default);
+
+    ValueTask UpdateAsync(User user, CancellationToken cancellationToken = default);
 }
