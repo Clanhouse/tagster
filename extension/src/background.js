@@ -11,10 +11,18 @@ async function sendData(sendResponse) {
   });
 }
 
+
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.type === "GET_DATA") {
     console.log(request.link);
     sendData(sendResponse);
+  } 
+  else if (request.type === "GOOGLE_AUTH") {
+    axios.post('http://localhost:9000/auth/sign-in/google', {idToken: request.idToken})
+        .then(response => {
+          sendResponse(response);
+        })
   }
   return true;
 });

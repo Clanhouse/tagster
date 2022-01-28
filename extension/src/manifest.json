@@ -5,7 +5,7 @@
   "description": "This extension enables you to tag people and companies in one of the most popular professional business social network site",
   "version": "1.0",
   "default_locale": "en",
-  "permissions": ["activeTab", "<all_urls>", "*://*/*"],
+  "permissions": ["activeTab", "<all_urls>", "*://*/*", "identity"],
   "icons": {
     "16": "icons/16.png",
     "48": "icons/48.png",

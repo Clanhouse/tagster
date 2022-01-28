@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Tagster.CQRS.Commands;
 
-namespace Tagster.Application.Commands.SignUp;
+namespace Tagster.Application.Commands.Auth.SignUp;
 
 public class SignUp : ICommand
 {

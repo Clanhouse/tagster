@@ -4,7 +4,7 @@ using MediatR;
 using Tagster.Auth.Services;
 using Tagster.CQRS.Commands.Handlers;
 
-namespace Tagster.Application.Commands.SignOut;
+namespace Tagster.Application.Commands.Auth.SignOut;
 
 public class SignOutHandler : ICommandHandler<SignOut>
 {
@@ -15,7 +15,7 @@ public class SignOutHandler : ICommandHandler<SignOut>
     public async Task<Unit> Handle(SignOut request, CancellationToken cancellationToken)
     {
         await _identityService.SignOutAsync(
-                       new Auth.Models.SignOut(request.AccessToken, request.RefreshToken), cancellationToken);
+                       new Tagster.Auth.Models.SignOut(request.AccessToken, request.RefreshToken), cancellationToken);
         return Unit.Value;
     }
 }

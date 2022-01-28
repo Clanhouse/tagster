@@ -42,10 +42,15 @@ public sealed class IdentityService : IIdentityService
             throw new EmailInUseException(command.Email);
         }
 
-        var password = _passwordService.Hash(command.Password);
-        user = new User(0, command.Email, password, DateTime.UtcNow);
+        await CreateUser(command, cancellationToken);
+    }
+
+    private async Task CreateUser(SignUp command, CancellationToken cancellationToken)
+    {
+        string password = command.Password is not null ? _passwordService.Hash(command.Password) : null;
+        var user = new User(0, command.Email, password, DateTime.UtcNow);
         await _userRepository.AddAsync(user, cancellationToken);
-        _logger.LogInformation("Created an account for the user with id: {id}.", user.Id);
+        _logger.LogInformation("Created an account for the user with id: {Id}", user.Id);
     }
 
     public async Task<AuthDto> SignInAsync(SignIn command, CancellationToken cancellationToken)
@@ -57,11 +62,14 @@ public sealed class IdentityService : IIdentityService
             throw new InvalidCredentialsException(command.Email);
         }
 
+        return await CreateAuthDto(user);
+    }
+
+    private async Task<AuthDto> CreateAuthDto(User user)
+    {
         var auth = _jwtProvider.Create(user.Id, user.Email);
         auth.RefreshToken = await _refreshTokenService.CreateAsync(user.Id);
-
         _logger.LogInformation("User with id: {id} has been authenticated.", user.Id);
-
         return auth;
     }
 
@@ -81,5 +89,14 @@ public sealed class IdentityService : IIdentityService
 
         await _accessTokenService.DeactivateCurrentAsync();
         await _refreshTokenService.RevokeAsync(command.RefreshToken);
+    }
+
+    public async Task<AuthDto> ExternalAuth(string email, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.FindByEmailAsync(email, cancellationToken);
+        if (user is not null) return await CreateAuthDto(user);
+
+        await CreateUser(new SignUp(email, null), cancellationToken);
+        return await CreateAuthDto(await _userRepository.FindByEmailAsync(email, cancellationToken));
     }
 }

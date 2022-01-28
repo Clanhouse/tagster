@@ -20,6 +20,7 @@ public static class Extension
         .AddJwt(configuration)
         .AddRedis(configuration)
         .AddErrorHandler<ExceptionToResponseMapper>()
+        .AddExternalAuth(configuration)
         .UseDatabase(configuration)
         .AddScoped<ITagsRepository, TagsRepository>()
         .AddScoped<IUserRepository, UserRepository>()

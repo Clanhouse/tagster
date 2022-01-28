@@ -1,6 +1,6 @@
 ﻿using Tagster.CQRS.Commands;
 
-namespace Tagster.Application.Commands.SignOut;
+namespace Tagster.Application.Commands.Auth.SignOut;
 
 public class SignOut : ICommand
 {

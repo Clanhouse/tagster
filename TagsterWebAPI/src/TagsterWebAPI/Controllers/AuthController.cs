@@ -3,12 +3,15 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Tagster.Application.Commands.RefreshTokens;
-using Tagster.Application.Commands.SignIn;
-using Tagster.Application.Commands.SignOut;
-using Tagster.Application.Commands.SignUp;
+using Tagster.Application.Commands.Auth.External;
+using Tagster.Application.Commands.Auth.RefreshTokens;
+using Tagster.Application.Queries.Auth;
 using Tagster.Auth.Dtos;
+using Tagster.Auth.Models;
 using Tagster.Infrastructure.Services;
+using SignIn = Tagster.Application.Commands.Auth.SignIn.SignIn;
+using SignOut = Tagster.Application.Commands.Auth.SignOut.SignOut;
+using SignUp = Tagster.Application.Commands.Auth.SignUp.SignUp;
 
 namespace TagsterWebAPI.Controllers;
 
@@ -96,5 +99,17 @@ public class AuthController : ControllerBase
         var token = await _mediator.Send(command, cancellationToken);
         _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
         return Accepted(token);
+    }
+
+    [HttpPost("sign-in/google")]
+    public async Task<IActionResult> SignInByGoogle([FromBody] GoogleAuthRequest authRequest,
+        CancellationToken cancellationToken)
+    {
+        var googleUser = await _mediator.Send(new GetGoogleUser(authRequest.IdToken), cancellationToken);
+        
+        var token = await _mediator.Send(new ExternalAuth(googleUser.Email), cancellationToken);
+        _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
+        
+        return Ok(token);
     }
 }
