@@ -27,6 +27,12 @@ internal class UserRepository : IUserRepository
     public async ValueTask<User> FindAsync(int id, CancellationToken cancellationToken = default)
         => await _users.FindAsync(new object[] { id }, cancellationToken: cancellationToken);
 
-    public ValueTask<User> FindByEmailAsync(string email, CancellationToken cancellationToken = default)
-        => new(_users.FirstOrDefault(x => x.Email == email));
+    public async ValueTask<User> FindByEmailAsync(string email, CancellationToken cancellationToken = default)
+        => await _users.FirstOrDefaultAsync(x => x.Email == email);
+
+    public async ValueTask UpdateAsync(User user, CancellationToken cancellationToken = default)
+    {
+        _users.Update(user);
+        await _tagsterDb.SaveChangesAsync(cancellationToken);
+    }
 }

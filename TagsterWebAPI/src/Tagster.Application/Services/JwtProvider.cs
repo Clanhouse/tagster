@@ -10,9 +10,9 @@ public class JwtProvider : IJwtProvider
     public JwtProvider(IJwtHandler jwtHandler)
         => _jwtHandler = jwtHandler;
 
-    public AuthDto Create(int userId, string email)
+    public AuthDto Create(int userId, string email, string role)
     {
-        var jwt = _jwtHandler.CreateToken(userId, email);
+        var jwt = _jwtHandler.CreateToken(userId, email, role);
 
         return new AuthDto
         {

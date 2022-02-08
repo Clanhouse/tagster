@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Tagster.CQRS.Commands;
-using Tagster.Domain.Entities;
+﻿using Tagster.CQRS.Commands;
 
 namespace Tagster.Application.Commands.GenFakeData;
 

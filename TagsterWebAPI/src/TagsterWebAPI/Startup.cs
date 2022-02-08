@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Tagster.Application.Extensions;
 using Tagster.CQRS;
+using Tagster.Domain.Authorization;
 using Tagster.Infrastructure.Extensions;
 using Tagster.Swagger;
 
@@ -23,6 +25,13 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddAuthorization(options =>
+        {
+            Policy.Policies.TryGetValue(Policy.User, out var userPolicy);
+            options.AddPolicy(Policy.User,
+                 policy => policy.RequireRole(userPolicy));
+        });
+
         services.AddSwaggerDocs(Configuration,
             Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"))
             .AddApplication()
