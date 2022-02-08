@@ -59,10 +59,6 @@ const tagsPlaceholder = [
 ];
 
 function setupReact() {
-  const tagsterContentRoot = document.createElement('div');
-  tagsterContentRoot.id = 'tagster-content-root';
-  document.getElementsByTagName('body')[0].appendChild(tagsterContentRoot);
-
   ReactDOM.render(
     <React.StrictMode>
       <Autocomplete
