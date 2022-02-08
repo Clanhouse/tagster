@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-
   React.useEffect(() => {
     // TODO this is how you send an event from react app. Can remove
     // chrome.tabs && chrome.tabs.query({
@@ -20,14 +19,12 @@ function App() {
   });
 
   return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <p>
-            Login buttons and maybe some settings here.
-          </p>
-        </header>
-      </div>
+    <div className='App'>
+      <header className='App-header'>
+        <img src={logo} className='App-logo' alt='logo' />
+        <p>Login buttons and maybe some settings here.</p>
+      </header>
+    </div>
   );
 }
 
