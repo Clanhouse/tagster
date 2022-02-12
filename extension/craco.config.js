@@ -1,4 +1,4 @@
-export const webpack = {
+module.exports = {
   configure: (webpackConfig, { env, paths }) => {
     return {
       ...webpackConfig,
