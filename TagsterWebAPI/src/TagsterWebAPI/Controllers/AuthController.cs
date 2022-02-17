@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tagster.Application.Commands.Auth.External;
@@ -75,6 +76,7 @@ public class AuthController : ControllerBase
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize()]
     public async Task<IActionResult> SignOut([FromBody] SignOut command, CancellationToken cancellationToken)
     {
         command.RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this);

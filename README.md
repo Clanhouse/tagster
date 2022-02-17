@@ -50,16 +50,16 @@ TagsterWebAPI.exe
 3. Get all dependences using command
 
 ```shell
-npm install
+yarn
 ```
 
 4. Run local development server using:
 
 ```shell
-npm run serve
+yarn build
 ```
 
-This command should create folder "dist"
+This command should create folder "build"
 
 5. Open Chrome and go to: "chrome://extensions/"
 6. Install extension in chrome:

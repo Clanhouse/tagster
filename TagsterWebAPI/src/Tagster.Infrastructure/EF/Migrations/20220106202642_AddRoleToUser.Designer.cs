@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tagster.Infrastructure.EF;
@@ -11,9 +12,10 @@ using Tagster.Infrastructure.EF;
 namespace Tagster.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(TagsterDbContext))]
-    partial class TagsterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220106202642_AddRoleToUser")]
+    partial class AddRoleToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

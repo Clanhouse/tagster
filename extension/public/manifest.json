@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Tagster Extension",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Tagster"
+  },
+  "default_locale": "en",
+  "description": "Tagster enables you to tag people on social media and see the most popular tags",
+  "icons": {
+    "16": "logo192.png",
+    "48": "logo192.png",
+    "128": "logo192.png"
+  },
+  "permissions": ["activeTab"],
+  "host_permissions": ["*://*.linkedin.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["./static/js/content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "./static/js/background.js"
+  }
+}

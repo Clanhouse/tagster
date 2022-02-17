@@ -21,16 +21,14 @@ public static class Extension
         .AddRedis(configuration)
         .AddErrorHandler<ExceptionToResponseMapper>()
         .AddExternalAuth(configuration)
-        .UseDatabase(configuration)
+        .AddDatabase(configuration)
         .AddScoped<ITagsRepository, TagsRepository>()
         .AddScoped<IUserRepository, UserRepository>()
         .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
         .AddScoped<ICookieFactory, CookieFactory>()
         .AddScoped<IAdminService, AdminService>()
-        .AddHostedService<AppInitializer>();
+        .AddHostedService<DatabaseInitializer>();
 
-    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
-    {
-        return app.UseErrorHandler();
-    }
+    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app) 
+        => app.UseErrorHandler();
 }

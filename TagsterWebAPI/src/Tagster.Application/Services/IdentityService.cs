@@ -7,6 +7,7 @@ using Tagster.Auth.Dtos;
 using Tagster.Auth.Exceptions;
 using Tagster.Auth.Models;
 using Tagster.Auth.Services;
+using Tagster.Domain.Authorization;
 using Tagster.Domain.Entities;
 using Tagster.Domain.Repositories;
 
@@ -48,7 +49,7 @@ public sealed class IdentityService : IIdentityService
     private async Task CreateUser(SignUp command, CancellationToken cancellationToken)
     {
         string password = command.Password is not null ? _passwordService.Hash(command.Password) : null;
-        var user = new User(0, command.Email, password, DateTime.UtcNow);
+        var user = new User(0, command.Email, password, DateTime.UtcNow, Role.User);
         await _userRepository.AddAsync(user, cancellationToken);
         _logger.LogInformation("Created an account for the user with id: {Id}", user.Id);
     }
@@ -67,7 +68,7 @@ public sealed class IdentityService : IIdentityService
 
     private async Task<AuthDto> CreateAuthDto(User user)
     {
-        var auth = _jwtProvider.Create(user.Id, user.Email);
+        var auth = _jwtProvider.Create(user.Id, user.Email, user.Role);
         auth.RefreshToken = await _refreshTokenService.CreateAsync(user.Id);
         _logger.LogInformation("User with id: {id} has been authenticated.", user.Id);
         return auth;
