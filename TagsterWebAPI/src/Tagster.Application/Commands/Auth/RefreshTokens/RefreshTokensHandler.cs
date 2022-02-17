@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Tagster.Auth.Dtos;
 using Tagster.Auth.Services;
 using Tagster.CQRS.Commands.Handlers;
 
-namespace Tagster.Application.Commands.RefreshTokens;
+namespace Tagster.Application.Commands.Auth.RefreshTokens;
 
 internal sealed class RefreshTokensHandler : ICommandHandler<RefreshTokens, AuthDto>
 {
