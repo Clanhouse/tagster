@@ -81,4 +81,10 @@ public static class Extensions
     {
         return app.UseMiddleware<AccessTokenValidatorMiddleware>();
     }
+
+    public static IServiceCollection AddExternalAuth(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<ExternalAuthOptions>(configuration.GetSection(ExternalAuthOptions.Name));
+        return services;
+    }
 }

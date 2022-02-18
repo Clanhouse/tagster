@@ -4,7 +4,7 @@ using Tagster.Auth.Dtos;
 using Tagster.Auth.Services;
 using Tagster.CQRS.Commands.Handlers;
 
-namespace Tagster.Application.Commands.SignIn;
+namespace Tagster.Application.Commands.Auth.SignIn;
 
 public class SignInHandler : ICommandHandler<SignIn, AuthDto>
 {
@@ -14,5 +14,5 @@ public class SignInHandler : ICommandHandler<SignIn, AuthDto>
         => _identityService = identityService;
 
     public Task<AuthDto> Handle(SignIn request, CancellationToken cancellationToken)
-        => _identityService.SignInAsync(new Auth.Models.SignIn(request.Email, request.Password), cancellationToken);
+        => _identityService.SignInAsync(new Tagster.Auth.Models.SignIn(request.Email, request.Password), cancellationToken);
 }

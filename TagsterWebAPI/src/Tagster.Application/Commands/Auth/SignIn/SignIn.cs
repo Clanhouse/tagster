@@ -1,7 +1,7 @@
 ﻿using Tagster.Auth.Dtos;
 using Tagster.CQRS.Commands;
 
-namespace Tagster.Application.Commands.SignIn;
+namespace Tagster.Application.Commands.Auth.SignIn;
 
 public class SignIn : ICommand<AuthDto>
 {

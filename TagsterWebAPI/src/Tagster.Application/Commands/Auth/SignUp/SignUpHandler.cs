@@ -4,7 +4,7 @@ using MediatR;
 using Tagster.Auth.Services;
 using Tagster.CQRS.Commands.Handlers;
 
-namespace Tagster.Application.Commands.SignUp;
+namespace Tagster.Application.Commands.Auth.SignUp;
 
 public sealed class SignUpHandler : ICommandHandler<SignUp>
 {
@@ -15,7 +15,7 @@ public sealed class SignUpHandler : ICommandHandler<SignUp>
 
     public async Task<Unit> Handle(SignUp request, CancellationToken cancellationToken)
     {
-        await _identityService.SignUpAsync(new Auth.Models.SignUp(request.Email, request.Password), cancellationToken);
+        await _identityService.SignUpAsync(new Tagster.Auth.Models.SignUp(request.Email, request.Password), cancellationToken);
         return Unit.Value;
     }
 }
