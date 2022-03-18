@@ -6,7 +6,6 @@
     "default_popup": "popup.html",
     "default_title": "Tagster"
   },
-  "default_locale": "en",
   "description": "Tagster enables you to tag people on social media and see the most popular tags",
   "icons": {
     "16": "logo192.png",
