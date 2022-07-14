@@ -46,26 +46,4 @@ TagsterWebAPI.exe
 
 ### Extension
 
-2. Open console in folder "extension"
-3. Get all dependences using command
-
-```shell
-yarn
-```
-
-4. Run local development server using:
-
-```shell
-yarn build
-```
-
-This command should create folder "build"
-
-5. Open Chrome and go to: "chrome://extensions/"
-6. Install extension in chrome:
-   - Drag & drop folder "dist" on that page.
-   - Another way to install:
-     - click "bundle the extension" -> "extension root directory" -> "browse"
-     - Find "dist" folder, open it, press "select folder" -> "bundle the extension"
-     - Now, click "Load unpacked" -> choose same folder as previous & press "select folder"
-7. Extension installed. Click on puzzle icon, in the upper right corner of the screen to use and manage.
+2. Go to instructions folder [./extension/README.md](./extension/README.md)
